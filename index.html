@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marium Tabassum Portfolio</title>
+    <meta name="description" content="Personal portfolio for Marium Tabassum, Software Engineering Student & AI-Focused Web Developer featuring dynamic projects, skills dashboard, AI Lab, learning journey, and secure admin CMS." />
+    <meta property="og:title" content="Marium Tabassum Portfolio" />
+    <meta property="og:description" content="Personal portfolio for Marium Tabassum, Software Engineering Student & AI-Focused Web Developer featuring dynamic projects, skills dashboard, AI Lab, learning journey, and secure admin CMS." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Marium Tabassum Portfolio" />
+    <meta name="twitter:description" content="Personal portfolio for Marium Tabassum, Software Engineering Student & AI-Focused Web Developer featuring dynamic projects, skills dashboard, AI Lab, learning journey, and secure admin CMS." />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="apple-touch-icon" href="/icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('theme') || localStorage.getItem('marium_theme');
+          var theme = (saved === 'light' || saved === 'dark') ? saved : 'dark';
+          var root = document.documentElement;
+          if (theme === 'light') {
+            root.classList.add('light');
+            root.classList.remove('dark');
+            root.setAttribute('data-theme', 'light');
+            root.style.colorScheme = 'light';
+          } else {
+            root.classList.add('dark');
+            root.classList.remove('light');
+            root.setAttribute('data-theme', 'dark');
+            root.style.colorScheme = 'dark';
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Marium Tabassum",
+      "jobTitle": "Software Engineering Student & AI-Focused Web Developer",
+      "description": "Software Engineering student at Aptech Computer Education (Semester 1 complete) and Generative AI Scholar at Bano Qabil specializing in modern responsive frontend engineering and Generative AI fundamentals.",
+      "email": "mailto:mariumtabassum@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Karachi",
+        "addressCountry": "Pakistan"
+      },
+      "knowsAbout": [
+        "Semantic HTML5",
+        "CSS3 & Responsive Web Design",
+        "JavaScript ES6+",
+        "Bootstrap 5",
+        "jQuery",
+        "Python Programming",
+        "Generative AI Fundamentals",
+        "Prompt Engineering",
+        "Google Gemini API"
+      ],
+      "alumniOf": [
+        {
+          "@type": "EducationalOrganization",
+          "name": "Aptech Computer Education"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "Bano Qabil"
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
