@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { 
   GraduationCap, 
-  Sparkles, 
   Target, 
-  Lightbulb, 
   BookOpen, 
   Check, 
   Award,
-  Compass
+  Code2,
+  Layers
 } from 'lucide-react';
 
 export const About: React.FC = () => {
@@ -30,7 +29,7 @@ export const About: React.FC = () => {
             Crafting Code with Passion & Purpose
           </h2>
           <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400">
-            A look into my academic journey, technical foundations, and goals in Software Engineering and Generative AI.
+            A look into my academic journey, technical foundations, and goals in Software Engineering and Modern Frontend Web Development.
           </p>
         </div>
 
@@ -76,10 +75,10 @@ export const About: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
               <div className="space-y-4 text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                 <p>
-                  My development journey started with curiosity for how software shapes our daily interactions. Starting with core web technologies like semantic HTML5 and modern CSS3, I quickly moved into interactive JavaScript ES6+ and responsive layouts.
+                  My software development journey started with a strong curiosity for how websites and web applications function behind the scenes. Starting with semantic HTML5 and modern CSS3, I quickly progressed into building interactive experiences using JavaScript ES6+, Bootstrap 5, and jQuery.
                 </p>
                 <p>
-                  As AI technology advanced, I earned a scholarship at <strong className="text-slate-900 dark:text-white font-semibold">Bano Qabil</strong> for Generative AI, where I learned how to combine modern software engineering with prompt engineering and LLM APIs like Google Gemini.
+                  At <strong className="text-slate-900 dark:text-white font-semibold">Aptech Computer Education</strong>, I completed Semester 1 with top grades, focusing on disciplined software engineering practices, responsive UI design, and problem solving.
                 </p>
                 <div className="pt-2 grid grid-cols-2 gap-3 text-xs font-semibold text-slate-700 dark:text-slate-200">
                   <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800">
@@ -93,9 +92,9 @@ export const About: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-slate-50 to-blue-50/40 dark:from-slate-900 dark:to-slate-850 border border-slate-200/80 dark:border-slate-800 space-y-4">
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-slate-50 to-blue-50/40 dark:from-slate-900 dark:to-slate-800 border border-slate-200/80 dark:border-slate-800 space-y-4">
                 <h3 className="font-bold text-slate-900 dark:text-white text-base flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-cyan-500" />
+                  <Code2 className="w-4 h-4 text-cyan-500" />
                   Key Milestones
                 </h3>
                 <ul className="space-y-3 text-xs text-slate-600 dark:text-slate-300">
@@ -105,11 +104,11 @@ export const About: React.FC = () => {
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 flex items-center justify-center font-bold text-[10px] shrink-0">2</span>
-                    <span>Selected for Bano Qabil Generative AI Scholarship, mastering prompt engineering and API workflows.</span>
+                    <span>Mastered responsive web layouts using Flexbox, CSS Grid, Bootstrap 5, and modern JavaScript.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="w-5 h-5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 flex items-center justify-center font-bold text-[10px] shrink-0">3</span>
-                    <span>Created practical projects ranging from luxury brand websites to AI-assisted tools.</span>
+                    <span>Created live production-ready portfolio projects including Alberto Watch and Daily Design platforms.</span>
                   </li>
                 </ul>
               </div>
@@ -133,7 +132,7 @@ export const About: React.FC = () => {
                   </div>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                  Rigorous hands-on curriculum covering programming logic, data structures, responsive web development, Bootstrap, and database concepts. Semester 1 successfully completed.
+                  Rigorous hands-on curriculum covering programming logic, structured problem solving, responsive web development, Bootstrap, and database concepts. Semester 1 successfully completed.
                 </p>
                 <div className="flex flex-wrap gap-2 pt-2">
                   <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">HTML5/CSS3</span>
@@ -150,47 +149,47 @@ export const About: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="font-bold text-slate-900 dark:text-white text-base">
-                      Bano Qabil
+                      Bano Qabil Pakistan
                     </h3>
                     <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                      Generative AI & Tech Scholar
+                      Information Technology & Web Scholar
                     </p>
                   </div>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                  Specialized program focusing on Large Language Models, prompt crafting strategies, Gemini API integrations, and deploying modern AI-augmented solutions.
+                  Advanced technical coursework emphasizing software engineering fundamentals, modern coding standards, web technologies, and scalable developer tools.
                 </p>
                 <div className="flex flex-wrap gap-2 pt-2">
-                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Prompting</span>
-                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Gemini API</span>
-                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Python Basics</span>
-                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">AI Workflows</span>
+                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Python Logic</span>
+                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Git & GitHub</span>
+                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Web Architecture</span>
+                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Responsive UI</span>
                 </div>
               </div>
             </div>
           )}
 
           {activeTab === 'philosophy' && (
-            <div className="p-7 rounded-2xl bg-gradient-to-tr from-slate-50 via-white to-blue-50/30 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 border border-slate-200/80 dark:border-slate-800 space-y-5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            <div className="p-7 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
               <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                 <Target className="w-5 h-5 text-blue-600 dark:text-cyan-400" />
                 My Core Principles & Engineering Vision
               </h3>
               <p>
-                I believe modern software development is undergoing an unprecedented shift: developers who understand fundamental coding logic and know how to intelligently direct Generative AI models will build better, faster, and more accessible tools.
+                I believe modern software development requires solid fundamentals: developers who understand core algorithms, semantic layout structure, and clean responsive interfaces build better, faster, and more accessible web products.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                <div className="p-4 rounded-xl bg-white dark:bg-slate-850 border border-slate-200/60 dark:border-slate-800">
+                <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 shadow-2xs">
                   <div className="font-bold text-slate-900 dark:text-white text-xs mb-1">1. Usability First</div>
-                  <div className="text-xs text-slate-500 dark:text-slate-400">Interfaces must feel effortless and visually engaging on any screen size.</div>
+                  <div className="text-xs text-slate-600 dark:text-slate-300">Interfaces must feel effortless and visually engaging on any screen size.</div>
                 </div>
-                <div className="p-4 rounded-xl bg-white dark:bg-slate-850 border border-slate-200/60 dark:border-slate-800">
+                <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 shadow-2xs">
                   <div className="font-bold text-slate-900 dark:text-white text-xs mb-1">2. Strong Fundamentals</div>
-                  <div className="text-xs text-slate-500 dark:text-slate-400">Solid grasp of semantic markup, CSS architecture, and JS execution.</div>
+                  <div className="text-xs text-slate-600 dark:text-slate-300">Solid grasp of semantic markup, CSS architecture, and JS execution.</div>
                 </div>
-                <div className="p-4 rounded-xl bg-white dark:bg-slate-850 border border-slate-200/60 dark:border-slate-800">
+                <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 shadow-2xs">
                   <div className="font-bold text-slate-900 dark:text-white text-xs mb-1">3. Continuous Curiosity</div>
-                  <div className="text-xs text-slate-500 dark:text-slate-400">Actively exploring next-gen tools, APIs, and modern development stacks.</div>
+                  <div className="text-xs text-slate-600 dark:text-slate-300">Actively building production-ready applications and modern web tools.</div>
                 </div>
               </div>
             </div>

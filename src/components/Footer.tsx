@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUp, Heart, Sparkles, Github, Mail } from 'lucide-react';
+import { ArrowUp, Code2 } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="py-12 bg-white dark:bg-slate-950 border-t border-slate-200/70 dark:border-slate-850 transition-colors">
+    <footer className="py-12 bg-white dark:bg-slate-950 border-t border-slate-200/70 dark:border-slate-800 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           
@@ -24,7 +24,7 @@ export const Footer: React.FC = () => {
                 Marium Tabassum
               </div>
               <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                Software Engineering & Generative AI Portfolio
+                Software Engineering & Modern Frontend Portfolio
               </p>
             </div>
           </div>
@@ -34,8 +34,9 @@ export const Footer: React.FC = () => {
             <a href="#home" className="hover:text-slate-900 dark:hover:text-white transition-colors">Home</a>
             <a href="#about" className="hover:text-slate-900 dark:hover:text-white transition-colors">About</a>
             <a href="#skills" className="hover:text-slate-900 dark:hover:text-white transition-colors">Skills</a>
-            <a href="#ai-lab" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">AI Lab</a>
             <a href="#projects" className="hover:text-slate-900 dark:hover:text-white transition-colors">Projects</a>
+            <a href="#journey" className="hover:text-slate-900 dark:hover:text-white transition-colors">Journey</a>
+            <a href="#certificates" className="hover:text-slate-900 dark:hover:text-white transition-colors">Certificates</a>
             <a href="#contact" className="hover:text-slate-900 dark:hover:text-white transition-colors">Contact</a>
           </div>
 

@@ -3,7 +3,7 @@ export interface Project {
   title: string;
   description: string;
   tags: string[];
-  category: 'all' | 'frontend' | 'ai' | 'javascript';
+  category: 'all' | 'frontend' | 'javascript' | 'responsive';
   liveUrl?: string;
   githubUrl?: string;
   features: string[];
@@ -14,7 +14,7 @@ export interface Project {
 export interface SkillItem {
   name: string;
   level: number; // 0 to 100
-  category: 'frontend' | 'programming' | 'ai' | 'tools';
+  category: 'frontend' | 'programming' | 'tools';
   badge?: string;
 }
 

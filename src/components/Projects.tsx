@@ -11,25 +11,9 @@ import {
 import { Project } from '../types';
 
 export const Projects: React.FC = () => {
-  const [filter, setFilter] = useState<'all' | 'ai' | 'frontend' | 'javascript'>('all');
+  const [filter, setFilter] = useState<'all' | 'frontend' | 'javascript' | 'responsive'>('all');
 
   const projectsData: Project[] = [
-    {
-      id: 'ai-studio',
-      title: 'AI Lab Prompt & Code Studio',
-      description: 'An interactive developer utility powered by Gemini API concepts for prompt engineering, real-time code analysis, and software guidance.',
-      tags: ['Google Gemini API', 'React 19', 'Tailwind CSS', 'TypeScript'],
-      category: 'ai',
-      liveUrl: '#ai-lab',
-      githubUrl: 'https://github.com/mariumtabbasum-coder',
-      features: [
-        'Real-time prompt refinement',
-        'Multi-language code explanation',
-        'Mobile-friendly responsive UI'
-      ],
-      techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Gemini API'],
-      featured: true
-    },
     {
       id: 'alberto-watch',
       title: 'Alberto Watch Luxury E-Commerce',
@@ -43,7 +27,8 @@ export const Projects: React.FC = () => {
         'Luxury dark/gold aesthetic',
         'Cross-device responsive layout'
       ],
-      techStack: ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap']
+      techStack: ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap'],
+      featured: true
     },
     {
       id: 'daily-design',
@@ -58,7 +43,8 @@ export const Projects: React.FC = () => {
         'Service inquiry system',
         'Modern micro-interactions'
       ],
-      techStack: ['JavaScript', 'HTML5', 'CSS3', 'Vercel']
+      techStack: ['JavaScript', 'HTML5', 'CSS3', 'Vercel'],
+      featured: true
     },
     {
       id: 'cafe-midnight',
@@ -113,7 +99,7 @@ export const Projects: React.FC = () => {
             Projects & Web Solutions
           </h2>
           <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400">
-            A selection of projects demonstrating frontend design, API integrations, and practical coding skills.
+            A selection of live web projects demonstrating frontend design, clean code, and practical software engineering.
           </p>
         </div>
 
@@ -121,9 +107,8 @@ export const Projects: React.FC = () => {
         <div className="flex flex-wrap justify-center gap-2 mb-12">
           {[
             { id: 'all', label: 'All Projects' },
-            { id: 'ai', label: 'AI & Generative Tools' },
             { id: 'frontend', label: 'Frontend & UI/UX' },
-            { id: 'javascript', label: 'JavaScript & Dynamic Apps' },
+            { id: 'javascript', label: 'JavaScript Apps' },
           ].map((cat) => (
             <button
               key={cat.id}
@@ -131,7 +116,7 @@ export const Projects: React.FC = () => {
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 filter === cat.id
                   ? 'bg-blue-600 text-white shadow-xs'
-                  : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-750'
+                  : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700'
               }`}
             >
               {cat.label}
@@ -140,14 +125,14 @@ export const Projects: React.FC = () => {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-7 max-w-5xl mx-auto">
           {filtered.map((project) => (
             <div
               key={project.id}
               className="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col group"
             >
               {/* Card Header Banner */}
-              <div className="p-6 pb-4 bg-gradient-to-br from-slate-100/80 via-white to-slate-50 dark:from-slate-850 dark:via-slate-900 dark:to-slate-850 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <div className="p-6 pb-4 bg-gradient-to-br from-slate-100/80 via-white to-slate-50 dark:from-slate-800/80 dark:via-slate-900 dark:to-slate-800/60 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-slate-800 text-blue-600 dark:text-cyan-400 flex items-center justify-center font-bold">
                     <Code2 className="w-5 h-5" />

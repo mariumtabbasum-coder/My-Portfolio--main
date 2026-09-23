@@ -122,15 +122,15 @@ export const Contact: React.FC = () => {
                     href="https://github.com/mariumtabbasum-coder"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-750 transition-all flex items-center gap-2 text-xs font-semibold shadow-2xs"
+                    className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 active:bg-slate-300 dark:active:bg-slate-700 transition-all flex items-center gap-2 text-xs font-semibold shadow-2xs focus:outline-hidden"
                   >
-                    <Github className="w-4 h-4" />
+                    <Github className="w-4 h-4 text-slate-700 dark:text-slate-200" />
                     <span>GitHub Profile</span>
                   </a>
 
                   <a
                     href="mailto:mariumtabbasum@gmail.com"
-                    className="p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-750 transition-all flex items-center gap-2 text-xs font-semibold shadow-2xs"
+                    className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 active:bg-slate-300 dark:active:bg-slate-700 transition-all flex items-center gap-2 text-xs font-semibold shadow-2xs focus:outline-hidden"
                   >
                     <Mail className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
                     <span>Send Mail</span>
@@ -150,14 +150,14 @@ export const Contact: React.FC = () => {
               </h3>
 
               {isSubmitted ? (
-                <div className="p-8 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-center space-y-3">
+                <div className="p-8 rounded-2xl bg-emerald-50 dark:bg-slate-800 border border-emerald-300 dark:border-emerald-600/50 text-center space-y-3">
                   <div className="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto shadow-md">
                     <Check className="w-6 h-6" />
                   </div>
-                  <h4 className="text-base font-bold text-emerald-900 dark:text-emerald-200">
+                  <h4 className="text-base font-bold text-emerald-900 dark:text-emerald-300">
                     Thank you, your message has been sent!
                   </h4>
-                  <p className="text-xs text-emerald-700 dark:text-emerald-300">
+                  <p className="text-xs text-emerald-700 dark:text-emerald-400">
                     I will review your message and respond to your email as soon as possible.
                   </p>
                 </div>

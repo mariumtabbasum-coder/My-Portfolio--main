@@ -3,7 +3,6 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { Skills } from './components/Skills';
-import { AiLab } from './components/AiLab';
 import { Projects } from './components/Projects';
 import { LearningJourney } from './components/LearningJourney';
 import { Certificates } from './components/Certificates';
@@ -58,7 +57,6 @@ export const App: React.FC = () => {
         <Hero />
         <About />
         <Skills />
-        <AiLab />
         <Projects />
         <LearningJourney />
         <Certificates />
