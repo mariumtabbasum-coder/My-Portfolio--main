@@ -28,7 +28,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const sections = ['home', 'about', 'skills', 'projects', 'journey', 'certificates', 'contact'];
+      const sections = ['home', 'about', 'skills', 'projects', 'services', 'journey', 'certificates', 'contact'];
       const scrollPos = window.scrollY + 120;
 
       for (const sectionId of sections) {
@@ -53,6 +53,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
     { name: 'About', href: '#about', id: 'about' },
     { name: 'Skills', href: '#skills', id: 'skills' },
     { name: 'Projects', href: '#projects', id: 'projects' },
+    { name: 'Services', href: '#services', id: 'services' },
     { name: 'Journey', href: '#journey', id: 'journey' },
     { name: 'Certificates', href: '#certificates', id: 'certificates' },
     { name: 'Contact', href: '#contact', id: 'contact' },
@@ -152,7 +153,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
               className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-xl text-white bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-sm shadow-blue-500/20 transition-all hover:scale-[1.02] active:scale-95"
             >
               <Mail className="w-3.5 h-3.5" />
-              <span>Let's Talk</span>
+              <span>Quick Contact</span>
             </a>
 
             {/* Mobile Menu Button */}

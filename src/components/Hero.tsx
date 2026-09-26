@@ -1,14 +1,15 @@
 import React from 'react';
-import { 
-  ArrowRight, 
-  Terminal, 
-  Code2, 
-  FolderGit2, 
-  CheckCircle2, 
+import {
+  ArrowRight,
+  Terminal,
+  Code2,
+  FolderGit2,
+  CheckCircle2,
   Laptop2,
   BookOpen,
   Mail,
-  GraduationCap
+  GraduationCap,
+  FileText
 } from 'lucide-react';
 
 export const Hero: React.FC = () => {
@@ -47,7 +48,7 @@ export const Hero: React.FC = () => {
 
             {/* Sub-headline */}
             <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-              Hi, I'm <strong className="text-slate-900 dark:text-white font-semibold">Marium Tabassum</strong> — a Software Engineering student at Aptech (Semester 1 complete). I specialize in responsive frontend development, modern UI architecture, and clean code with HTML5, CSS3, JavaScript ES6+, Bootstrap 5, and Python.
+              Hi, I'm <strong className="text-slate-900 dark:text-white font-semibold">Marium Tabassum</strong> — a Software Engineering diploma student at Aptech (Semester 1 complete). I specialize in responsive frontend development, modern UI architecture, and clean code with HTML5, CSS3, JavaScript ES6+, Bootstrap 5, and Python, currently mastering frontend fundamentals and learning Generative AI at Bano Qabil.
             </p>
 
             {/* CTAs */}
@@ -59,6 +60,18 @@ export const Hero: React.FC = () => {
                 <FolderGit2 className="w-4 h-4 text-cyan-200" />
                 <span>View Featured Projects</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+
+              {/* View CV Button */}
+              <a
+                href="/cv.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3.5 rounded-xl font-bold text-sm text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs transition-all hover:scale-[1.02] flex items-center gap-2"
+                title="View CV"
+              >
+                <FileText className="w-4 h-4 text-cyan-500" />
+                <span>View CV</span>
               </a>
 
               <a
@@ -132,10 +145,10 @@ export const Hero: React.FC = () => {
                     </div>
                     <div>
                       <div className="text-xs font-bold text-slate-900 dark:text-white">
-                        Aptech Computer Education
+                        Aptech Learning Center
                       </div>
                       <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                        Semester 1 Complete • Software Engineering
+                        Software Engineering Diploma — Semester 1 Complete. Currently continuing the remaining semesters and advancing my software engineering skills.
                       </div>
                     </div>
                   </div>
@@ -146,10 +159,10 @@ export const Hero: React.FC = () => {
                     </div>
                     <div>
                       <div className="text-xs font-bold text-slate-900 dark:text-white">
-                        Bano Qabil Pakistan
+                        Generative AI — Continuing
                       </div>
                       <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                        Web Technologies & Modern Coding
+                        Currently learning Generative AI through Bano Qabil and continuing the program.
                       </div>
                     </div>
                   </div>

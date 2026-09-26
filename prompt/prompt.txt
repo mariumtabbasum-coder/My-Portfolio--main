@@ -1,0 +1,684 @@
+I am updating my existing MERN-based personal portfolio website. I need you to carefully analyze the project repository alongside a dedicated folder named "prompt" at the root level. 
+
+Inside the root "prompt" folder, you will find:
+1. `prompt.txt` - Contains the exact content, accuracy rules, text replacements, and layout instructions.
+2. A CV file - To be kept as a reference placeholder.
+3. A secrets image - Contains sensitive environment variables or credentials to be securely processed.
+
+CRITICAL INSTRUCTIONS BEFORE COMMENCING WORK:
+
+1. ABSOLUTE THEME & DESIGN PRESERVATION:
+   - DO NOT alter, redesign, or replace the existing website theme, dark mode styling, color palette, gradients, typography, spacing, or visual UI/UX language.
+   - Every new element (e.g., "Quick Contact" button, "View CV" button, LinkedIn icon, Services section cards) MUST seamlessly inherit and blend with the CURRENT CSS/Tailwind classes and design patterns.
+
+2. LOGICAL ANALYSIS STEP:
+   - First, scan the "prompt" folder. Thoroughly read `prompt.txt` for exact textual additions and deletions.
+   - Analyze the current codebase structure (Frontend & Backend components).
+   - Cross-reference the detailed 16-point Final Quality Check mentioned in `prompt.txt` against the current repo files to locate where changes belong (Navbar, Hero, About, Journey, Skills, Projects, Certificates, Services, and Contact).
+
+3. CONTENT & ACCURACY FILTERING:
+   - Safely process the credentials/secrets from the prompt folder image into a local configurations template (e.g., .env) without exposing them insecurely.
+   - Purge old/incorrect references globally from the code as outlined in the text (such as "Daily Design", "Caffe", "Website Technologies" under Bano Qabil, etc.).
+   - Update text fields EXACTLY with the student/junior developer status provided—ensuring upcoming roadmap skills are visually categorized as "Future/Upcoming" and NOT active skills.
+
+4. EXECUTION ROADMAP:
+   - Once your workspace analysis is complete, provide me with a concise bulleted summary of your exact action plan showing which files you intend to update.
+   - Halt and wait for my explicit confirmation before writing or modifying any codebase files.
+
+
+I am updating my existing personal portfolio website. I need you to MODIFY the existing portfolio carefully according to the requirements below.
+
+IMPORTANT — DO NOT CHANGE THE EXISTING WEBSITE THEME.
+
+The current visual theme, color palette, typography, gradients, spacing style, cards, borders, animations, background, layout style, navigation style, overall UI/UX and design language are already approved.
+
+DO NOT redesign the website.
+DO NOT replace the existing theme.
+DO NOT introduce a new color scheme.
+DO NOT create a completely different design.
+DO NOT make the website look like a different template.
+
+Only update, correct, add, remove, and reorganize the content and UI elements specifically mentioned below.
+
+The two reference images I provided are ONLY for understanding the INFORMATION/content I want. Do NOT copy their visual theme, colors, layout, or design. Keep my CURRENT portfolio theme exactly as it is.
+
+====================================================
+1. NAVBAR CHANGES
+====================================================
+
+In the existing navbar:
+
+REMOVE:
+- Search button
+- "Let's Talk" button
+
+ADD:
+- A new "Quick Contact" button
+
+The "Quick Contact" button should look consistent with the EXISTING navbar styling and should not introduce a new design.
+
+The Quick Contact button should smoothly take the user to the Contact section or open the existing contact interaction.
+
+Keep all other navbar elements unchanged.
+
+====================================================
+2. HOME / HERO SECTION
+====================================================
+
+Add a "View CV" button in the Home/Hero section.
+
+The button should be designed in the same style as the existing portfolio buttons.
+
+IMPORTANT:
+I will add/upload my CV file myself later.
+
+Therefore:
+- Create the View CV button.
+- Connect it to a clearly marked CV placeholder/path.
+- Do not invent a CV file.
+- Make it easy for me to replace the placeholder with my actual CV later.
+- Add a simple comment in the code showing where I should place/update the CV file if appropriate.
+
+Replace the existing "I am Marium Tabassum..." paragraph with EXACTLY this content:
+
+"Hi, I'm Marium Tabassum — a Software Engineering diploma student at Aptech (Semester 1 complete). I specialize in responsive frontend development, modern UI architecture, and clean code with HTML5, CSS3, JavaScript ES6+, Bootstrap 5, and Python, currently mastering frontend fundamentals and learning Generative AI at Bano Qabil."
+
+Do not change the meaning of this paragraph.
+
+----------------------------------------------------
+HOME RIGHT-SIDE INFORMATION CARDS
+----------------------------------------------------
+
+There are information boxes/cards on the right side of the Hero/Home section.
+
+CARD 1 — APTECH:
+
+The current heading should be changed to:
+
+"Aptech Learning Center"
+
+The supporting text should clearly communicate that:
+
+- I am pursuing a Software Engineering Diploma at Aptech.
+- Semester 1 is complete.
+- My Software Engineering diploma is still ongoing.
+- I am continuing with the upcoming semesters.
+
+Do NOT make it sound like the entire diploma has been completed.
+
+Suggested wording:
+
+"Software Engineering Diploma — Semester 1 Complete. Currently continuing the remaining semesters and advancing my software engineering skills."
+
+CARD 2 — BANO QABIL:
+
+Remove wording such as:
+- Website Technologies
+- Modern Coding
+
+Replace the relevant heading/content with:
+
+"Generative AI — Continuing"
+
+The content should communicate that I am currently learning Generative AI through Bano Qabil and continuing the program.
+
+Keep the existing card design/theme exactly the same.
+
+====================================================
+3. ABOUT SECTION
+====================================================
+
+Update the About section.
+
+The current About content focuses too heavily on Software Engineering.
+
+Keep the Software Engineering information, BUT also add my Generative AI learning journey.
+
+The About section should represent BOTH:
+
+1. Software Engineering / Frontend Development
+2. Generative AI learning
+
+Mention that I am:
+- Pursuing a Software Engineering Diploma at Aptech
+- Semester 1 complete
+- Continuing the diploma
+- Learning HTML, CSS, JavaScript, Bootstrap, jQuery and Python
+- Currently learning Generative AI through Bano Qabil
+- Developing knowledge of LLMs, prompt engineering, RAG concepts and AI-powered applications as part of my learning journey
+
+Do not exaggerate my professional experience.
+Keep the wording suitable for a student / junior developer.
+
+====================================================
+4. ABOUT → JOURNEY / KEY MILESTONES
+====================================================
+
+In the Journey section, remove the incorrect project:
+
+REMOVE:
+"Daily Design"
+
+Replace it with:
+
+"Olive Grove Restaurant"
+
+This is one of my web development projects.
+
+Do not keep Daily Design anywhere in the Journey/Milestones section.
+
+====================================================
+5. ABOUT → EDUCATION SECTION
+====================================================
+
+There is an Education section where incorrect Software Engineering information has been placed under the Bano Qabil entry.
+
+Correct this.
+
+The Bano Qabil entry must represent:
+
+"Bano Qabil — Generative AI Program"
+
+It should NOT contain Software Engineering curriculum information.
+
+Use information related to my Generative AI learning.
+
+Suggested information:
+
+Program:
+Generative AI Specialization
+
+Status:
+In Progress
+
+Duration:
+Approximately 5–6 months
+
+Focus areas:
+- Generative AI fundamentals
+- Large Language Models (LLMs)
+- Prompt Engineering
+- LLM APIs
+- RAG / Knowledge Retrieval concepts
+- AI-enhanced applications
+- Emerging AI tools and workflows
+
+Keep this clearly separate from my Aptech Software Engineering Diploma.
+
+====================================================
+6. SKILLS SECTION — REPLACE CURRENT SKILLS
+====================================================
+
+The current Skills section contains too many skills.
+
+REMOVE the unnecessary skills and keep ONLY the following skills:
+
+HTML
+Category: Frontend Development
+Level: Intermediate
+
+CSS
+Category: Frontend Development
+Level: Intermediate
+
+JavaScript
+Category: Frontend Development
+Level: Elementary
+
+Bootstrap
+Category: Frontend Development
+Level: Intermediate
+
+jQuery
+Category: Frontend Development
+Level: Elementary
+
+Python
+Category: Programming
+Level: Beginner
+
+Generative AI
+Status: Currently Learning
+
+Do not add additional programming languages or technologies that are not listed above.
+
+Keep the current Skills section's existing visual design/theme.
+
+====================================================
+7. PROJECTS SECTION
+====================================================
+
+Remove these incorrect/unwanted projects:
+
+- Daily Design
+- Caffe
+
+Do NOT display them anywhere in the Projects section.
+
+ADD/KEEP the following projects:
+
+1. Portfolio Website
+2. Olive Grove Restaurant
+3. Intelligent Knowledge Chatbot
+4. RAG Document
+
+These four projects should be shown as my relevant portfolio projects.
+
+Use appropriate short descriptions based on their project names and purpose.
+
+IMPORTANT:
+Do not claim technologies or features that are not already known/implemented.
+
+Keep the existing project card design and current portfolio theme.
+
+====================================================
+8. JOURNEY SECTION — CORRECT INFORMATION
+====================================================
+
+The current Journey section contains incorrect information.
+
+Remove incorrect milestones and replace the Journey content with the following accurate learning journey.
+
+----------------------------------------------------
+MILESTONE 1
+----------------------------------------------------
+
+Title:
+"Aptech Learning Center"
+
+Subtitle:
+"Software Engineering Diploma — Semester 1 Complete"
+
+Year:
+2026
+
+Status:
+"Currently Continuing"
+
+Description:
+
+"Completed Semester 1 of the Software Engineering Diploma at Aptech and continuing with the upcoming semesters. The first semester covered foundational web development, responsive design, and programming concepts."
+
+Topics covered:
+
+- HTML5 Semantic Markup
+- CSS3 Styling
+- Flexbox & Media Queries
+- Bootstrap 5
+- Basic JavaScript & DOM Manipulation
+- Basic jQuery
+- Introductory Programming Logic
+
+IMPORTANT:
+Do not write that the complete Software Engineering Diploma has been completed.
+
+----------------------------------------------------
+MILESTONE 2
+----------------------------------------------------
+
+Title:
+"Python Programming Foundations"
+
+Subtitle:
+"Academic & Self-Directed Learning"
+
+Year:
+2026
+
+Description:
+
+"Studied fundamental Python programming concepts including variables, data types, control flow, loops, lists, dictionaries, functions, and basic file handling."
+
+Topics:
+
+- Variables & Data Types
+- Control Flow & Loops
+- Functions & Modular Code
+- Lists & Dictionaries
+- Basic File Handling
+
+----------------------------------------------------
+MILESTONE 3
+----------------------------------------------------
+
+Title:
+"Bano Qabil Program"
+
+Subtitle:
+"Generative AI Specialization"
+
+Year:
+2026
+
+Status:
+"In Progress"
+
+Duration:
+"5–6 Month Course"
+
+Description:
+
+"Currently learning Generative AI through the Bano Qabil program and building foundational knowledge of modern AI concepts, LLMs, prompt engineering, and AI-powered applications."
+
+Topics:
+
+- Generative AI Fundamentals
+- Large Language Models (LLMs)
+- Prompt Engineering
+- Working with LLM APIs
+- RAG & Knowledge Retrieval Concepts
+- AI-Enhanced Applications
+- Emerging AI Tools
+
+----------------------------------------------------
+MILESTONE 4
+----------------------------------------------------
+
+Title:
+"Aptech Diploma — Upcoming Semesters"
+
+Subtitle:
+"Future Learning Roadmap"
+
+Status:
+"Planned / Upcoming"
+
+Description:
+
+"Continuing the Software Engineering Diploma and progressing toward advanced software development concepts in upcoming semesters."
+
+Future areas can include:
+
+- Modern Frontend Development
+- React.js
+- Component-Based Architecture
+- Node.js & Express.js
+- REST APIs
+- MongoDB & SQL
+- Database Design
+- Git & Professional Workflow
+- Cloud Deployment & Hosting
+
+IMPORTANT:
+These are FUTURE / UPCOMING learning areas.
+Do NOT present them as skills I have already mastered.
+
+====================================================
+9. CERTIFICATES & ACCOMPLISHMENTS SECTION
+====================================================
+
+I provided a reference image for this section.
+
+IMPORTANT:
+Use the image ONLY to understand the INFORMATION and structure/content I want.
+
+DO NOT copy the image's visual theme.
+DO NOT change my existing portfolio theme to match the image.
+
+Replace the current certificate section content with an accurate version based on my current status.
+
+The section should communicate that my formal credentials/certificates are currently in progress / pending institutional issuance.
+
+Information:
+
+Aptech:
+"Software Engineering Diploma — Semester 1 Complete"
+Status:
+"Currently Continuing"
+
+Bano Qabil:
+"Generative AI Program"
+Status:
+"In Progress"
+
+Do NOT falsely present either of these as a fully completed certificate if the official certificate has not yet been issued.
+
+Keep the existing portfolio's current theme, colors, typography, cards, spacing and styling.
+
+When actual certificate images are available later, make the section easy to update.
+
+====================================================
+10. SERVICES SECTION
+====================================================
+
+There is currently no proper Services section.
+
+ADD a professional "Services & Collaboration" section.
+
+I provided a reference image for this section.
+
+IMPORTANT:
+The reference image is ONLY for understanding the INFORMATION/content.
+
+DO NOT copy its theme, colors, layout, or styling.
+
+Use the EXISTING portfolio theme for the new Services section.
+
+Create service cards based on the following information:
+
+SERVICE 1:
+"Responsive Website Development"
+
+Description:
+"Crafting clean, accessible, and mobile-friendly websites that work smoothly across smartphones, tablets, and desktop screens using modern HTML5, CSS3, JavaScript, and Bootstrap."
+
+SERVICE 2:
+"Website Redesign & Modernization"
+
+Description:
+"Improving outdated website layouts with cleaner structure, responsive design, improved usability, and modern visual presentation."
+
+SERVICE 3:
+"Custom Landing Pages"
+
+Description:
+"Creating focused and responsive landing pages for small businesses, events, personal portfolios, and digital projects with clear calls-to-action."
+
+SERVICE 4:
+"AI Chatbot & Tool Exploration"
+
+Description:
+"Exploring Generative AI solutions, prompt-based workflows, AI chatbot concepts, and emerging AI-powered tools as part of my ongoing learning journey."
+
+IMPORTANT:
+Since I am still a student and junior developer, do not make unrealistic claims about enterprise-level expertise.
+
+The services section should be professional but honest about my current skill level.
+
+Use the existing website's card style.
+
+====================================================
+11. CONTACT SECTION
+====================================================
+
+In the Contact section, there is existing contact information on the left side such as:
+
+- Email
+- Location
+- Other contact details
+
+Keep the existing information.
+
+ADD one more information item:
+
+"Typical Response"
+"Within 24 Hours"
+
+Use exactly this concept:
+
+Typical Response
+Within 24 Hours
+
+Place it consistently with the existing contact information cards/items.
+
+----------------------------------------------------
+LINKEDIN ICON
+----------------------------------------------------
+
+Under the contact information, add a LinkedIn icon.
+
+The LinkedIn icon should visually match the existing social/contact icons.
+
+Use a proper LinkedIn icon.
+
+If the actual LinkedIn URL is not already available in the project, create a clearly marked placeholder so I can add my LinkedIn profile URL later.
+
+Do NOT invent a LinkedIn URL.
+
+====================================================
+12. ACCURACY RULES
+====================================================
+
+This is extremely important.
+
+Do not invent:
+- Degrees
+- Certificates
+- Job experience
+- Professional experience
+- Technologies I have not listed
+- Completed courses that are still in progress
+- Advanced skills I have not learned
+
+My current status should be represented accurately:
+
+Aptech:
+Software Engineering Diploma
+Semester 1 complete
+Diploma still continuing
+
+Bano Qabil:
+Generative AI
+Currently in progress
+
+Python:
+Beginner
+
+Generative AI:
+Currently Learning
+
+JavaScript:
+Elementary
+
+jQuery:
+Elementary
+
+Bootstrap:
+Intermediate
+
+HTML:
+Intermediate
+
+CSS:
+Intermediate
+
+====================================================
+13. REMOVE INCORRECT / OLD INFORMATION
+====================================================
+
+Make sure these incorrect or unwanted items are removed wherever they appear:
+
+- Daily Design
+- Caffe
+- Website Technologies (where it is incorrectly used in the Bano Qabil card)
+- Modern Coding (where it is incorrectly used in the Bano Qabil card)
+- Incorrect Software Engineering information under Bano Qabil
+- Any wording suggesting the complete Aptech diploma has already been completed
+- Any skills that I did not provide
+- Any false certificates or completed credentials
+
+Search the entire portfolio for these old entries and remove/update them so they do not appear elsewhere.
+
+====================================================
+14. DESIGN PRESERVATION — VERY IMPORTANT
+====================================================
+
+DO NOT change:
+
+- Existing color palette
+- Existing dark theme
+- Existing gradients
+- Existing typography
+- Existing background
+- Existing navbar design
+- Existing card styling
+- Existing button styling
+- Existing border radius
+- Existing animations
+- Existing hover effects
+- Existing section spacing unless necessary for the new content
+- Existing responsive behavior
+- Existing overall visual identity
+
+The portfolio already has a specific theme that I like.
+
+ONLY modify the content and components requested above.
+
+For newly added Services content, Certificate content, Quick Contact button, View CV button, and LinkedIn icon, make them visually consistent with the EXISTING design.
+
+====================================================
+15. RESPONSIVENESS
+====================================================
+
+After making all changes, make sure the complete website remains responsive on:
+
+- Desktop
+- Laptop
+- Tablet
+- Mobile
+
+Do not break existing responsive layouts.
+
+Make sure:
+- Service cards stack properly on smaller screens
+- Project cards remain readable
+- Journey timeline remains responsive
+- Buttons do not overflow
+- Contact information remains properly aligned
+- Navbar remains usable on mobile
+- Hero section remains properly arranged
+- Text does not overflow cards
+
+====================================================
+16. FINAL QUALITY CHECK
+====================================================
+
+Before finishing, inspect the ENTIRE portfolio and verify:
+
+✓ Navbar has Quick Contact instead of Search and Let's Talk
+✓ View CV button exists
+✓ CV button has an easy-to-replace placeholder
+✓ Hero introduction contains my exact updated paragraph
+✓ Aptech card says Semester 1 Complete + Continuing
+✓ Aptech heading says "Aptech Learning Center"
+✓ Bano Qabil card says Generative AI — Continuing
+✓ About section includes both Software Engineering and Generative AI
+✓ Daily Design is removed
+✓ Olive Grove Restaurant is included
+✓ Bano Qabil Education information is corrected
+✓ Skills contain ONLY the requested skills
+✓ Daily Design project is removed
+✓ Caffe project is removed
+✓ Portfolio project is included
+✓ Olive Grove Restaurant project is included
+✓ Intelligent Knowledge Chatbot is included
+✓ RAG Document is included
+✓ Journey section contains the corrected milestones
+✓ Future technologies are clearly marked as upcoming
+✓ Certificate section reflects current/in-progress status
+✓ Services section has been added
+✓ Services are based on the information I provided
+✓ Contact section has "Typical Response — Within 24 Hours"
+✓ LinkedIn icon has been added
+✓ No fake information has been introduced
+✓ Existing theme has NOT been changed
+✓ Existing responsiveness has NOT been broken
+
+MOST IMPORTANT:
+Do not redesign my portfolio.
+Do not change its theme.
+Do not replace my current UI with a new template.
+
+This task is an ACCURACY + CONTENT + COMPONENT UPDATE of my existing portfolio, not a redesign.
+
+After completing the changes, give me a concise summary of exactly what you changed.

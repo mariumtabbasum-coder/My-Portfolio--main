@@ -75,10 +75,10 @@ export const About: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
               <div className="space-y-4 text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                 <p>
-                  My software development journey started with a strong curiosity for how websites and web applications function behind the scenes. Starting with semantic HTML5 and modern CSS3, I quickly progressed into building interactive experiences using JavaScript ES6+, Bootstrap 5, and jQuery.
+                  My software development journey combines disciplined Software Engineering fundamentals with cutting-edge Generative AI exploration. I am currently pursuing a Software Engineering Diploma at <strong className="text-slate-900 dark:text-white font-semibold">Aptech Computer Education</strong>, where I successfully completed Semester 1, mastering HTML5, CSS3, JavaScript ES6+, Bootstrap 5, jQuery, and Python while continuing with upcoming semesters.
                 </p>
                 <p>
-                  At <strong className="text-slate-900 dark:text-white font-semibold">Aptech Computer Education</strong>, I completed Semester 1 with top grades, focusing on disciplined software engineering practices, responsive UI design, and problem solving.
+                  In parallel, I am actively expanding my capabilities through the <strong className="text-slate-900 dark:text-white font-semibold">Bano Qabil Generative AI Program</strong>. As part of my learning journey, I am developing practical knowledge of Large Language Models (LLMs), prompt engineering, LLM APIs, and RAG (Retrieval-Augmented Generation) concepts to craft next-generation web applications.
                 </p>
                 <div className="pt-2 grid grid-cols-2 gap-3 text-xs font-semibold text-slate-700 dark:text-slate-200">
                   <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800">
@@ -87,7 +87,7 @@ export const About: React.FC = () => {
                   </div>
                   <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800">
                     <Check className="w-4 h-4 text-cyan-500" />
-                    <span>Mobile-First Thinking</span>
+                    <span>AI-Powered Workflows</span>
                   </div>
                 </div>
               </div>
@@ -100,15 +100,15 @@ export const About: React.FC = () => {
                 <ul className="space-y-3 text-xs text-slate-600 dark:text-slate-300">
                   <li className="flex items-start gap-2.5">
                     <span className="w-5 h-5 rounded-full bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 flex items-center justify-center font-bold text-[10px] shrink-0">1</span>
-                    <span>Completed Semester 1 in Software Engineering at Aptech Computer Education with top marks.</span>
+                    <span>Completed Semester 1 in Software Engineering at Aptech Computer Education and continuing remaining semesters.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 flex items-center justify-center font-bold text-[10px] shrink-0">2</span>
-                    <span>Mastered responsive web layouts using Flexbox, CSS Grid, Bootstrap 5, and modern JavaScript.</span>
+                    <span>Mastered responsive web layouts using Flexbox, CSS Grid, Bootstrap 5, JavaScript, and Python logic foundations.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="w-5 h-5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 flex items-center justify-center font-bold text-[10px] shrink-0">3</span>
-                    <span>Created live production-ready portfolio projects including Alberto Watch and Daily Design platforms.</span>
+                    <span>Developed web applications like Olive Grove Restaurant and Alberto Watch, while learning Generative AI at Bano Qabil.</span>
                   </li>
                 </ul>
               </div>
@@ -127,18 +127,19 @@ export const About: React.FC = () => {
                       Aptech Computer Education
                     </h3>
                     <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                      Diploma in Software Engineering (ACCP Pro)
+                      Software Engineering Diploma (Semester 1 Complete • Continuing)
                     </p>
                   </div>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                  Rigorous hands-on curriculum covering programming logic, structured problem solving, responsive web development, Bootstrap, and database concepts. Semester 1 successfully completed.
+                  Rigorous hands-on curriculum covering programming logic, structured problem solving, responsive web development, Bootstrap 5, JavaScript, jQuery, and Python. Semester 1 successfully completed and continuing upcoming semesters.
                 </p>
                 <div className="flex flex-wrap gap-2 pt-2">
                   <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">HTML5/CSS3</span>
                   <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">JavaScript ES6</span>
                   <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Bootstrap 5</span>
                   <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">jQuery</span>
+                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Python</span>
                 </div>
               </div>
 
@@ -149,21 +150,22 @@ export const About: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="font-bold text-slate-900 dark:text-white text-base">
-                      Bano Qabil Pakistan
+                      Bano Qabil — Generative AI Program
                     </h3>
                     <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                      Information Technology & Web Scholar
+                      Generative AI Specialization (In Progress • 5–6 Months)
                     </p>
                   </div>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                  Advanced technical coursework emphasizing software engineering fundamentals, modern coding standards, web technologies, and scalable developer tools.
+                  Specialized program covering Generative AI fundamentals, Large Language Models (LLMs), Prompt Engineering, LLM APIs, RAG & knowledge retrieval concepts, and AI-enhanced web applications.
                 </p>
                 <div className="flex flex-wrap gap-2 pt-2">
-                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Python Logic</span>
-                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Git & GitHub</span>
-                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Web Architecture</span>
-                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Responsive UI</span>
+                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Generative AI</span>
+                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">LLMs</span>
+                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Prompt Engineering</span>
+                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">LLM APIs</span>
+                  <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">RAG Concepts</span>
                 </div>
               </div>
             </div>
