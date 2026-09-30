@@ -1,63 +1,93 @@
 import { Router } from 'express';
+import mongoose from 'mongoose';
 import Service from '../models/Service';
+import { dataStore } from '../utils/dataStore';
 
 const router = Router();
 
-// In-memory fallback if DB not connected
-let memoryServices = [
-  { id: 's1', title: 'Responsive Frontend Development', description: 'Semantic HTML5, CSS3, JavaScript, React, and Tailwind CSS for lightning-fast modern UIs.', badge: 'Frontend', highlights: ['Mobile-First', 'Accessible', 'Optimized'] },
-  { id: 's2', title: 'Generative AI & LLM Integration', description: 'Integrating Gemini API, prompt engineering, and intelligent chatbot features into web applications.', badge: 'AI Specialist', highlights: ['Gemini API', 'Prompt Design', 'Smart Agents'] },
-  { id: 's3', title: 'Interactive React Apps', description: 'Building dynamic Single Page Applications with reusable components, state management, and smooth routing.', badge: 'React', highlights: ['TypeScript', 'Hooks', 'REST APIs'] }
-];
-
 router.get('/', async (req, res) => {
   try {
-    const services = await Service.find();
-    if (services && services.length > 0) {
-      return res.json({ success: true, data: services });
+    if (mongoose.connection?.readyState === 1) {
+      const dbServices = await (Service as any).find();
+      if (dbServices && dbServices.length > 0) {
+        const normalized = dbServices.map((s: any) => ({
+          ...(s.toObject ? s.toObject() : s),
+          id: s.id || s._id?.toString()
+        }));
+        return res.json({ success: true, data: normalized });
+      }
     }
-    res.json({ success: true, data: memoryServices });
+    return res.json({ success: true, data: dataStore.getServices() });
   } catch (err) {
-    res.json({ success: true, data: memoryServices });
+    return res.json({ success: true, data: dataStore.getServices() });
   }
 });
 
 router.post('/', async (req, res) => {
   try {
-    const newItem = {
-      id: req.body.id || 'service-' + Date.now(),
-      title: req.body.title,
-      description: req.body.description,
-      badge: req.body.badge || 'Frontend',
-      highlights: req.body.highlights || []
-    };
+    const created = dataStore.addService(req.body);
 
-    const created = await Service.create(newItem);
-    memoryServices.push(newItem);
-    res.json({ success: true, data: created });
-  } catch (err: any) {
-    const newItem = {
-      id: req.body.id || 'service-' + Date.now(),
-      title: req.body.title,
-      description: req.body.description,
-      badge: req.body.badge || 'Frontend',
-      highlights: req.body.highlights || []
-    };
-    memoryServices.push(newItem);
-    res.json({ success: true, data: newItem });
+    if (mongoose.connection?.readyState === 1) {
+      try {
+        await (Service as any).create(created);
+      } catch (e) {
+        console.warn('MongoDB sync note for service');
+      }
+    }
+
+    return res.json({ success: true, data: created });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Failed to create service' });
+  }
+});
+
+router.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updated = dataStore.updateService(id, req.body);
+
+    if (mongoose.connection?.readyState === 1) {
+      try {
+        const filter = {
+          $or: [
+            { id },
+            ...(mongoose.isValidObjectId(id) ? [{ _id: new mongoose.Types.ObjectId(id) }] : [{ _id: id }])
+          ]
+        };
+        await (Service as any).findOneAndUpdate(filter, req.body, { new: true });
+      } catch (e) {
+        console.warn('MongoDB sync note for service update');
+      }
+    }
+
+    return res.json({ success: true, data: updated || { ...req.body, id } });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Failed to update service' });
   }
 });
 
 router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    await Service.findOneAndDelete({ id });
-    memoryServices = memoryServices.filter(s => s.id !== id);
-    res.json({ success: true, message: 'Deleted successfully' });
-  } catch (err: any) {
-    const { id } = req.params;
-    memoryServices = memoryServices.filter(s => s.id !== id);
-    res.json({ success: true, message: 'Deleted from memory' });
+    dataStore.deleteService(id);
+
+    if (mongoose.connection?.readyState === 1) {
+      try {
+        const filter = {
+          $or: [
+            { id },
+            ...(mongoose.isValidObjectId(id) ? [{ _id: new mongoose.Types.ObjectId(id) }] : [{ _id: id }])
+          ]
+        };
+        await (Service as any).findOneAndDelete(filter);
+      } catch (e) {
+        console.warn('MongoDB sync note for service delete');
+      }
+    }
+
+    return res.json({ success: true, message: 'Service deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Failed to delete service' });
   }
 });
 

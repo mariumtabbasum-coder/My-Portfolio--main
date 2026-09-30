@@ -14,7 +14,6 @@ import authRoutes from './server/routes/authRoutes';
 import profileRoutes from './server/routes/profileRoutes';
 import projectRoutes from './server/routes/projectRoutes';
 import skillRoutes from './server/routes/skillRoutes';
-import aiLabRoutes from './server/routes/aiLabRoutes';
 import learningRoutes from './server/routes/learningRoutes';
 import certificateRoutes from './server/routes/certificateRoutes';
 import serviceRoutes from './server/routes/serviceRoutes';
@@ -60,7 +59,6 @@ async function startServer() {
   app.use('/api/profile', profileRoutes);
   app.use('/api/projects', projectRoutes);
   app.use('/api/skills', skillRoutes);
-  app.use('/api/ai-lab', aiLabRoutes);
   app.use('/api/learning', learningRoutes);
   app.use('/api/certificates', certificateRoutes);
   app.use('/api/services', serviceRoutes);

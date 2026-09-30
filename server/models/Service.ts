@@ -1,11 +1,11 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-export interface IService extends Document {
+export interface IService {
   id: string;
   title: string;
   description: string;
-  badge: string;
-  highlights: string[];
+  badge?: string;
+  highlights?: string[];
 }
 
 const ServiceSchema = new Schema<IService>({
@@ -16,4 +16,5 @@ const ServiceSchema = new Schema<IService>({
   highlights: { type: [String], default: [] }
 }, { timestamps: true });
 
-export default mongoose.models.Service || mongoose.model<IService>('Service', ServiceSchema);
+const Service = (mongoose.models.Service as mongoose.Model<IService>) || mongoose.model<IService>('Service', ServiceSchema);
+export default Service;

@@ -1,66 +1,93 @@
 import { Router } from 'express';
+import mongoose from 'mongoose';
 import Milestone from '../models/Milestone';
+import { dataStore } from '../utils/dataStore';
 
 const router = Router();
 
-let memoryMilestones = [
-  { id: 'm1', period: '2025 - 2026', title: 'Aptech Software Engineering', organization: 'Aptech Learning', description: 'Comprehensive professional software engineering curriculum covering modern frontend and backend development.', status: 'completed', highlights: ['Advanced JavaScript', 'React & TypeScript', 'Database Design'] },
-  { id: 'm2', period: '2025 - Present', title: 'Bano Qabil Generative AI Scholarship', organization: 'Bano Qabil & Alkhidmat', description: 'Specialized scholarship program focusing on Generative AI, LLMs, prompt engineering, and modern AI agent architectures.', status: 'in-progress', highlights: ['Gemini API', 'Prompt Engineering', 'AI Integrations'] },
-  { id: 'm3', period: '2026 - Future', title: 'Full-Stack & Cloud Specialization', organization: 'Advanced Certification', description: 'Expanding expertise into cloud deployment, microservices, and advanced AI application systems.', status: 'upcoming', highlights: ['Cloud Architecture', 'DevOps Basics', 'AI Workflows'] }
-];
-
 router.get('/', async (req, res) => {
   try {
-    const milestones = await Milestone.find();
-    if (milestones && milestones.length > 0) {
-      return res.json({ success: true, data: milestones });
+    if (mongoose.connection?.readyState === 1) {
+      const dbMilestones = await (Milestone as any).find();
+      if (dbMilestones && dbMilestones.length > 0) {
+        const normalized = dbMilestones.map((m: any) => ({
+          ...(m.toObject ? m.toObject() : m),
+          id: m.id || m._id?.toString()
+        }));
+        return res.json({ success: true, data: normalized });
+      }
     }
-    res.json({ success: true, data: memoryMilestones });
+    return res.json({ success: true, data: dataStore.getMilestones() });
   } catch (err) {
-    res.json({ success: true, data: memoryMilestones });
+    return res.json({ success: true, data: dataStore.getMilestones() });
   }
 });
 
 router.post('/', async (req, res) => {
   try {
-    const newItem = {
-      id: req.body.id || 'milestone-' + Date.now(),
-      period: req.body.period,
-      title: req.body.title,
-      organization: req.body.organization || 'Self',
-      description: req.body.description,
-      status: req.body.status || 'completed',
-      highlights: req.body.highlights || []
-    };
+    const created = dataStore.addMilestone(req.body);
 
-    const created = await Milestone.create(newItem);
-    memoryMilestones.push(newItem);
-    res.json({ success: true, data: created });
-  } catch (err: any) {
-    const newItem = {
-      id: req.body.id || 'milestone-' + Date.now(),
-      period: req.body.period,
-      title: req.body.title,
-      organization: req.body.organization || 'Self',
-      description: req.body.description,
-      status: req.body.status || 'completed',
-      highlights: req.body.highlights || []
-    };
-    memoryMilestones.push(newItem);
-    res.json({ success: true, data: newItem });
+    if (mongoose.connection?.readyState === 1) {
+      try {
+        await (Milestone as any).create(created);
+      } catch (e) {
+        console.warn('MongoDB sync note for milestone');
+      }
+    }
+
+    return res.json({ success: true, data: created });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Failed to create milestone' });
+  }
+});
+
+router.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updated = dataStore.updateMilestone(id, req.body);
+
+    if (mongoose.connection?.readyState === 1) {
+      try {
+        const filter = {
+          $or: [
+            { id },
+            ...(mongoose.isValidObjectId(id) ? [{ _id: new mongoose.Types.ObjectId(id) }] : [{ _id: id }])
+          ]
+        };
+        await (Milestone as any).findOneAndUpdate(filter, req.body, { new: true });
+      } catch (e) {
+        console.warn('MongoDB sync note for milestone update');
+      }
+    }
+
+    return res.json({ success: true, data: updated || { ...req.body, id } });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Failed to update milestone' });
   }
 });
 
 router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    await Milestone.findOneAndDelete({ id });
-    memoryMilestones = memoryMilestones.filter(m => m.id !== id);
-    res.json({ success: true, message: 'Deleted successfully' });
-  } catch (err: any) {
-    const { id } = req.params;
-    memoryMilestones = memoryMilestones.filter(m => m.id !== id);
-    res.json({ success: true, message: 'Deleted from memory' });
+    dataStore.deleteMilestone(id);
+
+    if (mongoose.connection?.readyState === 1) {
+      try {
+        const filter = {
+          $or: [
+            { id },
+            ...(mongoose.isValidObjectId(id) ? [{ _id: new mongoose.Types.ObjectId(id) }] : [{ _id: id }])
+          ]
+        };
+        await (Milestone as any).findOneAndDelete(filter);
+      } catch (e) {
+        console.warn('MongoDB sync note for milestone delete');
+      }
+    }
+
+    return res.json({ success: true, message: 'Milestone deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Failed to delete milestone' });
   }
 });
 

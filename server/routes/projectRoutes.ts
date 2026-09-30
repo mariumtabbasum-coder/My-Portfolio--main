@@ -1,81 +1,46 @@
 import { Router } from 'express';
+import mongoose from 'mongoose';
 import Project from '../models/Project';
+import { dataStore } from '../utils/dataStore';
 
 const router = Router();
 
-let inMemoryProjects = [
-  {
-    id: 'portfolio-website',
-    title: 'Portfolio Website',
-    description: 'A modern personal portfolio website built with React, TypeScript, and Tailwind CSS.',
-    tags: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
-    category: 'frontend',
-    liveUrl: 'https://mariumtabbasum-coder.github.io/My-Portfolio/',
-    githubUrl: 'https://github.com/mariumtabbasum-coder',
-    features: ['Responsive Design', 'Modern UI Components', 'Interactive Navigation'],
-    featured: true
-  },
-  {
-    id: 'olive-grove',
-    title: 'Olive Grove Restaurant',
-    description: 'A professional restaurant website with dynamic menu showcase and reservation features.',
-    tags: ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap 5'],
-    category: 'frontend',
-    liveUrl: 'https://mariumtabbasum-coder.github.io/Olive-Grove-Restaurant/',
-    githubUrl: 'https://github.com/mariumtabbasum-coder',
-    features: ['Interactive Menu', 'Table Booking UI', 'Visual Brand Story'],
-    featured: false
-  },
-  {
-    id: 'knowledge-chatbot',
-    title: 'Intelligent Knowledge Chatbot',
-    description: 'An AI-powered assistant designed for smart knowledge retrieval.',
-    tags: ['Generative AI', 'Python', 'LLM API', 'Prompt Engineering'],
-    category: 'javascript',
-    liveUrl: '#',
-    githubUrl: 'https://github.com/mariumtabbasum-coder',
-    features: ['Natural Language Processing', 'Dynamic Responses', 'Smart Knowledge Access'],
-    featured: false
-  },
-  {
-    id: 'rag-document',
-    title: 'RAG Document System',
-    description: 'A Retrieval-Augmented Generation implementation for efficient document processing.',
-    tags: ['RAG', 'AI Engineering', 'Vector Search', 'Python'],
-    category: 'javascript',
-    liveUrl: '#',
-    githubUrl: 'https://github.com/mariumtabbasum-coder',
-    features: ['Document Embedding', 'Efficient Text Retrieval', 'AI Contextual Analysis'],
-    featured: false
-  }
-];
-
 router.get('/', async (req, res, next) => {
   try {
-    const mongoose = await import('mongoose');
-    if (mongoose.connection.readyState === 1) {
-      const items = await Project.find().sort({ createdAt: -1 });
-      return res.json({ success: true, data: items });
-    } else {
-      return res.json({ success: true, data: inMemoryProjects });
+    if (mongoose.connection?.readyState === 1) {
+      const dbProjects = await (Project as any).find().sort({ createdAt: -1 });
+      if (dbProjects && dbProjects.length > 0) {
+        const normalized = dbProjects.map((p: any) => ({
+          ...(p.toObject ? p.toObject() : p),
+          id: p.id || p._id?.toString()
+        }));
+        return res.json({ success: true, data: normalized });
+      }
     }
+    return res.json({ success: true, data: dataStore.getProjects() });
   } catch (err) {
-    next(err);
+    return res.json({ success: true, data: dataStore.getProjects() });
   }
 });
 
 router.post('/', async (req, res, next) => {
   try {
-    const mongoose = await import('mongoose');
-    const newId = Date.now().toString();
-    const payload = { id: newId, ...req.body };
-    if (mongoose.connection.readyState === 1) {
-      const created = await Project.create(payload);
-      return res.json({ success: true, data: created });
-    } else {
-      inMemoryProjects.push(payload);
-      return res.json({ success: true, data: payload });
+    const { title, description } = req.body;
+    if (!title || !description) {
+      return res.status(400).json({ success: false, message: 'Title and description are required' });
     }
+
+    const created = dataStore.addProject(req.body);
+
+    if (mongoose.connection?.readyState === 1) {
+      try {
+        await (Project as any).create(created);
+      } catch (dbErr) {
+        console.warn('MongoDB sync note for project creation');
+      }
+    }
+
+    return res.json({ success: true, data: created });
   } catch (err) {
     next(err);
   }
@@ -84,14 +49,23 @@ router.post('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
-    const mongoose = await import('mongoose');
-    if (mongoose.connection.readyState === 1) {
-      const updated = await Project.findOneAndUpdate({ id }, req.body, { new: true });
-      return res.json({ success: true, data: updated });
-    } else {
-      inMemoryProjects = inMemoryProjects.map(p => p.id === id ? { ...p, ...req.body } : p);
-      return res.json({ success: true, data: inMemoryProjects.find(p => p.id === id) });
+    const updated = dataStore.updateProject(id, req.body);
+
+    if (mongoose.connection?.readyState === 1) {
+      try {
+        const filter = {
+          $or: [
+            { id },
+            ...(mongoose.isValidObjectId(id) ? [{ _id: new mongoose.Types.ObjectId(id) }] : [{ _id: id }])
+          ]
+        };
+        await (Project as any).findOneAndUpdate(filter, req.body, { new: true });
+      } catch (dbErr) {
+        console.warn('MongoDB sync note for project update');
+      }
     }
+
+    return res.json({ success: true, data: updated || { ...req.body, id } });
   } catch (err) {
     next(err);
   }
@@ -100,14 +74,23 @@ router.put('/:id', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
-    const mongoose = await import('mongoose');
-    if (mongoose.connection.readyState === 1) {
-      await Project.findOneAndDelete({ id });
-      return res.json({ success: true, message: 'Project deleted' });
-    } else {
-      inMemoryProjects = inMemoryProjects.filter(p => p.id !== id);
-      return res.json({ success: true, message: 'Project deleted' });
+    dataStore.deleteProject(id);
+
+    if (mongoose.connection?.readyState === 1) {
+      try {
+        const filter = {
+          $or: [
+            { id },
+            ...(mongoose.isValidObjectId(id) ? [{ _id: new mongoose.Types.ObjectId(id) }] : [{ _id: id }])
+          ]
+        };
+        await (Project as any).findOneAndDelete(filter);
+      } catch (dbErr) {
+        console.warn('MongoDB sync note for project delete');
+      }
     }
+
+    return res.json({ success: true, message: 'Project deleted successfully' });
   } catch (err) {
     next(err);
   }

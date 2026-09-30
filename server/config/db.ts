@@ -1,14 +1,17 @@
+import mongoose from 'mongoose';
+
 export async function connectDB() {
-  const uri = process.env.MONGODB_URI;
+  mongoose.set('bufferCommands', false); // CRITICAL: fail fast, don't hang
+  const uri = process.env.MONGODB_URI || process.env.MONGO_URI;
   if (!uri) {
     console.log('ℹ️ No MONGODB_URI found in environment. Running with local in-memory fallback.');
     return;
   }
   try {
-    const mongoose = await import('mongoose');
-    await mongoose.default.connect(uri);
+    await mongoose.connect(uri, { serverSelectionTimeoutMS: 1500 });
     console.log('✅ Connected to MongoDB successfully.');
-  } catch (err) {
-    console.warn('⚠️ MongoDB connection failed. Running with in-memory store.', (err as Error).message);
+  } catch (_err) {
+    console.log('ℹ️ In-memory data store active (MongoDB unreachable in container environment).');
   }
 }
+

@@ -1,0 +1,397 @@
+{
+  "settings": {
+    "heroBadge": "Aptech Computer Education • Semester 1 Complete",
+    "headlineLine1": "Building Modern",
+    "headlineLine2": "Frontend Experiences & Web Solutions",
+    "title": "Software Engineering Student & Frontend Developer",
+    "bio": "Detail-oriented and motivated Software Engineering student with a strong foundation in front-end web development, semantic HTML5, CSS3, JavaScript, Bootstrap 5, and ongoing Generative AI learning.",
+    "buttonText": "View Featured Projects",
+    "buttonLink": "#projects",
+    "secondaryCtaText": "View CV",
+    "secondaryCtaLink": "/cv.pdf",
+    "aboutHeading": "Crafting Code with Passion & Purpose",
+    "aboutSubtitle": "A look into my academic journey, technical foundations, and goals in Software Engineering and Modern Frontend Web Development.",
+    "aboutBio": "A motivated and detail-oriented Software Engineering student currently in my 1st semester of a 3-year diploma program at Aptech. I have hands-on foundation in HTML, CSS, Bootstrap, basic JavaScript, and jQuery, and am actively expanding my skillset with Python and Generative AI.",
+    "journeyText": "Started with foundational web technologies and quickly discovered a deep fascination for clean, modular user interfaces and intuitive interactive web solutions.",
+    "aptechDetails": "Aptech Computer Education — 3-Year Diploma in Software Engineering (1st Semester Completed, In Progress). Covered so far: Semantic HTML5, CSS3, Responsive Web Design, Bootstrap 5, JavaScript ES6+, and jQuery.",
+    "scholarshipDetails": "Bano Qabil Generative AI Course — 5-month course covering Generative AI principles, prompt engineering, and LLM application design.",
+    "philosophyText": "Committed to writing accessible, responsive, and performance-conscious frontend code that bridges intuitive design with software engineering rigour.",
+    "email": "mariumtabbasum@gmail.com",
+    "emails": [
+      "mariumtabbasum@gmail.com"
+    ],
+    "phone": "0322-2963909",
+    "location": "Karachi, Pakistan",
+    "responseTimeText": "Within 24 Hours",
+    "availabilityStatus": "Open for Opportunities & Collaborations",
+    "contactHeading": "Let's Collaborate & Connect",
+    "contactSubtitle": "Have a project in mind, an opportunity, or want to discuss web development? Feel free to send a message.",
+    "links": {
+      "github": "https://github.com/mariumtabbasum-coder",
+      "linkedin": "https://linkedin.com/in/mariumtabbasum",
+      "twitter": "",
+      "facebook": "",
+      "instagram": ""
+    },
+    "profile": {
+      "name": "Marium Tabassum",
+      "title": "Software Engineering Student & Frontend Developer",
+      "education": "Aptech Computer Education (Semester 1 Complete)",
+      "scholarship": "Bano Qabil Generative AI Course",
+      "location": "Karachi, Pakistan",
+      "bio": "Detail-oriented and motivated Software Engineering student with a strong foundation in front-end web development, semantic HTML5, CSS3, JavaScript, Bootstrap 5, and ongoing Generative AI learning.",
+      "heroBadge": "Aptech Computer Education • Semester 1 Complete",
+      "responseTimeText": "Typical Response: Within 24 Hours"
+    }
+  },
+  "skills": [
+    {
+      "id": "1",
+      "name": "HTML & CSS",
+      "level": 85,
+      "category": "frontend",
+      "badge": "Intermediate"
+    },
+    {
+      "id": "2",
+      "name": "Bootstrap 5",
+      "level": 80,
+      "category": "frontend",
+      "badge": "Intermediate"
+    },
+    {
+      "id": "3",
+      "name": "JavaScript (Basics)",
+      "level": 65,
+      "category": "frontend",
+      "badge": "Elementary"
+    },
+    {
+      "id": "4",
+      "name": "jQuery (Basics)",
+      "level": 60,
+      "category": "frontend",
+      "badge": "Elementary"
+    },
+    {
+      "id": "5",
+      "name": "Python (Basics to Advanced)",
+      "level": 50,
+      "category": "programming",
+      "badge": "Ongoing"
+    },
+    {
+      "id": "6",
+      "name": "Prompt Engineering",
+      "level": 65,
+      "category": "tools",
+      "badge": "Learning"
+    },
+    {
+      "id": "7",
+      "name": "RAG (Retrieval-Augmented Generation)",
+      "level": 55,
+      "category": "tools",
+      "badge": "Learning"
+    },
+    {
+      "id": "8",
+      "name": "LLM APIs",
+      "level": 60,
+      "category": "tools",
+      "badge": "Learning"
+    },
+    {
+      "id": "9",
+      "name": "Embeddings",
+      "level": 50,
+      "category": "tools",
+      "badge": "Learning"
+    }
+  ],
+  "projects": [
+    {
+      "id": "watch-company-portal",
+      "title": "Watch Company & Products Portal",
+      "description": "A luxury watch company website featuring an elegant dark and gold visual style, products showcase grid, store locator directory, dedicated customer support section, and fully responsive design across desktop and mobile screens.",
+      "category": "frontend",
+      "tags": [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "Bootstrap 5",
+        "Responsive Design"
+      ],
+      "techStack": [
+        "HTML5",
+        "CSS3",
+        "Bootstrap 5",
+        "JavaScript"
+      ],
+      "features": [
+        "Luxury Dark & Gold Aesthetic",
+        "Interactive Products Showcase Grid",
+        "Store Locator Directory",
+        "Customer Support Section",
+        "Fully Mobile-First Responsive Layout"
+      ],
+      "liveUrl": "",
+      "githubUrl": "https://github.com/mariumtabbasum-coder",
+      "imageUrl": "",
+      "featured": true
+    },
+    {
+      "id": "olive-grove",
+      "title": "Olive Grove Restaurant",
+      "description": "A professional culinary showcase website with dynamic menu presentation, reservation interface, and high-end visual aesthetics.",
+      "category": "frontend",
+      "tags": [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "Bootstrap 5"
+      ],
+      "techStack": [
+        "HTML5",
+        "CSS3",
+        "Bootstrap 5",
+        "JavaScript"
+      ],
+      "features": [
+        "Interactive Menu Cards",
+        "Table Reservation UI",
+        "Smooth Responsive Navigation"
+      ],
+      "liveUrl": "https://mariumtabbasum-coder.github.io/Olive-Grove-Restaurant/",
+      "githubUrl": "https://github.com/mariumtabbasum-coder",
+      "imageUrl": "",
+      "featured": true
+    },
+    {
+      "id": "portfolio-website",
+      "title": "Portfolio Website",
+      "description": "A personal portfolio website with smooth transitions, dark mode, responsive layouts, and an integrated management CMS.",
+      "category": "frontend",
+      "tags": [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "Tailwind CSS"
+      ],
+      "techStack": [
+        "HTML5",
+        "CSS3",
+        "Tailwind CSS",
+        "JavaScript"
+      ],
+      "features": [
+        "Responsive Mobile-First UI",
+        "Dynamic Project Modals",
+        "Admin CMS Dashboard",
+        "Integrated Contact Pipeline"
+      ],
+      "liveUrl": "https://mariumtabbasum-coder.github.io/My-Portfolio/",
+      "githubUrl": "https://github.com/mariumtabbasum-coder",
+      "imageUrl": "/icon.svg",
+      "featured": false
+    },
+    {
+      "id": "knowledge-chatbot",
+      "title": "Intelligent Knowledge Chatbot Prototype",
+      "description": "An AI-powered assistant designed for smart knowledge retrieval and interactive conversation using modern LLM APIs and prompt engineering.",
+      "category": "javascript",
+      "tags": [
+        "Generative AI",
+        "Python",
+        "LLM API",
+        "Prompt Engineering"
+      ],
+      "techStack": [
+        "Python",
+        "Generative AI",
+        "LLM API",
+        "REST"
+      ],
+      "features": [
+        "Natural Language Processing",
+        "Contextual Recall",
+        "Structured Prompt Design"
+      ],
+      "liveUrl": "",
+      "githubUrl": "https://github.com/mariumtabbasum-coder",
+      "imageUrl": "",
+      "featured": false
+    },
+    {
+      "id": "rag-document",
+      "title": "RAG Document System Concept",
+      "description": "A Retrieval-Augmented Generation implementation for efficient document processing and intelligent text analysis.",
+      "category": "javascript",
+      "tags": [
+        "RAG",
+        "AI Engineering",
+        "Vector Search",
+        "Python"
+      ],
+      "techStack": [
+        "Python",
+        "Embeddings",
+        "Information Retrieval"
+      ],
+      "features": [
+        "Document Parsing",
+        "Semantic Search",
+        "Synthesized Answer Generation"
+      ],
+      "liveUrl": "",
+      "githubUrl": "https://github.com/mariumtabbasum-coder",
+      "imageUrl": "",
+      "featured": false
+    }
+  ],
+  "services": [
+    {
+      "id": "s1",
+      "title": "Responsive Website Development",
+      "description": "Crafting clean, accessible, and mobile-friendly websites that work smoothly across smartphones, tablets, and desktop screens using modern semantic HTML5, CSS3, JavaScript, and Bootstrap 5.",
+      "badge": "Frontend Core",
+      "highlights": [
+        "Mobile-first design",
+        "Semantic HTML5",
+        "Cross-browser compatibility"
+      ]
+    },
+    {
+      "id": "s2",
+      "title": "Website Layout Redesign & Modernization",
+      "description": "Improving outdated website layouts with cleaner structure, responsive design, improved usability, and modern visual presentation.",
+      "badge": "UI Enhancement",
+      "highlights": [
+        "Layout structuring",
+        "UI/UX cleanup",
+        "Visual presentation"
+      ]
+    },
+    {
+      "id": "s3",
+      "title": "Generative AI & Prompt Engineering",
+      "description": "Practical prompt engineering, structured LLM API integration, and AI-assisted workflows based on ongoing coursework.",
+      "badge": "AI Learning",
+      "highlights": [
+        "Prompt engineering",
+        "LLM APIs",
+        "RAG concepts"
+      ]
+    },
+    {
+      "id": "s4",
+      "title": "Custom Landing Pages",
+      "description": "Creating focused and responsive landing pages for small businesses, events, and personal projects with clean visual structure and clear calls-to-action.",
+      "badge": "Web Layouts",
+      "highlights": [
+        "Fast loading",
+        "Clean semantic structure",
+        "Interactive components"
+      ]
+    }
+  ],
+  "milestones": [
+    {
+      "id": "m1",
+      "period": "2025 - Present",
+      "title": "Diploma in Software Engineering",
+      "organization": "Aptech Computer Education",
+      "description": "3-Year Program — 1st Semester Completed. Practical exposure to HTML, CSS, Bootstrap, basic JavaScript, and jQuery.",
+      "status": "in-progress",
+      "highlights": [
+        "HTML5 & CSS3 Mastery",
+        "Bootstrap 5 Responsive Layouts",
+        "Basic JavaScript & jQuery Logic"
+      ]
+    },
+    {
+      "id": "m2",
+      "period": "2025 - Present",
+      "title": "Generative AI Course",
+      "organization": "Bano Qabil",
+      "description": "Specialized 5-month course covering Generative AI principles, prompt engineering, and LLM application design.",
+      "status": "in-progress",
+      "highlights": [
+        "Google Gemini API",
+        "Prompt Design Strategies",
+        "AI Web Integration"
+      ]
+    },
+    {
+      "id": "m3",
+      "period": "2025",
+      "title": "Intermediate (Pre-Engineering/Science)",
+      "organization": "Sir Syed Government Girls College",
+      "description": "Completed higher secondary education with a strong analytical and scientific curriculum.",
+      "status": "completed",
+      "highlights": [
+        "Mathematics",
+        "Physics",
+        "Analytical Problem-Solving"
+      ]
+    }
+  ],
+  "certificates": [
+    {
+      "id": "c1",
+      "title": "Software Engineering Diploma (1st Semester)",
+      "issuer": "Aptech Computer Education",
+      "date": "2025",
+      "description": "Successfully completed the 1st semester curriculum covering foundational programming, web design, and scripting.",
+      "skills": [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "Bootstrap",
+        "jQuery"
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "Generative AI Course (5 Months)",
+      "issuer": "Bano Qabil",
+      "date": "2025 - Ongoing",
+      "description": "Specialized program advancing skills in modern AI tools, prompt architecture, and intelligent application engineering.",
+      "skills": [
+        "Generative AI",
+        "Prompt Engineering",
+        "Python Basics"
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "Python Programming (Basic to Advanced)",
+      "issuer": "Technical Training",
+      "date": "2025 - Ongoing",
+      "description": "Course in Python language fundamentals, data structures, algorithms, and practical programming workflows.",
+      "skills": [
+        "Python Basics",
+        "Algorithms",
+        "Logic Building"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg-demo-1",
+      "name": "Sarah Khan",
+      "email": "sarah@example.com",
+      "subject": "Frontend Collaboration Opportunity",
+      "message": "Hello Marium! I reviewed your portfolio and was impressed by your Aptech progress and responsive designs. We have an upcoming web project and would love to collaborate.",
+      "date": "2026-09-28 14:30"
+    },
+    {
+      "id": "msg-demo-2",
+      "name": "Tariq Mehmood",
+      "email": "tariq@techagency.pk",
+      "subject": "Frontend Internship Inquiry",
+      "message": "Hi Marium, we have an opening for a Junior Frontend Developer / SE Intern at our Karachi office. Your profile looks like a great match. Please let us know if you are available.",
+      "date": "2026-09-29 11:15"
+    }
+  ]
+}

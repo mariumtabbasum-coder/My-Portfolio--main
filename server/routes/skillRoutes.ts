@@ -1,44 +1,41 @@
 import { Router } from 'express';
+import mongoose from 'mongoose';
 import Skill from '../models/Skill';
+import { dataStore } from '../utils/dataStore';
 
 const router = Router();
 
-let inMemorySkills = [
-  { id: '1', name: 'HTML', level: 85, category: 'frontend', badge: 'Intermediate' },
-  { id: '2', name: 'CSS', level: 85, category: 'frontend', badge: 'Intermediate' },
-  { id: '3', name: 'JavaScript', level: 60, category: 'frontend', badge: 'Elementary' },
-  { id: '4', name: 'Bootstrap', level: 80, category: 'frontend', badge: 'Intermediate' },
-  { id: '5', name: 'jQuery', level: 60, category: 'frontend', badge: 'Elementary' },
-  { id: '6', name: 'Python', level: 40, category: 'programming', badge: 'Beginner' },
-  { id: '7', name: 'Generative AI', level: 50, category: 'tools', badge: 'Currently Learning' },
-];
-
 router.get('/', async (req, res, next) => {
   try {
-    const mongoose = await import('mongoose');
-    if (mongoose.connection.readyState === 1) {
-      const items = await Skill.find().sort({ createdAt: -1 });
-      return res.json({ success: true, data: items });
-    } else {
-      return res.json({ success: true, data: inMemorySkills });
+    if (mongoose.connection?.readyState === 1) {
+      const dbSkills = await (Skill as any).find().sort({ createdAt: -1 });
+      if (dbSkills && dbSkills.length > 0) {
+        const normalized = dbSkills.map((s: any) => ({
+          ...(s.toObject ? s.toObject() : s),
+          id: s.id || s._id?.toString()
+        }));
+        return res.json({ success: true, data: normalized });
+      }
     }
+    return res.json({ success: true, data: dataStore.getSkills() });
   } catch (err) {
-    next(err);
+    return res.json({ success: true, data: dataStore.getSkills() });
   }
 });
 
 router.post('/', async (req, res, next) => {
   try {
-    const mongoose = await import('mongoose');
-    const newId = Date.now().toString();
-    const payload = { id: newId, ...req.body };
-    if (mongoose.connection.readyState === 1) {
-      const created = await Skill.create(payload);
-      return res.json({ success: true, data: created });
-    } else {
-      inMemorySkills.push(payload);
-      return res.json({ success: true, data: payload });
+    const created = dataStore.addSkill(req.body);
+
+    if (mongoose.connection?.readyState === 1) {
+      try {
+        await (Skill as any).create(created);
+      } catch (dbErr) {
+        console.warn('MongoDB sync note for skill creation');
+      }
     }
+
+    return res.json({ success: true, data: created });
   } catch (err) {
     next(err);
   }
@@ -47,14 +44,23 @@ router.post('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
-    const mongoose = await import('mongoose');
-    if (mongoose.connection.readyState === 1) {
-      const updated = await Skill.findOneAndUpdate({ id }, req.body, { new: true });
-      return res.json({ success: true, data: updated });
-    } else {
-      inMemorySkills = inMemorySkills.map(s => s.id === id ? { ...s, ...req.body } : s);
-      return res.json({ success: true, data: inMemorySkills.find(s => s.id === id) });
+    const updated = dataStore.updateSkill(id, req.body);
+
+    if (mongoose.connection?.readyState === 1) {
+      try {
+        const filter = {
+          $or: [
+            { id },
+            ...(mongoose.isValidObjectId(id) ? [{ _id: new mongoose.Types.ObjectId(id) }] : [{ _id: id }])
+          ]
+        };
+        await (Skill as any).findOneAndUpdate(filter, req.body, { new: true });
+      } catch (dbErr) {
+        console.warn('MongoDB sync note for skill update');
+      }
     }
+
+    return res.json({ success: true, data: updated || { ...req.body, id } });
   } catch (err) {
     next(err);
   }
@@ -63,14 +69,23 @@ router.put('/:id', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
-    const mongoose = await import('mongoose');
-    if (mongoose.connection.readyState === 1) {
-      await Skill.findOneAndDelete({ id });
-      return res.json({ success: true, message: 'Skill deleted' });
-    } else {
-      inMemorySkills = inMemorySkills.filter(s => s.id !== id);
-      return res.json({ success: true, message: 'Skill deleted' });
+    dataStore.deleteSkill(id);
+
+    if (mongoose.connection?.readyState === 1) {
+      try {
+        const filter = {
+          $or: [
+            { id },
+            ...(mongoose.isValidObjectId(id) ? [{ _id: new mongoose.Types.ObjectId(id) }] : [{ _id: id }])
+          ]
+        };
+        await (Skill as any).findOneAndDelete(filter);
+      } catch (dbErr) {
+        console.warn('MongoDB sync note for skill delete');
+      }
     }
+
+    return res.json({ success: true, message: 'Skill deleted successfully' });
   } catch (err) {
     next(err);
   }

@@ -1,12 +1,12 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-export interface IMessage extends Document {
+export interface IMessage {
   id: string;
   name: string;
   email: string;
   subject?: string;
   message: string;
-  date: string;
+  date?: string;
 }
 
 const MessageSchema = new Schema<IMessage>({
@@ -18,4 +18,5 @@ const MessageSchema = new Schema<IMessage>({
   date: { type: String, default: () => new Date().toISOString() }
 }, { timestamps: true });
 
-export default mongoose.models.Message || mongoose.model<IMessage>('Message', MessageSchema);
+const Message = (mongoose.models.Message as mongoose.Model<IMessage>) || mongoose.model<IMessage>('Message', MessageSchema);
+export default Message;

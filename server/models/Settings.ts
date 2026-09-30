@@ -1,6 +1,6 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-export interface ISettings extends Document {
+export interface ISettings {
   emails: string[];
   phone: string;
   buttonText: string;
@@ -54,4 +54,5 @@ const SettingsSchema = new Schema<ISettings>({
   }
 }, { timestamps: true });
 
-export default mongoose.models.Settings || mongoose.model<ISettings>('Settings', SettingsSchema);
+const Settings = (mongoose.models.Settings as mongoose.Model<ISettings>) || mongoose.model<ISettings>('Settings', SettingsSchema);
+export default Settings;

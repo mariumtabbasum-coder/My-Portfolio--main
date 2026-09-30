@@ -1,13 +1,13 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-export interface ICertificate extends Document {
+export interface ICertificate {
   id: string;
   title: string;
   issuer: string;
   date?: string;
   credentialId?: string;
   description?: string;
-  skills: string[];
+  skills?: string[];
 }
 
 const CertificateSchema = new Schema<ICertificate>({
@@ -20,4 +20,5 @@ const CertificateSchema = new Schema<ICertificate>({
   skills: { type: [String], default: [] }
 }, { timestamps: true });
 
-export default mongoose.models.Certificate || mongoose.model<ICertificate>('Certificate', CertificateSchema);
+const Certificate = (mongoose.models.Certificate as mongoose.Model<ICertificate>) || mongoose.model<ICertificate>('Certificate', CertificateSchema);
+export default Certificate;

@@ -1,15 +1,15 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-export interface IProject extends Document {
+export interface IProject {
   id: string;
   title: string;
   description: string;
-  tags: string[];
-  category: 'all' | 'frontend' | 'javascript' | 'responsive';
+  tags?: string[];
+  category?: 'all' | 'frontend' | 'javascript' | 'responsive';
   liveUrl?: string;
   githubUrl?: string;
-  features: string[];
-  techStack: string[];
+  features?: string[];
+  techStack?: string[];
   featured?: boolean;
   imageUrl?: string;
 }
@@ -28,4 +28,5 @@ const ProjectSchema = new Schema<IProject>({
   imageUrl: { type: String, default: '' }
 }, { timestamps: true });
 
-export default mongoose.models.Project || mongoose.model<IProject>('Project', ProjectSchema);
+const Project = (mongoose.models.Project as mongoose.Model<IProject>) || mongoose.model<IProject>('Project', ProjectSchema);
+export default Project;

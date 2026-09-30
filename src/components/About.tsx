@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   GraduationCap, 
   Target, 
@@ -6,11 +6,29 @@ import {
   Check, 
   Award,
   Code2,
-  Layers
+  Layers,
+  Sparkles
 } from 'lucide-react';
 
 export const About: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'journey' | 'education' | 'philosophy'>('journey');
+  const [settings, setSettings] = useState<any>(null);
+
+  useEffect(() => {
+    fetch('/api/settings')
+      .then(r => r.json())
+      .then(res => {
+        if (res.success && res.data) setSettings(res.data);
+      })
+      .catch(err => console.error(err));
+  }, []);
+
+  const aboutHeading = settings?.aboutHeading || 'Crafting Code with Passion & Purpose';
+  const aboutSubtitle = settings?.aboutSubtitle || 'A look into my academic journey, technical foundations, and goals in Software Engineering and Modern Frontend Web Development.';
+  const journeyText = settings?.journeyText || 'My software development journey combines disciplined Software Engineering fundamentals with cutting-edge Generative AI exploration. I am currently pursuing a Software Engineering Diploma at Aptech Computer Education, where I successfully completed Semester 1, mastering HTML5, CSS3, JavaScript ES6+, Bootstrap 5, jQuery, and Python while continuing with upcoming semesters.';
+  const aptechDetails = settings?.aptechDetails || 'Rigorous hands-on curriculum covering programming logic, structured problem solving, responsive web development, Bootstrap 5, JavaScript, jQuery, and Python. Semester 1 successfully completed and continuing upcoming semesters.';
+  const scholarshipDetails = settings?.scholarshipDetails || 'Specialized program covering Generative AI fundamentals, Large Language Models (LLMs), Prompt Engineering, LLM APIs, RAG & knowledge retrieval concepts, and AI-enhanced web applications.';
+  const philosophyText = settings?.philosophyText || 'I believe modern software development requires solid fundamentals: developers who understand core algorithms, semantic layout structure, and clean responsive interfaces build better, faster, and more accessible web products.';
 
   return (
     <section 
@@ -26,10 +44,10 @@ export const About: React.FC = () => {
             <span>About Me</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Crafting Code with Passion & Purpose
+            {aboutHeading}
           </h2>
           <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400">
-            A look into my academic journey, technical foundations, and goals in Software Engineering and Modern Frontend Web Development.
+            {aboutSubtitle}
           </p>
         </div>
 
@@ -75,10 +93,7 @@ export const About: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
               <div className="space-y-4 text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                 <p>
-                  My software development journey combines disciplined Software Engineering fundamentals with cutting-edge Generative AI exploration. I am currently pursuing a Software Engineering Diploma at <strong className="text-slate-900 dark:text-white font-semibold">Aptech Computer Education</strong>, where I successfully completed Semester 1, mastering HTML5, CSS3, JavaScript ES6+, Bootstrap 5, jQuery, and Python while continuing with upcoming semesters.
-                </p>
-                <p>
-                  In parallel, I am actively expanding my capabilities through the <strong className="text-slate-900 dark:text-white font-semibold">Bano Qabil Generative AI Program</strong>. As part of my learning journey, I am developing practical knowledge of Large Language Models (LLMs), prompt engineering, LLM APIs, and RAG (Retrieval-Augmented Generation) concepts to craft next-generation web applications.
+                  {journeyText}
                 </p>
                 <div className="pt-2 grid grid-cols-2 gap-3 text-xs font-semibold text-slate-700 dark:text-slate-200">
                   <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800">
@@ -108,7 +123,7 @@ export const About: React.FC = () => {
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="w-5 h-5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 flex items-center justify-center font-bold text-[10px] shrink-0">3</span>
-                    <span>Developed web applications like Olive Grove Restaurant and Alberto Watch, while learning Generative AI at Bano Qabil.</span>
+                    <span>Developed web applications like Olive Grove Restaurant, while learning Generative AI at Bano Qabil.</span>
                   </li>
                 </ul>
               </div>
@@ -132,7 +147,7 @@ export const About: React.FC = () => {
                   </div>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                  Rigorous hands-on curriculum covering programming logic, structured problem solving, responsive web development, Bootstrap 5, JavaScript, jQuery, and Python. Semester 1 successfully completed and continuing upcoming semesters.
+                  {aptechDetails}
                 </p>
                 <div className="flex flex-wrap gap-2 pt-2">
                   <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">HTML5/CSS3</span>
@@ -158,7 +173,7 @@ export const About: React.FC = () => {
                   </div>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                  Specialized program covering Generative AI fundamentals, Large Language Models (LLMs), Prompt Engineering, LLM APIs, RAG & knowledge retrieval concepts, and AI-enhanced web applications.
+                  {scholarshipDetails}
                 </p>
                 <div className="flex flex-wrap gap-2 pt-2">
                   <span className="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Generative AI</span>
@@ -178,7 +193,7 @@ export const About: React.FC = () => {
                 My Core Principles & Engineering Vision
               </h3>
               <p>
-                I believe modern software development requires solid fundamentals: developers who understand core algorithms, semantic layout structure, and clean responsive interfaces build better, faster, and more accessible web products.
+                {philosophyText}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                 <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 shadow-2xs">
@@ -202,3 +217,5 @@ export const About: React.FC = () => {
     </section>
   );
 };
+
+export default About;

@@ -1,6 +1,6 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-export interface ISkill extends Document {
+export interface ISkill {
   id: string;
   name: string;
   level: number;
@@ -16,4 +16,5 @@ const SkillSchema = new Schema<ISkill>({
   badge: { type: String, default: '' }
 }, { timestamps: true });
 
-export default mongoose.models.Skill || mongoose.model<ISkill>('Skill', SkillSchema);
+const Skill = (mongoose.models.Skill as mongoose.Model<ISkill>) || mongoose.model<ISkill>('Skill', SkillSchema);
+export default Skill;

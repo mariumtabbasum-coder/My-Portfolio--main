@@ -55,12 +55,12 @@ export const Footer: React.FC = () => {
 
         <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500 dark:text-slate-400">
           <div>
-            © {new Date().getFullYear()} Marium Tabassum. Built with React 19, TypeScript & Tailwind CSS.
+            © {new Date().getFullYear()} Marium Tabassum. Designed & built by Marium Tabassum.
           </div>
           <div className="flex items-center gap-1.5">
             <span>Aptech Computer Education</span>
             <span>•</span>
-            <span>Bano Qabil Scholar</span>
+            <span>Bano Qabil</span>
           </div>
         </div>
 

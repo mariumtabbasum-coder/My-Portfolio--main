@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Mail,
   MapPin,
@@ -8,7 +8,8 @@ import {
   Github,
   Linkedin,
   MessageSquare,
-  Sparkles
+  Sparkles,
+  Phone
 } from 'lucide-react';
 
 export const Contact: React.FC = () => {
@@ -20,8 +21,25 @@ export const Contact: React.FC = () => {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const [settings, setSettings] = useState<any>(null);
 
-  const emailAddress = 'mariumtabbasum@gmail.com';
+  useEffect(() => {
+    fetch('/api/settings')
+      .then(r => r.json())
+      .then(res => {
+        if (res.success && res.data) setSettings(res.data);
+      })
+      .catch(err => console.error('Error fetching contact settings:', err));
+  }, []);
+
+  const emailAddress = settings?.email || settings?.emails?.[0] || 'mariumtabbasum@gmail.com';
+  const phone = settings?.phone || '0322-2963909';
+  const location = settings?.location || settings?.profile?.location || 'Karachi, Pakistan';
+  const responseTimeText = settings?.responseTimeText || 'Within 24 Hours';
+  const contactHeading = settings?.contactHeading || "Let's Collaborate & Connect";
+  const contactSubtitle = settings?.contactSubtitle || "Have a project in mind, an opportunity, or want to discuss modern web development? Feel free to send a message.";
+  const githubLink = settings?.links?.github || 'https://github.com/mariumtabbasum-coder';
+  const linkedinLink = settings?.links?.linkedin || 'https://linkedin.com/in/mariumtabbasum';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,19 +54,13 @@ export const Contact: React.FC = () => {
       const data = await res.json();
       if (data.success) {
         setIsSubmitted(true);
+        setFormData({ name: '', email: '', subject: '', message: '' });
         setTimeout(() => {
           setIsSubmitted(false);
-          setFormData({ name: '', email: '', subject: '', message: '' });
-        }, 4000);
+        }, 5000);
       }
     } catch (err) {
       console.error('Error sending message:', err);
-      // Fallback success state
-      setIsSubmitted(true);
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      }, 4000);
     }
   };
 
@@ -72,10 +84,10 @@ export const Contact: React.FC = () => {
             <span>Get in Touch</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Let's Collaborate & Connect
+            {contactHeading}
           </h2>
           <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400">
-            Have a project in mind, an opportunity, or want to discuss modern web development? Feel free to send a message.
+            {contactSubtitle}
           </p>
         </div>
 
@@ -117,6 +129,21 @@ export const Contact: React.FC = () => {
                 </button>
               </div>
 
+              {/* Phone Pill */}
+              {phone && (
+                <div className="p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 flex items-center gap-3 shadow-xs">
+                  <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-100 dark:border-indigo-900/50">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">Contact Number</div>
+                    <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
+                      {phone}
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Location Pill */}
               <div className="p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 flex items-center gap-3 shadow-xs">
                 <div className="w-10 h-10 rounded-xl bg-cyan-50 dark:bg-cyan-950/70 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0 border border-cyan-100 dark:border-cyan-900/50">
@@ -125,7 +152,7 @@ export const Contact: React.FC = () => {
                 <div>
                   <div className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">Location</div>
                   <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
-                    Karachi, Pakistan
+                    {location}
                   </div>
                 </div>
               </div>
@@ -138,7 +165,7 @@ export const Contact: React.FC = () => {
                 <div>
                   <div className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">Typical Response</div>
                   <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
-                    Within 24 Hours
+                    {responseTimeText}
                   </div>
                 </div>
               </div>
@@ -149,26 +176,29 @@ export const Contact: React.FC = () => {
                   Find me on:
                 </div>
                 <div className="flex items-center gap-3">
-                  <a
-                    href="https://github.com/mariumtabbasum-coder"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 active:bg-slate-300 dark:active:bg-slate-700 transition-all flex items-center gap-2 text-xs font-semibold shadow-2xs focus:outline-hidden"
-                  >
-                    <Github className="w-4 h-4 text-slate-700 dark:text-slate-200" />
-                    <span>GitHub Profile</span>
-                  </a>
+                  {githubLink && (
+                    <a
+                      href={githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 active:bg-slate-300 dark:active:bg-slate-700 transition-all flex items-center gap-2 text-xs font-semibold shadow-2xs"
+                    >
+                      <Github className="w-4 h-4 text-slate-700 dark:text-slate-200" />
+                      <span>GitHub</span>
+                    </a>
+                  )}
 
-                  <a
-                    href="https://linkedin.com/in/placeholder"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 active:bg-slate-300 dark:active:bg-slate-700 transition-all flex items-center gap-2 text-xs font-semibold shadow-2xs focus:outline-hidden"
-                    title="LinkedIn Profile Placeholder"
-                  >
-                    <Linkedin className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                    <span>LinkedIn</span>
-                  </a>
+                  {linkedinLink && (
+                    <a
+                      href={linkedinLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 active:bg-slate-300 dark:active:bg-slate-700 transition-all flex items-center gap-2 text-xs font-semibold shadow-2xs"
+                    >
+                      <Linkedin className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                      <span>LinkedIn</span>
+                    </a>
+                  )}
                 </div>
               </div>
 
@@ -256,7 +286,7 @@ export const Contact: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-md shadow-blue-500/20 transition-all flex items-center justify-center gap-2"
+                    className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-md shadow-blue-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <Send className="w-4 h-4" />
                     <span>Send Message</span>
@@ -272,3 +302,5 @@ export const Contact: React.FC = () => {
     </section>
   );
 };
+
+export default Contact;

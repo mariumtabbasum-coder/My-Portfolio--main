@@ -44,7 +44,42 @@ export const Certificates: React.FC = () => {
 
         {/* Certificates Grid */}
         {loading ? (
-          <div className="text-center py-12 text-sm text-slate-400">Loading certificates...</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {[1, 2, 3].map((i) => (
+              <div
+                key={i}
+                className="p-6 rounded-3xl bg-slate-50/70 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between space-y-4 animate-pulse"
+              >
+                <div className="space-y-4">
+                  {/* Top Row: Icon + Badge */}
+                  <div className="flex items-center justify-between">
+                    <div className="w-12 h-12 rounded-2xl bg-slate-200 dark:bg-slate-800" />
+                    <div className="w-20 h-5 rounded-full bg-slate-200 dark:bg-slate-800" />
+                  </div>
+
+                  {/* Title & Issuer */}
+                  <div className="space-y-2 pt-1">
+                    <div className="h-5 w-4/5 bg-slate-200 dark:bg-slate-800 rounded-lg" />
+                    <div className="h-3.5 w-1/2 bg-slate-100 dark:bg-slate-800/70 rounded" />
+                    <div className="h-3 w-1/4 bg-slate-100 dark:bg-slate-800/50 rounded" />
+                  </div>
+
+                  {/* Description */}
+                  <div className="space-y-1.5 pt-1">
+                    <div className="h-3 w-full bg-slate-100 dark:bg-slate-800/60 rounded" />
+                    <div className="h-3 w-5/6 bg-slate-100 dark:bg-slate-800/60 rounded" />
+                  </div>
+
+                  {/* Skills Pills */}
+                  <div className="flex flex-wrap gap-1.5 pt-2">
+                    <div className="h-5 w-14 bg-slate-200/70 dark:bg-slate-800/70 rounded-md" />
+                    <div className="h-5 w-16 bg-slate-200/70 dark:bg-slate-800/70 rounded-md" />
+                    <div className="h-5 w-12 bg-slate-200/70 dark:bg-slate-800/70 rounded-md" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {certificates.map((cert) => (

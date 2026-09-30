@@ -1,13 +1,13 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-export interface IMilestone extends Document {
+export interface IMilestone {
   id: string;
   period: string;
   title: string;
   organization: string;
   description: string;
-  highlights: string[];
-  status: 'completed' | 'in-progress' | 'upcoming';
+  highlights?: string[];
+  status?: 'completed' | 'in-progress' | 'upcoming';
 }
 
 const MilestoneSchema = new Schema<IMilestone>({
@@ -20,4 +20,5 @@ const MilestoneSchema = new Schema<IMilestone>({
   status: { type: String, enum: ['completed', 'in-progress', 'upcoming'], default: 'completed' }
 }, { timestamps: true });
 
-export default mongoose.models.Milestone || mongoose.model<IMilestone>('Milestone', MilestoneSchema);
+const Milestone = (mongoose.models.Milestone as mongoose.Model<IMilestone>) || mongoose.model<IMilestone>('Milestone', MilestoneSchema);
+export default Milestone;

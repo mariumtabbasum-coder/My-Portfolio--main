@@ -1,44 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import {
   ArrowRight,
-  Terminal,
   Code2,
   FolderGit2,
   CheckCircle2,
-  Laptop2,
   BookOpen,
   Mail,
   GraduationCap,
   FileText,
   X,
   Download,
-  ExternalLink
+  Award,
+  Sparkles,
+  Phone,
+  MapPin,
+  Calendar,
+  User,
+  Info
 } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   const [settings, setSettings] = useState<any>(null);
-  const [profile, setProfile] = useState<any>(null);
   const [isCvModalOpen, setIsCvModalOpen] = useState(false);
+  const [cvViewTab, setCvViewTab] = useState<'structured' | 'pdf'>('structured');
 
   useEffect(() => {
-    fetch('/api/settings').then(r => r.json()).then(res => {
-      if (res.success && res.data) setSettings(res.data);
-    }).catch(err => console.error(err));
-
-    fetch('/api/profile').then(r => r.json()).then(data => {
-      if (data) setProfile(data);
-    }).catch(err => console.error(err));
+    fetch('/api/settings')
+      .then(r => r.json())
+      .then(res => {
+        if (res.success && res.data) setSettings(res.data);
+      })
+      .catch(err => console.error(err));
   }, []);
 
-  const heroBadge = settings?.profile?.heroBadge || profile?.heroBadge || 'Aptech Computer Education • Semester 1 Complete';
-  const name = profile?.name || settings?.profile?.name || 'Marium Tabassum';
-  const bio = settings?.profile?.bio || profile?.bio || 'Passionate software engineering student and frontend developer building responsive web applications and exploring generative AI solutions.';
+  const heroBadge = settings?.heroBadge || settings?.profile?.heroBadge || 'Aptech Computer Education • Semester 1 Complete';
+  const headlineLine1 = settings?.headlineLine1 || 'Building Modern';
+  const headlineLine2 = settings?.headlineLine2 || 'Frontend Experiences & Web Solutions';
+  const name = settings?.profile?.name || 'Marium Tabassum';
+  const title = settings?.title || settings?.profile?.title || 'Software Engineering Student & Frontend Developer';
+  const bio = settings?.bio || settings?.profile?.bio || 'Detail-oriented and motivated Software Engineering student with a strong foundation in front-end web development, semantic HTML5, CSS3, JavaScript, Bootstrap 5, and ongoing Generative AI learning.';
   const btnText = settings?.buttonText || 'View Featured Projects';
   const btnLink = settings?.buttonLink || '#projects';
-  const secBtnText = settings?.secondaryCtaText || 'View CV';
-  const location = profile?.location || settings?.profile?.location || 'Karachi, Pakistan';
-  const education = profile?.education || settings?.profile?.education || 'Aptech Computer Education (Semester 1 Complete)';
-  const scholarship = profile?.scholarship || settings?.profile?.scholarship || 'Bano Qabil Generative AI Scholar';
+  const secBtnText = settings?.secondaryCtaText || 'View CV / Resume';
+  const location = settings?.location || settings?.profile?.location || 'Karachi, Pakistan';
+  const education = settings?.profile?.education || 'Aptech Computer Education (Semester 1 Complete)';
+  const course = settings?.profile?.scholarship || 'Bano Qabil Generative AI Course';
 
   return (
     <section
@@ -66,155 +72,122 @@ export const Hero: React.FC = () => {
 
             {/* Main Headline */}
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15] mb-6">
-              Building Modern <br className="hidden sm:inline" />
+              {headlineLine1} <br className="hidden sm:inline" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-cyan-600 to-indigo-600 dark:from-cyan-400 dark:via-blue-400 dark:to-indigo-300">
-                Web Experiences
-              </span>{' '}
-              with Clean Code.
+                {headlineLine2}
+              </span>
             </h1>
 
-            {/* Sub-headline */}
-            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-              Hi, I'm <strong className="text-slate-900 dark:text-white font-semibold">{name}</strong> — {bio}
+            {/* Sub-headline / Title */}
+            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 mb-4 bg-slate-100 dark:bg-slate-900/80 px-3 py-1 rounded-lg border border-slate-200/60 dark:border-slate-800">
+              <Code2 className="w-4 h-4 text-cyan-500" />
+              <span>{title}</span>
+            </div>
+
+            {/* Professional Summary */}
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-8">
+              {bio}
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 mb-10">
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
               <a
                 href={btnLink}
-                className="px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-md shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-98 flex items-center gap-2 group"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-500/25 transition-all flex items-center justify-center gap-2"
               >
-                <FolderGit2 className="w-4 h-4 text-cyan-200" />
                 <span>{btnText}</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4" />
               </a>
 
-              {/* View CV Button triggering Modal */}
+              {/* View CV Button -> Opens Modal Directly */}
               <button
+                type="button"
                 onClick={() => setIsCvModalOpen(true)}
-                className="px-6 py-3.5 rounded-xl font-bold text-sm text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs transition-all hover:scale-[1.02] flex items-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
               >
-                <FileText className="w-4 h-4 text-cyan-500" />
+                <FileText className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
                 <span>{secBtnText}</span>
               </button>
-
-              <a
-                href="#journey"
-                className="px-6 py-3.5 rounded-xl font-bold text-sm text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs transition-all hover:scale-[1.02]"
-              >
-                My Journey
-              </a>
-
-              <a
-                href="#contact"
-                className="px-5 py-3.5 rounded-xl font-semibold text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5"
-              >
-                <Mail className="w-4 h-4" />
-                <span>Get in Touch</span>
-              </a>
             </div>
 
-            {/* Trust / Focus Badges */}
-            <div className="pt-6 border-t border-slate-200/60 dark:border-slate-800/60 flex flex-wrap items-center justify-center lg:justify-start gap-y-2 gap-x-6 text-xs text-slate-500 dark:text-slate-400">
-              <span className="flex items-center gap-1.5 font-medium">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                Semantic HTML5 & CSS3
-              </span>
-              <span className="flex items-center gap-1.5 font-medium">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                JavaScript ES6+ & Python
-              </span>
-              <span className="flex items-center gap-1.5 font-medium">
-                <CheckCircle2 className="w-4 h-4 text-cyan-500" />
-                Bootstrap 5 & Responsive Design
-              </span>
+            {/* Bottom Proof Badges */}
+            <div className="mt-10 pt-8 border-t border-slate-200/80 dark:border-slate-800/80 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-slate-500 dark:text-slate-400 font-medium">
+              <div className="flex items-center gap-2">
+                <GraduationCap className="w-4 h-4 text-cyan-500" />
+                <span>{education}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Award className="w-4 h-4 text-blue-500" />
+                <span>{course}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-emerald-500" />
+                <span>{location}</span>
+              </div>
             </div>
 
           </div>
 
-          {/* Right Column: Code & Tech Visual Dashboard Card */}
-          <div className="lg:col-span-5">
-            <div className="relative mx-auto max-w-md lg:max-w-none">
+          {/* Right Column: Interactive Visual Card */}
+          <div className="lg:col-span-5 flex justify-center">
+            <div className="relative w-full max-w-md">
 
-              {/* Main Card with Glassmorphism */}
-              <div className="rounded-3xl p-6 sm:p-7 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xl shadow-slate-200/40 dark:shadow-black/40">
+              {/* Glowing Card Border */}
+              <div className="relative rounded-3xl bg-slate-900 border border-slate-800 p-6 shadow-2xl text-slate-100 overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
 
-                {/* Header of Developer Card */}
-                <div className="flex items-center justify-between pb-5 border-b border-slate-100 dark:border-slate-800">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-cyan-500/20 font-bold text-xl">
-                      MT
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-slate-900 dark:text-white text-base">
-                        {name}
-                      </h3>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                        {location}
-                      </p>
-                    </div>
+                {/* Profile Header Inside Card */}
+                <div className="flex items-center gap-4 mb-6 pb-6 border-b border-slate-800">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-600 flex items-center justify-center text-slate-950 font-extrabold text-xl shadow-md border-2 border-amber-400/40">
+                    MT
                   </div>
-
-                  <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                    Available
-                  </span>
-                </div>
-
-                {/* Academic Highlights */}
-                <div className="my-5 space-y-3">
-                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 flex items-start gap-3">
-                    <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 shrink-0">
-                      <Laptop2 className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-slate-900 dark:text-white">
-                        Aptech Learning Center
-                      </div>
-                      <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                        {education}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 flex items-start gap-3">
-                    <div className="p-2 rounded-lg bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 shrink-0">
-                      <GraduationCap className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-slate-900 dark:text-white">
-                        Generative AI Program
-                      </div>
-                      <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                        {scholarship}
-                      </div>
-                    </div>
+                  <div>
+                    <h3 className="font-bold text-white text-base">{name}</h3>
+                    <p className="text-xs text-amber-400 font-medium">{title}</p>
+                    <p className="text-[11px] text-slate-400 mt-0.5">{location}</p>
                   </div>
                 </div>
 
-                {/* Tech Terminal Preview */}
-                <div className="p-3.5 rounded-xl bg-slate-950 text-slate-200 font-mono text-[11px] leading-relaxed border border-slate-800">
-                  <div className="flex items-center gap-1.5 pb-2 mb-2 border-b border-slate-800/80 text-slate-400 text-[10px]">
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                {/* Skills Preview in Card */}
+                <div className="space-y-3 mb-6">
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-400">Core Foundations & Learning</div>
+                  <div className="space-y-2">
+                    {[
+                      { name: 'HTML5 & Semantic Markup', pct: 85 },
+                      { name: 'CSS3 & Bootstrap 5', pct: 80 },
+                      { name: 'JavaScript (Basics) & DOM', pct: 65 },
+                      { name: 'Prompt Engineering & LLM APIs', pct: 65 },
+                      { name: 'Python Programming (Basics to Adv.)', pct: 50 },
+                    ].map((item, i) => (
+                      <div key={i} className="space-y-1">
+                        <div className="flex justify-between text-[11px]">
+                          <span className="text-slate-300 font-medium">{item.name}</span>
+                          <span className="text-cyan-400 font-bold">{item.pct}%</span>
+                        </div>
+                        <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full transition-all duration-1000"
+                            style={{ width: `${item.pct}%` }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Code Terminal Snippet */}
+                <div className="rounded-xl bg-slate-950 p-4 font-mono text-[11px] text-slate-300 space-y-1.5 border border-slate-800">
+                  <div className="flex items-center gap-1.5 pb-2 border-b border-slate-800/80 mb-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
                     <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
-                    <span className="ml-1 text-slate-400">developer-profile.ts</span>
+                    <span className="ml-1 text-slate-400 text-[10px]">developer-profile.ts</span>
                   </div>
-                  <p><span className="text-cyan-400">const</span> <span className="text-blue-300">focus</span> = [<span className="text-amber-300">"Frontend Engineering"</span>, <span className="text-amber-300">"Responsive UI"</span>];</p>
-                  <p><span className="text-cyan-400">const</span> <span className="text-blue-300">status</span> = <span className="text-emerald-300">"Open for developer roles"</span>;</p>
+                  <p><span className="text-cyan-400">const</span> <span className="text-blue-300">developer</span> = <span className="text-amber-300">"{name}"</span>;</p>
+                  <p><span className="text-cyan-400">const</span> <span className="text-blue-300">role</span> = <span className="text-emerald-300">"Frontend Developer & SE Intern"</span>;</p>
+                  <p><span className="text-cyan-400">const</span> <span className="text-blue-300">learning</span> = [<span className="text-cyan-300">"Prompt Engineering"</span>, <span className="text-cyan-300">"RAG"</span>, <span className="text-cyan-300">"LLM APIs"</span>];</p>
                 </div>
 
-              </div>
-
-              {/* Decorative Floating Stat */}
-              <div className="hidden sm:flex absolute -bottom-5 -left-5 p-3.5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-lg items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-cyan-400 flex items-center justify-center font-bold">
-                  <Code2 className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-base font-extrabold text-slate-900 dark:text-white">100%</div>
-                  <div className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Responsive Code</div>
-                </div>
               </div>
 
             </div>
@@ -223,110 +196,338 @@ export const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* CV Popup Modal */}
+      {/* CV POPUP MODAL (ACCURATE REAL CV OF MARIUM TABASSUM) */}
       {isCvModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fadeIn">
-          <div className="relative w-full max-w-4xl max-h-[90vh] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl flex flex-col overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md animate-fadeIn">
+          <div className="relative w-full max-w-4xl max-h-[92vh] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl flex flex-col overflow-hidden">
 
             {/* Modal Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800">
-              <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-xl bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-cyan-400">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200/60 dark:border-amber-900/50">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                    {name} - Curriculum Vitae
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+                    {name} — Curriculum Vitae
                   </h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Software Engineering & Frontend Developer CV
+                  <p className="text-xs text-amber-600 dark:text-amber-400 font-semibold uppercase tracking-wider">
+                    WEB DEVELOPER • FRONTEND DEVELOPER • SE INTERN
                   </p>
                 </div>
               </div>
 
+              {/* Tab Selector */}
+              <div className="hidden sm:flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl">
+                <button
+                  type="button"
+                  onClick={() => setCvViewTab('structured')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    cvViewTab === 'structured'
+                      ? 'bg-white dark:bg-slate-900 text-amber-600 dark:text-amber-400 shadow-xs'
+                      : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  Structured CV
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCvViewTab('pdf')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    cvViewTab === 'pdf'
+                      ? 'bg-white dark:bg-slate-900 text-amber-600 dark:text-amber-400 shadow-xs'
+                      : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  PDF Document
+                </button>
+              </div>
+
+              {/* Action Controls */}
               <div className="flex items-center gap-3">
                 <a
-                  href="/resume.pdf"
+                  href="/cv.pdf"
                   download="Marium_Tabassum_CV.pdf"
-                  className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-blue-500/20 transition-all"
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-md shadow-amber-500/20 transition-all cursor-pointer"
                 >
                   <Download className="w-4 h-4" />
-                  <span>Download CV</span>
+                  <span>Download PDF CV</span>
                 </a>
 
                 <button
+                  type="button"
                   onClick={() => setIsCvModalOpen(false)}
-                  className="p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                  title="Close Modal"
+                  className="p-2 rounded-xl text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                  title="Close"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
             </div>
 
-            {/* Modal Body / CV Preview */}
-            <div className="flex-1 p-6 overflow-y-auto bg-slate-50 dark:bg-slate-950/50 space-y-6">
+            {/* Mobile Tab Switcher */}
+            <div className="sm:hidden flex items-center justify-center p-2 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-800 gap-2">
+              <button
+                type="button"
+                onClick={() => setCvViewTab('structured')}
+                className={`flex-1 py-1.5 text-center text-xs font-bold rounded-lg ${
+                  cvViewTab === 'structured'
+                    ? 'bg-white dark:bg-slate-900 text-amber-600 dark:text-amber-400 shadow-xs'
+                    : 'text-slate-500'
+                }`}
+              >
+                Structured CV
+              </button>
+              <button
+                type="button"
+                onClick={() => setCvViewTab('pdf')}
+                className={`flex-1 py-1.5 text-center text-xs font-bold rounded-lg ${
+                  cvViewTab === 'pdf'
+                    ? 'bg-white dark:bg-slate-900 text-amber-600 dark:text-amber-400 shadow-xs'
+                    : 'text-slate-500'
+                }`}
+              >
+                PDF Document
+              </button>
+            </div>
 
-              {/* CV Summary Card */}
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4">
-                <div className="flex justify-between items-start">
+            {cvViewTab === 'pdf' ? (
+              <div className="flex-1 p-4 bg-slate-100 dark:bg-slate-950 flex flex-col items-center justify-center">
+                <iframe
+                  src="/cv.pdf#toolbar=0"
+                  className="w-full h-[65vh] rounded-2xl border border-slate-200 dark:border-slate-800 shadow-inner bg-white"
+                  title="Marium Tabassum CV PDF"
+                />
+              </div>
+            ) : (
+            /* Modal Body: Structured CV Render matching uploaded image */
+            <div className="flex-1 p-5 sm:p-7 overflow-y-auto bg-slate-50 dark:bg-slate-950/70 space-y-6">
+
+              {/* Header / Summary Card */}
+              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4 shadow-xs">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
                   <div>
-                    <h2 className="text-xl font-extrabold text-slate-900 dark:text-white">{name}</h2>
-                    <p className="text-xs sm:text-sm font-semibold text-blue-600 dark:text-cyan-400 mt-0.5">Software Engineering Student & AI-Focused Web Developer</p>
+                    <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                      MARIUM <span className="text-amber-500 dark:text-amber-400">TABASSUM</span>
+                    </h2>
+                    <p className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide mt-0.5">
+                      WEB DEVELOPER • FRONTEND DEVELOPER • SE INTERN
+                    </p>
                   </div>
-                  <div className="text-right text-xs text-slate-500 dark:text-slate-400 space-y-1">
-                    <div>Karachi, Pakistan</div>
-                    <div>mariumtabbasum@gmail.com</div>
+
+                  <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
+                    <div className="flex items-center gap-2">
+                      <Phone className="w-3.5 h-3.5 text-amber-500" />
+                      <span>0322-2963909</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Mail className="w-3.5 h-3.5 text-amber-500" />
+                      <span>mariumtabbasum@gmail.com</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="w-3.5 h-3.5 text-amber-500" />
+                      <span>1148/3 Nazimabad No#3, Urdu Bazar, Karachi</span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="border-t border-slate-200 dark:border-slate-800 pt-4">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Professional Summary</h3>
-                  <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                    Dedicated software engineering student completing foundational curriculum at Aptech Computer Education and advancing expertise in Generative AI via Bano Qabil. Proficient in HTML5, CSS3, JavaScript, Bootstrap, React, and responsive frontend design.
+                {/* Professional Summary */}
+                <div>
+                  <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                    Professional Summary
+                  </h4>
+                  <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed text-justify">
+                    Detail-oriented and motivated Software Engineering student with a strong foundation in front-end web development. Currently pursuing a 3-year diploma in Software Engineering (1st semester completed), with practical exposure to HTML, CSS, Bootstrap, basic JavaScript, and jQuery. Actively expanding technical skills through ongoing courses in Python and Generative AI. Known for quick learning, attention to detail, and a strong commitment to growth. Seeking an opportunity as a Web Developer, Frontend Developer, or Software Engineering Intern to apply and further develop technical skills in a professional environment.
                   </p>
                 </div>
+              </div>
 
-                <div className="border-t border-slate-200 dark:border-slate-800 pt-4">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Education & Certifications</h3>
-                  <ul className="space-y-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
-                    <li className="flex justify-between">
-                      <span className="font-semibold text-slate-900 dark:text-white">Aptech Computer Education</span>
-                      <span className="text-slate-500">Semester 1 Complete (2025 - 2026)</span>
-                    </li>
-                    <li className="flex justify-between">
-                      <span className="font-semibold text-slate-900 dark:text-white">Bano Qabil Generative AI Scholarship</span>
-                      <span className="text-slate-500">2025 - Present</span>
-                    </li>
-                  </ul>
+              {/* Information & About Me Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                {/* Personal Information */}
+                <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 shadow-xs">
+                  <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-2">
+                    Information
+                  </h4>
+                  <div className="space-y-2 text-xs text-slate-700 dark:text-slate-300">
+                    <div className="flex justify-between border-b border-slate-100 dark:border-slate-800/80 pb-1.5">
+                      <span className="text-slate-500 dark:text-slate-400">Father Name:</span>
+                      <span className="font-semibold text-slate-900 dark:text-white">Tabassum Jamil</span>
+                    </div>
+                    <div className="flex justify-between border-b border-slate-100 dark:border-slate-800/80 pb-1.5">
+                      <span className="text-slate-500 dark:text-slate-400">Date of Birth:</span>
+                      <span className="font-semibold text-slate-900 dark:text-white">23-June-2007</span>
+                    </div>
+                    <div className="flex justify-between border-b border-slate-100 dark:border-slate-800/80 pb-1.5">
+                      <span className="text-slate-500 dark:text-slate-400">Marital Status:</span>
+                      <span className="font-semibold text-slate-900 dark:text-white">Single</span>
+                    </div>
+                    <div className="flex justify-between border-b border-slate-100 dark:border-slate-800/80 pb-1.5">
+                      <span className="text-slate-500 dark:text-slate-400">CNIC:</span>
+                      <span className="font-semibold text-slate-900 dark:text-white">42401-7628362-2</span>
+                    </div>
+                    <div className="flex justify-between border-b border-slate-100 dark:border-slate-800/80 pb-1.5">
+                      <span className="text-slate-500 dark:text-slate-400">Nationality:</span>
+                      <span className="font-semibold text-slate-900 dark:text-white">Pakistani</span>
+                    </div>
+                    <div className="flex justify-between pb-1">
+                      <span className="text-slate-500 dark:text-slate-400">Religion:</span>
+                      <span className="font-semibold text-slate-900 dark:text-white">Islam</span>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="border-t border-slate-200 dark:border-slate-800 pt-4">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Key Technical Skills</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {['HTML5', 'CSS3', 'JavaScript (ES6+)', 'React 19', 'TypeScript', 'Tailwind CSS', 'Bootstrap 5', 'Python', 'Generative AI Tools'].map((skill, i) => (
-                      <span key={i} className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-cyan-300 border border-blue-200 dark:border-blue-800">
-                        {skill}
-                      </span>
-                    ))}
+                {/* About Me */}
+                <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 shadow-xs flex flex-col justify-between">
+                  <div>
+                    <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-2">
+                      About Me
+                    </h4>
+                    <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed text-justify">
+                      A motivated and detail-oriented Software Engineering student currently in my 1st semester of a 3-year diploma program. I have hands-on foundation in HTML, CSS, Bootstrap, basic JavaScript and jQuery, and am actively expanding my skill set with Python and Generative AI. Eager to apply my growing frontend and problem-solving skills to real-world projects as a Web Developer, Frontend Developer, or Software Engineering Intern, while continuing to learn and grow in a professional environment.
+                    </p>
                   </div>
                 </div>
 
               </div>
 
+              {/* Education & Certifications Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                {/* Education */}
+                <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 shadow-xs">
+                  <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-2">
+                    Education
+                  </h4>
+                  <div className="space-y-3 text-xs text-slate-700 dark:text-slate-300">
+                    <div>
+                      <div className="flex justify-between font-bold text-slate-900 dark:text-white">
+                        <span>Diploma in Software Engineering</span>
+                        <span className="text-amber-500 font-semibold">In Progress</span>
+                      </div>
+                      <p className="text-slate-500 dark:text-slate-400 text-[11px]">3-Year Program — 1st Semester Completed (Aptech Computer Education)</p>
+                    </div>
+
+                    <div>
+                      <div className="flex justify-between font-bold text-slate-900 dark:text-white">
+                        <span>Intermediate (Pre-Engineering/Science)</span>
+                        <span className="text-slate-500">2025</span>
+                      </div>
+                      <p className="text-slate-500 dark:text-slate-400 text-[11px]">Sir Syed Government Girls College</p>
+                    </div>
+
+                    <div>
+                      <div className="flex justify-between font-bold text-slate-900 dark:text-white">
+                        <span>Matriculation</span>
+                        <span className="text-slate-500">2023</span>
+                      </div>
+                      <p className="text-slate-500 dark:text-slate-400 text-[11px]">The Smart School</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Certifications & Skills */}
+                <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4 shadow-xs">
+                  <div>
+                    <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-2">
+                      Certifications
+                    </h4>
+                    <ul className="space-y-2 text-xs text-slate-700 dark:text-slate-300">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                        <div>
+                          <span className="font-semibold text-slate-900 dark:text-white">Generative AI</span>
+                          <span className="text-slate-500 dark:text-slate-400 ml-1.5">— Ongoing (5-month course)</span>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                        <div>
+                          <span className="font-semibold text-slate-900 dark:text-white">Python</span>
+                          <span className="text-slate-500 dark:text-slate-400 ml-1.5">— Basic to Advanced (In progress)</span>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+                    <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-2">
+                      Technical Skills
+                    </h4>
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      {[
+                        'HTML & CSS',
+                        'Bootstrap',
+                        'JavaScript (Basics)',
+                        'jQuery (Basics)',
+                        'Python (Basics)',
+                        'Generative AI (Learning)',
+                      ].map((skill, idx) => (
+                        <div key={idx} className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 font-medium">
+                          <span className="text-amber-500 font-bold">✔</span>
+                          <span>{skill}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Academic Projects / Academic Learning (Ongoing) */}
+              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 shadow-xs">
+                <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-2">
+                  Academic Projects / Academic Learning (Ongoing)
+                </h4>
+                <div className="space-y-3 text-xs text-slate-700 dark:text-slate-300">
+                  <div className="border-l-2 border-amber-500 pl-3">
+                    <div className="font-bold text-slate-900 dark:text-white">Diploma in Software Engineering (2025 - Present)</div>
+                    <p className="text-slate-600 dark:text-slate-400 mt-0.5">Currently in 1st semester (6 months completed) of a 3-year diploma. Covered so far: HTML, CSS, Basic JavaScript, Bootstrap, Basic jQuery.</p>
+                  </div>
+                  <div className="border-l-2 border-amber-500 pl-3">
+                    <div className="font-bold text-slate-900 dark:text-white">Generative AI Course (In Progress — 5 Months)</div>
+                    <p className="text-slate-600 dark:text-slate-400 mt-0.5">Building practical understanding of Generative AI concepts and tools. Expected completion alongside advanced Python skills.</p>
+                  </div>
+                  <div className="border-l-2 border-amber-500 pl-3">
+                    <div className="font-bold text-slate-900 dark:text-white">Python Programming: Basic → Advanced (Ongoing)</div>
+                    <p className="text-slate-600 dark:text-slate-400 mt-0.5">Currently comfortable with Python basics; working toward an advanced level.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* References */}
+              <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-600 dark:text-slate-400 flex items-center justify-between">
+                <span className="font-bold text-slate-800 dark:text-slate-200">References:</span>
+                <span>Available on request</span>
+              </div>
+
             </div>
+            )}
 
             {/* Modal Footer */}
-            <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-slate-900">
-              <span className="text-xs text-slate-500">Ready for internships & frontend developer roles</span>
-              <a
-                href="/resume.pdf"
-                download="Marium_Tabassum_CV.pdf"
-                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-blue-500/25 transition-all"
-              >
-                <Download className="w-4 h-4" />
-                <span>Download PDF CV</span>
-              </a>
+            <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-slate-900 shrink-0">
+              <span className="text-xs text-slate-500">
+                Official CV document for Marium Tabassum
+              </span>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsCvModalOpen(false)}
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                >
+                  Close
+                </button>
+                <a
+                  href="/cv.pdf"
+                  download="Marium_Tabassum_CV.pdf"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-md shadow-amber-500/20 transition-all cursor-pointer"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>Download PDF CV</span>
+                </a>
+              </div>
             </div>
 
           </div>
@@ -336,3 +537,5 @@ export const Hero: React.FC = () => {
     </section>
   );
 };
+
+export default Hero;
