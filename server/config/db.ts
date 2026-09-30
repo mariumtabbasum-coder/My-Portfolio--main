@@ -8,10 +8,10 @@ export async function connectDB() {
     return;
   }
   try {
-    await mongoose.connect(uri, { serverSelectionTimeoutMS: 1500 });
+    await mongoose.connect(uri, { serverSelectionTimeoutMS: 10000 });
     console.log('✅ Connected to MongoDB successfully.');
-  } catch (_err) {
-    console.log('ℹ️ In-memory data store active (MongoDB unreachable in container environment).');
+  } catch (err) {
+    console.log('ℹ️ MongoDB connection note:', err instanceof Error ? err.message : err);
   }
 }
 

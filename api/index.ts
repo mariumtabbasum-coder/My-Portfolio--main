@@ -49,26 +49,26 @@ app.use(async (req, res, next) => {
 });
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
+app.get(['/api/health', '/health'], (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 // REST API Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/profile', profileRoutes);
-app.use('/api/projects', projectRoutes);
-app.use('/api/skills', skillRoutes);
-app.use('/api/learning', learningRoutes);
-app.use('/api/certificates', certificateRoutes);
-app.use('/api/services', serviceRoutes);
-app.use('/api/messages', messageRoutes);
-app.use('/api/settings', settingsRoutes);
-app.use('/api/upload', uploadRoutes);
-app.use('/api/ai', aiRoutes);
-app.use('/api/testimonials', testimonialRoutes);
-app.use('/api/articles', articleRoutes);
-app.use('/api/analytics', analyticsRoutes);
+app.use(['/api/auth', '/auth'], authRoutes);
+app.use(['/api/profile', '/profile'], profileRoutes);
+app.use(['/api/projects', '/projects'], projectRoutes);
+app.use(['/api/skills', '/skills'], skillRoutes);
+app.use(['/api/learning', '/learning'], learningRoutes);
+app.use(['/api/certificates', '/certificates'], certificateRoutes);
+app.use(['/api/services', '/services'], serviceRoutes);
+app.use(['/api/messages', '/messages'], messageRoutes);
+app.use(['/api/settings', '/settings'], settingsRoutes);
+app.use(['/api/upload', '/upload'], uploadRoutes);
+app.use(['/api/ai', '/ai'], aiRoutes);
+app.use(['/api/testimonials', '/testimonials'], testimonialRoutes);
+app.use(['/api/articles', '/articles'], articleRoutes);
+app.use(['/api/analytics', '/analytics'], analyticsRoutes);
 
-app.use('/api', errorHandler);
+app.use(errorHandler);
 
 export default app;
