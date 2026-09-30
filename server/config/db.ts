@@ -8,7 +8,7 @@ export async function connectDB() {
     return;
   }
   try {
-    await mongoose.connect(uri, { serverSelectionTimeoutMS: 10000 });
+    await mongoose.connect(uri, { serverSelectionTimeoutMS: 3000 });
     console.log('✅ Connected to MongoDB successfully.');
   } catch (err) {
     console.log('ℹ️ MongoDB connection note:', err instanceof Error ? err.message : err);
