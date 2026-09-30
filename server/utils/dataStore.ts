@@ -111,6 +111,10 @@ export interface MessageItem {
   subject: string;
   message: string;
   date: string;
+  read?: boolean;
+  replied?: boolean;
+  replyText?: string;
+  repliedAt?: string;
 }
 
 export interface StoreData {
@@ -669,10 +673,23 @@ class DataStore {
       subject: msg.subject || 'Direct Inquiry',
       message: msg.message,
       date: new Date().toISOString().replace('T', ' ').substring(0, 16),
+      read: false,
+      replied: false,
     };
     this.data.messages.unshift(newMsg);
     this.saveToDisk(this.data);
     return newMsg;
+  }
+
+  public updateMessage(id: string, updates: Partial<MessageItem>): MessageItem | null {
+    const idx = this.data.messages.findIndex(m => m.id === id || (m as any)._id === id);
+    if (idx === -1) return null;
+    this.data.messages[idx] = {
+      ...this.data.messages[idx],
+      ...updates,
+    };
+    this.saveToDisk(this.data);
+    return this.data.messages[idx];
   }
 
   public deleteMessage(id: string): boolean {

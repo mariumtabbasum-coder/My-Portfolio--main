@@ -100,13 +100,6 @@
       "level": 60,
       "category": "tools",
       "badge": "Learning"
-    },
-    {
-      "id": "9",
-      "name": "Embeddings",
-      "level": 50,
-      "category": "tools",
-      "badge": "Learning"
     }
   ],
   "projects": [
@@ -349,7 +342,8 @@
         "JavaScript",
         "Bootstrap",
         "jQuery"
-      ]
+      ],
+      "credentialId": ""
     },
     {
       "id": "c2",
@@ -362,28 +356,74 @@
         "Prompt Engineering",
         "Python Basics"
       ]
-    },
-    {
-      "id": "c3",
-      "title": "Python Programming (Basic to Advanced)",
-      "issuer": "Technical Training",
-      "date": "2025 - Ongoing",
-      "description": "Course in Python language fundamentals, data structures, algorithms, and practical programming workflows.",
-      "skills": [
-        "Python Basics",
-        "Algorithms",
-        "Logic Building"
-      ]
     }
   ],
   "messages": [
+    {
+      "id": "msg-1790792549525",
+      "name": "Safwan Test",
+      "email": "asifsafwan43@gmail.com",
+      "subject": "Inquiry Test",
+      "message": "Testing live email reply feature from Admin Panel",
+      "date": "2026-09-30 18:22",
+      "read": true,
+      "replied": true,
+      "replyText": "Assalam-o-Alaikum Safwan! Thank you for contacting me. This is an automated live email reply test from my portfolio Admin CMS.",
+      "repliedAt": "2026-09-30 18:22"
+    },
+    {
+      "id": "msg-1790790483495",
+      "name": "Safwan",
+      "email": "asifsafwan43@gmail.com",
+      "subject": "hello",
+      "message": "HLOOOOOO",
+      "date": "2026-09-30 17:48",
+      "read": true,
+      "replied": true,
+      "replyText": "hello my name is maryam",
+      "repliedAt": "2026-09-30 18:25"
+    },
+    {
+      "id": "msg-1790789511079",
+      "name": "Marium Tabbasum",
+      "email": "mariumtabbasum@gmail.com",
+      "subject": "hjvmhjg",
+      "message": "yfkuyhujm",
+      "date": "2026-09-30 17:31",
+      "read": true,
+      "replied": true,
+      "replyText": "ygfjyfy",
+      "repliedAt": "2026-09-30 17:33"
+    },
+    {
+      "id": "msg-1790789412890",
+      "name": "Alexander Wright",
+      "email": "alex@example.com",
+      "subject": "Custom Web Application Request",
+      "message": "Hello Marium, I would like to hire you for a custom React project.",
+      "date": "2026-09-30 17:30",
+      "read": true,
+      "replied": true,
+      "replyText": "Thank you Alexander! I would be delighted to work on your custom React application.",
+      "repliedAt": "2026-09-30 17:30"
+    },
+    {
+      "id": "msg-1790789284305",
+      "name": "Test Visitor",
+      "email": "visitor@example.com",
+      "subject": "Project Inquiry",
+      "message": "Hello Marium! I would like to inquire about frontend development.",
+      "date": "2026-09-30 17:28",
+      "read": true
+    },
     {
       "id": "msg-demo-1",
       "name": "Sarah Khan",
       "email": "sarah@example.com",
       "subject": "Frontend Collaboration Opportunity",
       "message": "Hello Marium! I reviewed your portfolio and was impressed by your Aptech progress and responsive designs. We have an upcoming web project and would love to collaborate.",
-      "date": "2026-09-28 14:30"
+      "date": "2026-09-28 14:30",
+      "read": true
     },
     {
       "id": "msg-demo-2",

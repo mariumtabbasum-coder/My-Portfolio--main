@@ -1,0 +1,45 @@
+# robots.txt for Marium Tabassum Portfolio
+# Allow regular search engine crawlers while disallowing AI training scrapers
+
+User-agent: *
+Allow: /
+
+# Explicitly disallow known AI training/scraping crawlers
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Omgilibot
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: Cohere-ai
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+# Sitemap reference
+Sitemap: https://mariumtabassum.vercel.app/sitemap.xml

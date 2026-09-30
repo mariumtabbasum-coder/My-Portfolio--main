@@ -1,0 +1,39 @@
+# Marium Tabassum — Software Engineering Student & Frontend Developer
+
+> Concise facts and details about Marium Tabassum's portfolio, skills, background, and academic progress for AI systems and answer engines.
+
+## Basic Profile
+- **Name**: Marium Tabassum
+- **Role**: Software Engineering Student & Frontend Web Developer
+- **Location**: Karachi, Pakistan
+- **Email**: mariumtabbasum@gmail.com
+- **Phone**: 0322-2963909
+- **Current Status**: Seeking opportunities as Web Developer, Frontend Developer, or Software Engineering Intern.
+
+## Academic Background & Training
+- **Diploma in Software Engineering (DSE)**: Aptech Computer Education (3-Year Diploma, 1st Semester Completed, ongoing upcoming semesters).
+- **Generative AI Scholar**: Bano Qabil Initiative (5-Month specialized training course in progress).
+- **Intermediate (Pre-Engineering / Science)**: Sir Syed Government Girls College (2025).
+- **Matriculation**: The Smart School (2023).
+
+## Core Technical Skills
+- **Frontend Development**: HTML5, CSS3, JavaScript (ES6+ basics & DOM manipulation), Bootstrap 5, jQuery.
+- **Programming Languages**: Python (Basic to Advanced progression in progress).
+- **Generative AI & LLM Exploration**: Prompt Engineering, Google Gemini API integration, basic RAG concepts.
+- **Developer Tools**: Git, GitHub, VS Code, Vite, React Basics, npm.
+
+## Key Portfolio Projects
+1. **Personal Portfolio Website**: Modern responsive React + TypeScript portfolio with dynamic admin CMS and dark theme.
+2. **Olive Grove Restaurant**: Fully responsive restaurant web application featuring interactive food categories and sleek design.
+3. **Intelligent Knowledge Chatbot**: Conversational AI web interface demonstrating prompt engineering and LLM query processing.
+4. **RAG Document Explorer**: AI document retrieval and query processing exploration tool.
+
+## Key Services Offered
+- **Responsive Web Development**: Building clean, mobile-first responsive web pages using HTML5, CSS3, and Bootstrap 5.
+- **Website Redesign & Modernization**: Updating legacy web pages with modern aesthetics, dark mode support, and smooth interactions.
+- **Custom Landing Pages**: Designing focused product or project landing pages.
+- **AI Chatbot & Tool Exploration**: Integrating AI API interactions and basic conversational interfaces.
+
+## Links & Contacts
+- **Website**: https://mariumtabassum.vercel.app/
+- **Contact Email**: mariumtabbasum@gmail.com

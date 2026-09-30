@@ -23,6 +23,8 @@ import {
   MapPin,
   Eye,
   Edit2,
+  Send,
+  Menu,
   X
 } from 'lucide-react';
 
@@ -30,6 +32,7 @@ export const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<
     'home' | 'about' | 'skills' | 'projects' | 'services' | 'journey' | 'certificates' | 'contact' | 'social' | 'messages'
   >('home');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Server data states
   const [skills, setSkills] = useState<any[]>([]);
@@ -122,6 +125,12 @@ export const AdminDashboard: React.FC = () => {
   const [editingCertificate, setEditingCertificate] = useState<any | null>(null);
   const [certificateForm, setCertificateForm] = useState({ title: '', issuer: 'Aptech Computer Education', date: '2025', credentialId: '', description: '', skills: '' });
 
+  // Message Management States
+  const [messageTab, setMessageTab] = useState<'unread' | 'read'>('unread');
+  const [replyingToId, setReplyingToId] = useState<string | null>(null);
+  const [replyText, setReplyText] = useState<string>('');
+  const [isSendingReply, setIsSendingReply] = useState<boolean>(false);
+
   useEffect(() => {
     fetchAll();
   }, []);
@@ -147,6 +156,71 @@ export const AdminDashboard: React.FC = () => {
       if (setRes?.success && setRes.data) setSettings(setRes.data);
     } catch (err) {
       console.error('Error fetching admin data', err);
+    }
+  };
+  // --- Message Actions ---
+  const handleToggleReadStatus = async (id: string, currentRead: boolean) => {
+    try {
+      const res = await fetch(`/api/messages/${id}/read`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ read: !currentRead }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setMessages(prev => prev.map(m => (m.id === id || m._id === id) ? { ...m, read: !currentRead } : m));
+        showNotification(!currentRead ? 'Message marked as read' : 'Message moved to unread');
+      }
+    } catch (err) {
+      setMessages(prev => prev.map(m => (m.id === id || m._id === id) ? { ...m, read: !currentRead } : m));
+      showNotification(!currentRead ? 'Message marked as read' : 'Message moved to unread');
+    }
+  };
+
+  const handleSendReply = async (id: string) => {
+    if (!replyText || !replyText.trim()) return;
+    setIsSendingReply(true);
+
+    try {
+      const res = await fetch(`/api/messages/${id}/reply`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ replyText }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setMessages(prev => prev.map(m => (m.id === id || m._id === id) ? {
+          ...m,
+          read: true,
+          replied: true,
+          replyText: replyText,
+          repliedAt: new Date().toISOString().replace('T', ' ').substring(0, 16)
+        } : m));
+
+        showNotification(data.simulated ? 'Reply saved! (Email service in simulation mode)' : 'Email reply sent successfully!');
+        setReplyingToId(null);
+        setReplyText('');
+      } else {
+        showNotification(data.message || 'Failed to send reply');
+      }
+    } catch (err) {
+      console.error('Error sending reply:', err);
+      showNotification('Failed to send reply email');
+    } finally {
+      setIsSendingReply(false);
+    }
+  };
+
+  const handleDeleteMessage = async (id: string, name: string) => {
+    if (!window.confirm(`Are you sure you want to delete the message from "${name}"?`)) return;
+    try {
+      await fetch(`/api/messages/${id}`, { method: 'DELETE' });
+      setMessages(prev => prev.filter(m => m.id !== id && m._id !== id));
+      showNotification('Message deleted successfully!');
+    } catch (err) {
+      setMessages(prev => prev.filter(m => m.id !== id && m._id !== id));
+      showNotification('Message deleted!');
     }
   };
 
@@ -579,113 +653,154 @@ export const AdminDashboard: React.FC = () => {
     fetchAll();
   };
 
-  // --- Messages CRUD ---
-  const handleDeleteMessage = async (id: string, sender: string) => {
-    if (!id) return;
-    setMessages(prev => prev.filter(m => (m.id || m._id) !== id));
-    try {
-      const res = await fetch(`/api/messages/${id}`, { method: 'DELETE' });
-      const data = await res.json();
-      if (data.success) {
-        showNotification(`Message from "${sender}" deleted!`);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-    fetchAll();
-  };
-
   const handleLogout = () => {
     localStorage.removeItem('admin_token');
     window.location.href = '/admin';
   };
 
-  const navItems = [
-    { id: 'home', label: 'Home / Hero', icon: Home },
-    { id: 'about', label: 'About & Profile', icon: User },
-    { id: 'skills', label: 'Skills & Stack', icon: Code2, count: skills.length },
-    { id: 'projects', label: 'Projects Portfolio', icon: FolderGit2, count: projects.length },
-    { id: 'services', label: 'Services', icon: Layers, count: services.length },
-    { id: 'journey', label: 'Journey & Roadmap', icon: Compass, count: milestones.length },
-    { id: 'certificates', label: 'Certificates', icon: Award, count: certificates.length },
-    { id: 'contact', label: 'Contact Info', icon: Mail },
-    { id: 'social', label: 'Social Links', icon: Globe },
-    { id: 'messages', label: 'Contact Messages', icon: MessageSquare, count: messages.length },
-  ];
+    const unreadMessagesCount = messages.filter(m => !m.read).length;
 
-  return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col md:flex-row">
+    const navItems = [
+      { id: 'home', label: 'Home / Hero', icon: Home },
+      { id: 'about', label: 'About & Profile', icon: User },
+      { id: 'skills', label: 'Skills & Stack', icon: Code2, count: skills.length },
+      { id: 'projects', label: 'Projects Portfolio', icon: FolderGit2, count: projects.length },
+      { id: 'services', label: 'Services', icon: Layers, count: services.length },
+      { id: 'journey', label: 'Journey & Roadmap', icon: Compass, count: milestones.length },
+      { id: 'certificates', label: 'Certificates', icon: Award, count: certificates.length },
+      { id: 'contact', label: 'Contact Info', icon: Mail },
+      { id: 'social', label: 'Social Links', icon: Globe },
+      { id: 'messages', label: 'Contact Messages', icon: MessageSquare, count: unreadMessagesCount },
+    ];
 
-      {/* Floating Notification Toast */}
-      {notification && (
-        <div className="fixed top-5 right-5 z-50 px-5 py-3 rounded-2xl bg-emerald-600 text-white font-semibold text-xs sm:text-sm shadow-xl flex items-center gap-2 animate-bounce">
-          <Check className="w-4 h-4" />
-          <span>{notification}</span>
-        </div>
-      )}
+    return (
+      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col md:flex-row max-w-full overflow-x-hidden">
 
-      {/* Sidebar Navigation */}
-      <nav className="w-full md:w-64 bg-slate-900 border-r border-slate-800 flex flex-col p-6 shrink-0">
-        <div className="text-white font-extrabold text-base mb-8 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center text-slate-950 font-extrabold text-sm shadow-md">
-              MT
-            </div>
-            <span>Portfolio CMS</span>
+        {/* Floating Notification Toast */}
+        {notification && (
+          <div className="fixed top-5 right-5 z-50 px-5 py-3 rounded-2xl bg-emerald-600 text-white font-semibold text-xs sm:text-sm shadow-xl flex items-center gap-2 animate-bounce">
+            <Check className="w-4 h-4" />
+            <span>{notification}</span>
           </div>
+        )}
+
+        {/* Mobile Header Bar (Only visible on screens below md breakpoint) */}
+        <div className="md:hidden sticky top-0 z-30 bg-slate-900 border-b border-slate-800 px-4 py-3 flex items-center justify-between shadow-md">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="p-2 rounded-xl bg-slate-800 text-slate-200 hover:text-white border border-slate-700/80 cursor-pointer"
+              aria-label="Open navigation menu"
+            >
+              <Menu className="w-5 h-5 text-cyan-400" />
+            </button>
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-blue-600 to-cyan-600 flex items-center justify-center text-white font-extrabold text-xs shadow-md">
+                MT
+              </div>
+              <span className="font-extrabold text-xs sm:text-sm text-white">Portfolio CMS</span>
+            </div>
+          </div>
+
           <a
             href="/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[11px] text-purple-400 hover:underline flex items-center gap-1 font-semibold"
-            title="Open Public Site"
+            className="px-2.5 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-1"
           >
-            <Eye className="w-3.5 h-3.5" />
+            <ExternalLink className="w-3.5 h-3.5 text-cyan-400" />
             <span>View Site</span>
           </a>
         </div>
 
-        <div className="flex-1 space-y-1 overflow-y-auto">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeTab === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => setActiveTab(item.id as any)}
-                className={`w-full px-3.5 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-between transition-all cursor-pointer ${
-                  isActive
-                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold shadow-md shadow-purple-500/20'
-                    : 'text-slate-400 hover:bg-slate-800/80 hover:text-white'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <Icon className="w-4 h-4 shrink-0" />
-                  <span>{item.label}</span>
-                </div>
-                {item.count !== undefined && (
-                  <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
-                    isActive ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-300'
-                  }`}>
-                    {item.count}
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </div>
+        {/* Mobile Sidebar Backdrop Overlay */}
+        {isMobileMenuOpen && (
+          <div
+            className="fixed inset-0 z-40 bg-slate-950/80 backdrop-blur-xs md:hidden animate-fadeIn"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+        )}
 
-        <button
-          onClick={handleLogout}
-          className="w-full px-3.5 py-2.5 rounded-xl text-xs font-semibold text-red-400 hover:bg-red-950/40 flex items-center gap-2.5 transition-all mt-6 cursor-pointer"
+        {/* Sidebar Navigation (Responsive Drawer: Hidden by default on mobile, slides from left) */}
+        <nav
+          className={`fixed top-0 left-0 bottom-0 z-50 w-72 bg-slate-900 border-r border-slate-800 flex flex-col p-6 shrink-0 transition-transform duration-300 ease-in-out md:static md:translate-x-0 md:w-64 md:z-auto ${
+            isMobileMenuOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full md:translate-x-0'
+          }`}
         >
-          <LogOut className="w-4 h-4" />
-          <span>Exit Admin Portal</span>
-        </button>
-      </nav>
+          <div className="text-white font-extrabold text-base mb-8 flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-600 flex items-center justify-center text-white font-extrabold text-sm shadow-md">
+                MT
+              </div>
+              <span>Portfolio CMS</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <a
+                href="/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:flex px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 hover:text-white text-xs font-semibold items-center gap-1.5 transition-all shadow-xs"
+                title="Open Public Site"
+              >
+                <ExternalLink className="w-3.5 h-3.5 text-cyan-400" />
+                <span>View Site</span>
+              </a>
+              <button
+                type="button"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="md:hidden p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+                title="Close sidebar menu"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
 
-      {/* Main Content Area */}
-      <main className="flex-1 p-6 md:p-10 overflow-y-auto max-w-6xl">
+          <div className="flex-1 space-y-1 overflow-y-auto">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = activeTab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    setActiveTab(item.id as any);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`w-full px-3.5 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-between transition-all cursor-pointer ${
+                    isActive
+                      ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold shadow-md shadow-blue-500/20'
+                      : 'text-slate-400 hover:bg-slate-800/80 hover:text-white'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Icon className="w-4 h-4 shrink-0" />
+                    <span>{item.label}</span>
+                  </div>
+                  {item.count !== undefined && (
+                    <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
+                      isActive ? 'bg-cyan-500 text-white' : 'bg-slate-800 text-cyan-400'
+                    }`}>
+                      {item.count}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          <button
+            onClick={handleLogout}
+            className="w-full px-3.5 py-2.5 rounded-xl text-xs font-semibold text-red-400 hover:bg-red-950/40 flex items-center gap-2.5 transition-all mt-6 cursor-pointer"
+          >
+            <LogOut className="w-4 h-4" />
+            <span>Exit Admin Portal</span>
+          </button>
+        </nav>
+
+        {/* Main Content Area */}
+        <main className="flex-1 p-4 sm:p-8 md:p-10 overflow-y-auto max-w-full overflow-x-hidden min-w-0">
 
         {/* 1. HOME / HERO SECTION */}
         {activeTab === 'home' && (
@@ -804,7 +919,7 @@ export const AdminDashboard: React.FC = () => {
 
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-purple-500/20 cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Save className="w-4 h-4" />
                 <span>Save Home / Hero Changes</span>
@@ -896,7 +1011,7 @@ export const AdminDashboard: React.FC = () => {
 
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-purple-500/20 cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Save className="w-4 h-4" />
                 <span>Save About Changes</span>
@@ -920,7 +1035,7 @@ export const AdminDashboard: React.FC = () => {
               </div>
               <button
                 onClick={openNewSkillModal}
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add New Skill</span>
@@ -1002,7 +1117,7 @@ export const AdminDashboard: React.FC = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs shadow-md shadow-purple-500/20 cursor-pointer"
+                      className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-xs shadow-md shadow-purple-500/20 cursor-pointer"
                     >
                       {editingSkill ? 'Update Skill' : 'Save Skill'}
                     </button>
@@ -1011,33 +1126,91 @@ export const AdminDashboard: React.FC = () => {
               </div>
             )}
 
-            {/* Current Skills Table with Working Edit & Delete Buttons */}
-            <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
-              <table className="w-full text-left text-xs">
+            {/* Current Skills - Mobile Card View (< md) */}
+            <div className="grid grid-cols-1 gap-4 md:hidden">
+              {skills.map((skill) => (
+                <div
+                  key={skill.id || skill._id}
+                  className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-3 shadow-xs"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h4 className="font-bold text-white text-sm">{skill.name}</h4>
+                      <span className="inline-block mt-0.5 text-xs font-semibold capitalize text-cyan-400">
+                        {skill.category}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1.5 bg-slate-800/80 p-1 rounded-xl border border-slate-700/50">
+                      <button
+                        type="button"
+                        onClick={() => openEditSkillModal(skill)}
+                        className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition-colors cursor-pointer"
+                        title="Edit skill"
+                      >
+                        <Edit2 className="w-4 h-4" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteSkill(skill.id || skill._id, skill.name)}
+                        className="p-1.5 rounded-lg text-red-400 hover:bg-red-950/60 transition-colors cursor-pointer"
+                        title="Delete skill"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-slate-400 font-medium">Proficiency</span>
+                      <span className="font-semibold text-slate-200">{skill.level}%</span>
+                    </div>
+                    <div className="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full transition-all duration-300"
+                        style={{ width: `${skill.level}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  {skill.badge && (
+                    <div className="pt-1">
+                      <span className="px-2.5 py-1 rounded-md text-[10px] font-semibold bg-slate-800 text-slate-300 border border-slate-700/60">
+                        {skill.badge}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Current Skills - Desktop Table View (>= md) */}
+            <div className="hidden md:block bg-slate-900 rounded-3xl border border-slate-800 overflow-x-auto">
+              <table className="w-full text-left text-xs whitespace-nowrap">
                 <thead className="bg-slate-800/60 text-slate-400 border-b border-slate-800 font-semibold uppercase tracking-wider">
                   <tr>
-                    <th className="px-5 py-3">Skill Name</th>
-                    <th className="px-5 py-3">Category</th>
-                    <th className="px-5 py-3">Proficiency</th>
-                    <th className="px-5 py-3">Badge</th>
-                    <th className="px-5 py-3 text-right">Actions</th>
+                    <th className="px-5 py-3.5">Skill Name</th>
+                    <th className="px-5 py-3.5">Category</th>
+                    <th className="px-5 py-3.5">Proficiency</th>
+                    <th className="px-5 py-3.5">Badge</th>
+                    <th className="px-5 py-3.5 text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800">
                   {skills.map((skill) => (
-                    <tr key={skill.id} className="hover:bg-slate-800/40 transition-colors">
+                    <tr key={skill.id || skill._id} className="hover:bg-slate-800/40 transition-colors">
                       <td className="px-5 py-3.5 font-bold text-white">{skill.name}</td>
-                      <td className="px-5 py-3.5 capitalize text-purple-400">{skill.category}</td>
+                      <td className="px-5 py-3.5 capitalize text-cyan-400 font-medium">{skill.category}</td>
                       <td className="px-5 py-3.5">
                         <div className="flex items-center gap-2.5">
-                          <div className="w-20 h-2 bg-slate-800 rounded-full overflow-hidden">
-                            <div className="h-full bg-purple-500" style={{ width: `${skill.level}%` }} />
+                          <div className="w-24 h-2 bg-slate-800 rounded-full overflow-hidden">
+                            <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-400" style={{ width: `${skill.level}%` }} />
                           </div>
                           <span className="font-semibold text-slate-300">{skill.level}%</span>
                         </div>
                       </td>
                       <td className="px-5 py-3.5">
-                        <span className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-800 text-slate-300">
+                        <span className="px-2.5 py-1 rounded-md text-[10px] font-semibold bg-slate-800 text-slate-300 border border-slate-700/60">
                           {skill.badge || 'Learning'}
                         </span>
                       </td>
@@ -1084,7 +1257,7 @@ export const AdminDashboard: React.FC = () => {
               </div>
               <button
                 onClick={openNewProjectModal}
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add New Project</span>
@@ -1268,7 +1441,7 @@ export const AdminDashboard: React.FC = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-6 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs shadow-md shadow-purple-500/20 cursor-pointer"
+                      className="px-6 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-xs shadow-md shadow-purple-500/20 cursor-pointer"
                     >
                       {editingProject ? 'Update Project' : 'Publish Project'}
                     </button>
@@ -1305,7 +1478,7 @@ export const AdminDashboard: React.FC = () => {
                       </div>
 
                       {proj.featured && (
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
                           Featured
                         </span>
                       )}
@@ -1392,7 +1565,7 @@ export const AdminDashboard: React.FC = () => {
               </div>
               <button
                 onClick={openNewServiceModal}
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Service</span>
@@ -1468,7 +1641,7 @@ export const AdminDashboard: React.FC = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs cursor-pointer"
+                      className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-xs cursor-pointer"
                     >
                       {editingService ? 'Update Service' : 'Save Service'}
                     </button>
@@ -1526,7 +1699,7 @@ export const AdminDashboard: React.FC = () => {
               </div>
               <button
                 onClick={openNewMilestoneModal}
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Milestone</span>
@@ -1627,7 +1800,7 @@ export const AdminDashboard: React.FC = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs cursor-pointer"
+                      className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-xs cursor-pointer"
                     >
                       {editingMilestone ? 'Update Milestone' : 'Save Milestone'}
                     </button>
@@ -1685,7 +1858,7 @@ export const AdminDashboard: React.FC = () => {
               </div>
               <button
                 onClick={openNewCertificateModal}
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Certificate</span>
@@ -1771,7 +1944,7 @@ export const AdminDashboard: React.FC = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs cursor-pointer"
+                      className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-xs cursor-pointer"
                     >
                       {editingCertificate ? 'Update Certificate' : 'Save Certificate'}
                     </button>
@@ -1898,7 +2071,7 @@ export const AdminDashboard: React.FC = () => {
 
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-purple-500/20 cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Save className="w-4 h-4" />
                 <span>Save Contact Info Changes</span>
@@ -1978,7 +2151,7 @@ export const AdminDashboard: React.FC = () => {
 
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-purple-500/20 cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Save className="w-4 h-4" />
                 <span>Save Social Links</span>
@@ -1990,70 +2163,208 @@ export const AdminDashboard: React.FC = () => {
         {/* 10. MESSAGES INBOX */}
         {activeTab === 'messages' && (
           <div className="space-y-6">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800 pb-4 gap-4">
               <div>
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  <MessageSquare className="w-5 h-5 text-purple-400" />
+                  <MessageSquare className="w-5 h-5 text-cyan-400" />
                   <span>Visitor Messages Inbox</span>
                 </h2>
                 <p className="text-xs text-slate-400 mt-1">
-                  Read inquiries sent from your portfolio's public contact form.
+                  Read and respond to inquiries submitted from your portfolio's public contact form.
                 </p>
               </div>
-              <span className="px-3 py-1 rounded-full text-xs font-bold bg-purple-950/80 text-purple-300 border border-purple-800">
-                {messages.length} Total Messages
-              </span>
+
+              {/* Message Filter Tabs */}
+              <div className="flex items-center gap-2 bg-slate-900 p-1.5 rounded-2xl border border-slate-800 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setMessageTab('unread')}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    messageTab === 'unread'
+                      ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-md shadow-blue-500/20'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  <span>Unread Messages</span>
+                  <span className={`px-2 py-0.5 rounded-md text-[10px] font-extrabold ${
+                    messageTab === 'unread' ? 'bg-white/20 text-white' : 'bg-slate-800 text-cyan-400'
+                  }`}>
+                    {messages.filter(m => !m.read).length}
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setMessageTab('read')}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    messageTab === 'read'
+                      ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-md shadow-blue-500/20'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  <span>Read Messages</span>
+                  <span className={`px-2 py-0.5 rounded-md text-[10px] font-extrabold ${
+                    messageTab === 'read' ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-400'
+                  }`}>
+                    {messages.filter(m => m.read).length}
+                  </span>
+                </button>
+              </div>
             </div>
 
-            {messages.length === 0 ? (
-              <div className="p-12 text-center rounded-3xl bg-slate-900 border border-slate-800 text-slate-400 space-y-2">
-                <MessageSquare className="w-10 h-10 mx-auto text-slate-600 mb-2" />
-                <h3 className="font-bold text-white text-sm">Inbox is empty</h3>
-                <p className="text-xs">No visitor messages received yet. Test it by submitting the public contact form!</p>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {messages.map((msg) => (
-                  <div
-                    key={msg.id}
-                    className="p-6 rounded-3xl bg-slate-900 border border-slate-800 hover:border-slate-700 space-y-4 transition-all"
-                  >
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <h4 className="font-bold text-white text-sm">{msg.name}</h4>
-                          <span className="text-xs text-purple-400">({msg.email})</span>
-                        </div>
-                        <p className="text-xs font-semibold text-slate-300 mt-0.5">Subject: {msg.subject || 'Direct Inquiry'}</p>
-                      </div>
-
-                      <div className="flex items-center gap-3">
-                        <span className="text-[11px] text-slate-500">{msg.date}</span>
-                        <a
-                          href={`mailto:${msg.email}?subject=Re: ${encodeURIComponent(msg.subject || 'Portfolio Inquiry')}`}
-                          className="px-3 py-1 rounded-lg bg-purple-500/20 text-purple-300 hover:bg-purple-500/30 text-xs font-semibold flex items-center gap-1"
-                        >
-                          <Mail className="w-3.5 h-3.5" />
-                          <span>Reply</span>
-                        </a>
-                        <button
-                          type="button"
-                          onClick={() => handleDeleteMessage(msg.id || msg._id, msg.name)}
-                          className="p-1.5 rounded-lg text-red-400 hover:bg-red-950/50 transition-colors cursor-pointer"
-                          title="Delete message"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div>
-
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed whitespace-pre-line bg-slate-950/60 p-4 rounded-2xl border border-slate-800/80">
-                      {msg.message}
+            {/* Display Filtered Messages */}
+            {(() => {
+              const filteredList = messages.filter(m => messageTab === 'unread' ? !m.read : m.read);
+              if (filteredList.length === 0) {
+                return (
+                  <div className="p-12 text-center rounded-3xl bg-slate-900 border border-slate-800 text-slate-400 space-y-2">
+                    <MessageSquare className="w-10 h-10 mx-auto text-slate-600 mb-2" />
+                    <h3 className="font-bold text-white text-sm">
+                      {messageTab === 'unread' ? 'No unread messages' : 'No read messages'}
+                    </h3>
+                    <p className="text-xs">
+                      {messageTab === 'unread'
+                        ? 'All caught up! New visitor contact submissions will appear here.'
+                        : 'Messages you mark as read or reply to will be archived here.'}
                     </p>
                   </div>
-                ))}
-              </div>
-            )}
+                );
+              }
+
+              return (
+                <div className="space-y-4">
+                  {filteredList.map((msg) => {
+                    const msgId = msg.id || msg._id;
+                    const isReplying = replyingToId === msgId;
+
+                    return (
+                      <div
+                        key={msgId}
+                        className="p-6 rounded-3xl bg-slate-900 border border-slate-800 hover:border-slate-700 space-y-4 transition-all shadow-xs"
+                      >
+                        {/* Header Row */}
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+                          <div>
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <h4 className="font-bold text-white text-sm">{msg.name}</h4>
+                              <span className="text-xs text-cyan-400 font-medium">({msg.email})</span>
+                              {msg.replied && (
+                                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">
+                                  Replied
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-xs font-semibold text-slate-300 mt-0.5">Subject: {msg.subject || 'Direct Inquiry'}</p>
+                          </div>
+
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-[11px] text-slate-500 mr-2">{msg.date}</span>
+                            
+                            {/* Toggle Read / Unread Button */}
+                            <button
+                              type="button"
+                              onClick={() => handleToggleReadStatus(msgId, Boolean(msg.read))}
+                              className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1 transition-colors border border-slate-700 cursor-pointer"
+                              title={msg.read ? 'Mark as Unread' : 'Mark as Read'}
+                            >
+                              <Check className="w-3.5 h-3.5 text-cyan-400" />
+                              <span>{msg.read ? 'Mark Unread' : 'Mark Read'}</span>
+                            </button>
+
+                            {/* In-Admin Reply Button */}
+                            <button
+                              type="button"
+                              onClick={() => {
+                                if (isReplying) {
+                                  setReplyingToId(null);
+                                } else {
+                                  setReplyingToId(msgId);
+                                  setReplyText('');
+                                }
+                              }}
+                              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
+                            >
+                              <Mail className="w-3.5 h-3.5" />
+                              <span>{isReplying ? 'Cancel' : 'Reply'}</span>
+                            </button>
+
+                            {/* Delete Message Button */}
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteMessage(msgId, msg.name)}
+                              className="p-2 rounded-xl text-red-400 hover:bg-red-950/50 transition-colors cursor-pointer border border-transparent hover:border-red-900/40"
+                              title="Delete message"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Message Content */}
+                        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed whitespace-pre-line bg-slate-950/60 p-4 rounded-2xl border border-slate-800/80">
+                          {msg.message}
+                        </p>
+
+                        {/* Previous Sent Reply (if any) */}
+                        {msg.replied && msg.replyText && (
+                          <div className="p-4 rounded-2xl bg-blue-950/30 border border-blue-900/40 space-y-1 text-xs">
+                            <div className="flex items-center justify-between text-cyan-400 font-bold text-[11px]">
+                              <span>Your Sent Reply:</span>
+                              <span>{msg.repliedAt || 'Sent'}</span>
+                            </div>
+                            <p className="text-slate-300 whitespace-pre-line leading-relaxed">{msg.replyText}</p>
+                          </div>
+                        )}
+
+                        {/* Inline Reply Form */}
+                        {isReplying && (
+                          <div className="pt-3 border-t border-slate-800/80 space-y-3 bg-slate-950/80 p-4 rounded-2xl border border-slate-800">
+                            <div className="flex items-center justify-between text-xs font-bold text-white">
+                              <span>Compose Email Reply to {msg.name} ({msg.email}):</span>
+                            </div>
+                            <textarea
+                              rows={3}
+                              value={replyText}
+                              onChange={(e) => setReplyText(e.target.value)}
+                              placeholder={`Type your email reply to ${msg.name}...`}
+                              className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                            <div className="flex items-center justify-end gap-3">
+                              <button
+                                type="button"
+                                onClick={() => setReplyingToId(null)}
+                                className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:bg-slate-800 transition-colors cursor-pointer"
+                              >
+                                Cancel
+                              </button>
+                              <button
+                                type="button"
+                                disabled={isSendingReply || !replyText.trim()}
+                                onClick={() => handleSendReply(msgId)}
+                                className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-blue-500/20 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                              >
+                                {isSendingReply ? (
+                                  <>
+                                    <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                                    <span>Sending Email...</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <Send className="w-3.5 h-3.5" />
+                                    <span>Send Reply</span>
+                                  </>
+                                )}
+                              </button>
+                            </div>
+                          </div>
+                        )}
+
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })()}
           </div>
         )}
 
