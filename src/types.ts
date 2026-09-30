@@ -9,6 +9,7 @@ export interface Project {
   features: string[];
   techStack: string[];
   featured?: boolean;
+  imageUrl?: string;
 }
 
 export interface SkillItem {

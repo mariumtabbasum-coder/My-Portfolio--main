@@ -9,12 +9,23 @@ import { LearningJourney } from './components/LearningJourney';
 import { Certificates } from './components/Certificates';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { AdminLogin } from './components/AdminLogin';
+import { AdminDashboard } from './components/AdminDashboard';
 
 export const App: React.FC = () => {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [adminToken, setAdminToken] = useState<string | null>(null);
 
-  // Load initial theme from localStorage or system preference
   useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname);
+    };
+    window.addEventListener('popstate', handlePopState);
+
+    const token = localStorage.getItem('admin_token');
+    if (token) setAdminToken(token);
+
     try {
       const saved = localStorage.getItem('theme') || localStorage.getItem('marium_theme');
       const initial = (saved === 'light' || saved === 'dark') ? saved : 'dark';
@@ -23,6 +34,8 @@ export const App: React.FC = () => {
     } catch (e) {
       applyTheme('dark');
     }
+
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   const applyTheme = (newTheme: 'light' | 'dark') => {
@@ -47,6 +60,14 @@ export const App: React.FC = () => {
     setTheme(nextTheme);
     applyTheme(nextTheme);
   };
+
+  // Check if viewing Admin route
+  if (currentPath.startsWith('/admin')) {
+    if (!adminToken) {
+      return <AdminLogin onLoginSuccess={(token) => setAdminToken(token)} />;
+    }
+    return <AdminDashboard />;
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-cyan-500 selection:text-white transition-colors duration-300">

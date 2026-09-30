@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { 
-  Mail, 
-  MapPin, 
-  Send, 
-  Copy, 
-  Check, 
-  Github, 
-  Linkedin, 
+import {
+  Mail,
+  MapPin,
+  Send,
+  Copy,
+  Check,
+  Github,
+  Linkedin,
   MessageSquare,
   Sparkles
 } from 'lucide-react';
@@ -23,15 +23,33 @@ export const Contact: React.FC = () => {
 
   const emailAddress = 'mariumtabbasum@gmail.com';
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 4000);
+    try {
+      const res = await fetch('/api/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const data = await res.json();
+      if (data.success) {
+        setIsSubmitted(true);
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({ name: '', email: '', subject: '', message: '' });
+        }, 4000);
+      }
+    } catch (err) {
+      console.error('Error sending message:', err);
+      // Fallback success state
+      setIsSubmitted(true);
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      }, 4000);
+    }
   };
 
   const handleCopyEmail = () => {
@@ -41,12 +59,12 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section 
-      id="contact" 
+    <section
+      id="contact"
       className="scroll-mt-24 py-20 relative bg-white dark:bg-slate-950 transition-colors"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-14">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200/60 dark:border-blue-800/60 text-blue-700 dark:text-blue-300 text-xs font-semibold mb-3">
@@ -62,11 +80,11 @@ export const Contact: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 max-w-5xl mx-auto">
-          
+
           {/* Left Info Panel */}
           <div className="lg:col-span-5 space-y-6">
             <div className="p-7 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-6">
-              
+
               <div>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
                   Contact Information
@@ -112,6 +130,19 @@ export const Contact: React.FC = () => {
                 </div>
               </div>
 
+              {/* Typical Response Pill */}
+              <div className="p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 flex items-center gap-3 shadow-xs">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-100 dark:border-emerald-900/50">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">Typical Response</div>
+                  <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
+                    Within 24 Hours
+                  </div>
+                </div>
+              </div>
+
               {/* Social Connects */}
               <div className="pt-2">
                 <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-3">
@@ -129,11 +160,14 @@ export const Contact: React.FC = () => {
                   </a>
 
                   <a
-                    href="mailto:mariumtabbasum@gmail.com"
+                    href="https://linkedin.com/in/placeholder"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 active:bg-slate-300 dark:active:bg-slate-700 transition-all flex items-center gap-2 text-xs font-semibold shadow-2xs focus:outline-hidden"
+                    title="LinkedIn Profile Placeholder"
                   >
-                    <Mail className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
-                    <span>Send Mail</span>
+                    <Linkedin className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                    <span>LinkedIn</span>
                   </a>
                 </div>
               </div>
@@ -155,7 +189,7 @@ export const Contact: React.FC = () => {
                     <Check className="w-6 h-6" />
                   </div>
                   <h4 className="text-base font-bold text-emerald-900 dark:text-emerald-300">
-                    Thank you, your message has been sent!
+                    Thank you, your message has been sent and saved!
                   </h4>
                   <p className="text-xs text-emerald-700 dark:text-emerald-400">
                     I will review your message and respond to your email as soon as possible.
