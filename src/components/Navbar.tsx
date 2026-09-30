@@ -140,7 +140,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
               title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
             >
               {theme === 'dark' ? (
-                <Sun className="w-4 h-4 text-amber-400 animate-spin-slow" />
+                <Sun className="w-4 h-4 text-purple-400 animate-spin-slow" />
               ) : (
                 <Moon className="w-4 h-4 text-indigo-600" />
               )}
@@ -201,7 +201,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
               >
                 <span className="flex items-center gap-2">
                   {theme === 'dark' ? (
-                    <Sun className="w-4 h-4 text-amber-400" />
+                    <Sun className="w-4 h-4 text-purple-400" />
                   ) : (
                     <Moon className="w-4 h-4 text-indigo-600" />
                   )}

@@ -138,12 +138,12 @@ export const Hero: React.FC = () => {
 
                 {/* Profile Header Inside Card */}
                 <div className="flex items-center gap-4 mb-6 pb-6 border-b border-slate-800">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-600 flex items-center justify-center text-slate-950 font-extrabold text-xl shadow-md border-2 border-amber-400/40">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center text-white font-extrabold text-xl shadow-md border-2 border-purple-400/40">
                     MT
                   </div>
                   <div>
                     <h3 className="font-bold text-white text-base">{name}</h3>
-                    <p className="text-xs text-amber-400 font-medium">{title}</p>
+                    <p className="text-xs text-purple-400 font-medium">{title}</p>
                     <p className="text-[11px] text-slate-400 mt-0.5">{location}</p>
                   </div>
                 </div>
@@ -179,11 +179,11 @@ export const Hero: React.FC = () => {
                 <div className="rounded-xl bg-slate-950 p-4 font-mono text-[11px] text-slate-300 space-y-1.5 border border-slate-800">
                   <div className="flex items-center gap-1.5 pb-2 border-b border-slate-800/80 mb-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                    <span className="w-2.5 h-2.5 rounded-full bg-purple-500/80"></span>
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
                     <span className="ml-1 text-slate-400 text-[10px]">developer-profile.ts</span>
                   </div>
-                  <p><span className="text-cyan-400">const</span> <span className="text-blue-300">developer</span> = <span className="text-amber-300">"{name}"</span>;</p>
+                  <p><span className="text-cyan-400">const</span> <span className="text-blue-300">developer</span> = <span className="text-pink-300">"{name}"</span>;</p>
                   <p><span className="text-cyan-400">const</span> <span className="text-blue-300">role</span> = <span className="text-emerald-300">"Frontend Developer & SE Intern"</span>;</p>
                   <p><span className="text-cyan-400">const</span> <span className="text-blue-300">learning</span> = [<span className="text-cyan-300">"Prompt Engineering"</span>, <span className="text-cyan-300">"RAG"</span>, <span className="text-cyan-300">"LLM APIs"</span>];</p>
                 </div>
@@ -204,14 +204,14 @@ export const Hero: React.FC = () => {
             {/* Modal Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shrink-0">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200/60 dark:border-amber-900/50">
+                <div className="p-2.5 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 border border-purple-200/60 dark:border-purple-900/50">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
                     {name} — Curriculum Vitae
                   </h3>
-                  <p className="text-xs text-amber-600 dark:text-amber-400 font-semibold uppercase tracking-wider">
+                  <p className="text-xs text-purple-600 dark:text-purple-400 font-semibold uppercase tracking-wider">
                     WEB DEVELOPER • FRONTEND DEVELOPER • SE INTERN
                   </p>
                 </div>
@@ -224,7 +224,7 @@ export const Hero: React.FC = () => {
                   onClick={() => setCvViewTab('structured')}
                   className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                     cvViewTab === 'structured'
-                      ? 'bg-white dark:bg-slate-900 text-amber-600 dark:text-amber-400 shadow-xs'
+                      ? 'bg-white dark:bg-slate-900 text-purple-600 dark:text-pink-400 shadow-xs'
                       : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
@@ -235,7 +235,7 @@ export const Hero: React.FC = () => {
                   onClick={() => setCvViewTab('pdf')}
                   className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                     cvViewTab === 'pdf'
-                      ? 'bg-white dark:bg-slate-900 text-amber-600 dark:text-amber-400 shadow-xs'
+                      ? 'bg-white dark:bg-slate-900 text-purple-600 dark:text-pink-400 shadow-xs'
                       : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
@@ -248,7 +248,7 @@ export const Hero: React.FC = () => {
                 <a
                   href="/cv.pdf"
                   download="Marium_Tabassum_CV.pdf"
-                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-md shadow-amber-500/20 transition-all cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-purple-500/20 transition-all cursor-pointer"
                 >
                   <Download className="w-4 h-4" />
                   <span>Download PDF CV</span>
@@ -272,7 +272,7 @@ export const Hero: React.FC = () => {
                 onClick={() => setCvViewTab('structured')}
                 className={`flex-1 py-1.5 text-center text-xs font-bold rounded-lg ${
                   cvViewTab === 'structured'
-                    ? 'bg-white dark:bg-slate-900 text-amber-600 dark:text-amber-400 shadow-xs'
+                    ? 'bg-white dark:bg-slate-900 text-purple-600 dark:text-pink-400 shadow-xs'
                     : 'text-slate-500'
                 }`}
               >
@@ -283,7 +283,7 @@ export const Hero: React.FC = () => {
                 onClick={() => setCvViewTab('pdf')}
                 className={`flex-1 py-1.5 text-center text-xs font-bold rounded-lg ${
                   cvViewTab === 'pdf'
-                    ? 'bg-white dark:bg-slate-900 text-amber-600 dark:text-amber-400 shadow-xs'
+                    ? 'bg-white dark:bg-slate-900 text-purple-600 dark:text-pink-400 shadow-xs'
                     : 'text-slate-500'
                 }`}
               >
@@ -308,7 +308,7 @@ export const Hero: React.FC = () => {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
                   <div>
                     <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                      MARIUM <span className="text-amber-500 dark:text-amber-400">TABASSUM</span>
+                      MARIUM <span className="text-purple-500 dark:text-pink-400">TABASSUM</span>
                     </h2>
                     <p className="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide mt-0.5">
                       WEB DEVELOPER • FRONTEND DEVELOPER • SE INTERN
@@ -317,15 +317,15 @@ export const Hero: React.FC = () => {
 
                   <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
                     <div className="flex items-center gap-2">
-                      <Phone className="w-3.5 h-3.5 text-amber-500" />
+                      <Phone className="w-3.5 h-3.5 text-purple-500 dark:text-pink-400" />
                       <span>0322-2963909</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Mail className="w-3.5 h-3.5 text-amber-500" />
+                      <Mail className="w-3.5 h-3.5 text-purple-500 dark:text-pink-400" />
                       <span>mariumtabbasum@gmail.com</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <MapPin className="w-3.5 h-3.5 text-amber-500" />
+                      <MapPin className="w-3.5 h-3.5 text-purple-500 dark:text-pink-400" />
                       <span>1148/3 Nazimabad No#3, Urdu Bazar, Karachi</span>
                     </div>
                   </div>
@@ -333,8 +333,8 @@ export const Hero: React.FC = () => {
 
                 {/* Professional Summary */}
                 <div>
-                  <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                  <h4 className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-purple-500 dark:text-pink-400" />
                     Professional Summary
                   </h4>
                   <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed text-justify">
@@ -348,7 +348,7 @@ export const Hero: React.FC = () => {
 
                 {/* Personal Information */}
                 <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 shadow-xs">
-                  <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-2">
+                  <h4 className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider mb-2">
                     Information
                   </h4>
                   <div className="space-y-2 text-xs text-slate-700 dark:text-slate-300">
@@ -382,7 +382,7 @@ export const Hero: React.FC = () => {
                 {/* About Me */}
                 <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 shadow-xs flex flex-col justify-between">
                   <div>
-                    <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-2">
+                    <h4 className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider mb-2">
                       About Me
                     </h4>
                     <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed text-justify">
@@ -398,14 +398,14 @@ export const Hero: React.FC = () => {
 
                 {/* Education */}
                 <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 shadow-xs">
-                  <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-2">
+                  <h4 className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider mb-2">
                     Education
                   </h4>
                   <div className="space-y-3 text-xs text-slate-700 dark:text-slate-300">
                     <div>
                       <div className="flex justify-between font-bold text-slate-900 dark:text-white">
                         <span>Diploma in Software Engineering</span>
-                        <span className="text-amber-500 font-semibold">In Progress</span>
+                        <span className="text-purple-500 dark:text-pink-400 font-semibold">In Progress</span>
                       </div>
                       <p className="text-slate-500 dark:text-slate-400 text-[11px]">3-Year Program — 1st Semester Completed (Aptech Computer Education)</p>
                     </div>
@@ -431,19 +431,19 @@ export const Hero: React.FC = () => {
                 {/* Certifications & Skills */}
                 <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4 shadow-xs">
                   <div>
-                    <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-2">
+                    <h4 className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider mb-2">
                       Certifications
                     </h4>
                     <ul className="space-y-2 text-xs text-slate-700 dark:text-slate-300">
                       <li className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-purple-500 dark:text-pink-400 shrink-0 mt-0.5" />
                         <div>
                           <span className="font-semibold text-slate-900 dark:text-white">Generative AI</span>
                           <span className="text-slate-500 dark:text-slate-400 ml-1.5">— Ongoing (5-month course)</span>
                         </div>
                       </li>
                       <li className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-purple-500 dark:text-pink-400 shrink-0 mt-0.5" />
                         <div>
                           <span className="font-semibold text-slate-900 dark:text-white">Python</span>
                           <span className="text-slate-500 dark:text-slate-400 ml-1.5">— Basic to Advanced (In progress)</span>
@@ -453,7 +453,7 @@ export const Hero: React.FC = () => {
                   </div>
 
                   <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
-                    <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-2">
+                    <h4 className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider mb-2">
                       Technical Skills
                     </h4>
                     <div className="grid grid-cols-2 gap-2 text-xs">
@@ -466,7 +466,7 @@ export const Hero: React.FC = () => {
                         'Generative AI (Learning)',
                       ].map((skill, idx) => (
                         <div key={idx} className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 font-medium">
-                          <span className="text-amber-500 font-bold">✔</span>
+                          <span className="text-purple-500 dark:text-pink-400 font-bold">✔</span>
                           <span>{skill}</span>
                         </div>
                       ))}
@@ -478,19 +478,19 @@ export const Hero: React.FC = () => {
 
               {/* Academic Projects / Academic Learning (Ongoing) */}
               <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 shadow-xs">
-                <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider mb-2">
                   Academic Projects / Academic Learning (Ongoing)
                 </h4>
                 <div className="space-y-3 text-xs text-slate-700 dark:text-slate-300">
-                  <div className="border-l-2 border-amber-500 pl-3">
+                  <div className="border-l-2 border-purple-500 pl-3">
                     <div className="font-bold text-slate-900 dark:text-white">Diploma in Software Engineering (2025 - Present)</div>
                     <p className="text-slate-600 dark:text-slate-400 mt-0.5">Currently in 1st semester (6 months completed) of a 3-year diploma. Covered so far: HTML, CSS, Basic JavaScript, Bootstrap, Basic jQuery.</p>
                   </div>
-                  <div className="border-l-2 border-amber-500 pl-3">
+                  <div className="border-l-2 border-purple-500 pl-3">
                     <div className="font-bold text-slate-900 dark:text-white">Generative AI Course (In Progress — 5 Months)</div>
                     <p className="text-slate-600 dark:text-slate-400 mt-0.5">Building practical understanding of Generative AI concepts and tools. Expected completion alongside advanced Python skills.</p>
                   </div>
-                  <div className="border-l-2 border-amber-500 pl-3">
+                  <div className="border-l-2 border-purple-500 pl-3">
                     <div className="font-bold text-slate-900 dark:text-white">Python Programming: Basic → Advanced (Ongoing)</div>
                     <p className="text-slate-600 dark:text-slate-400 mt-0.5">Currently comfortable with Python basics; working toward an advanced level.</p>
                   </div>
@@ -522,7 +522,7 @@ export const Hero: React.FC = () => {
                 <a
                   href="/cv.pdf"
                   download="Marium_Tabassum_CV.pdf"
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-md shadow-amber-500/20 transition-all cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-purple-500/20 transition-all cursor-pointer"
                 >
                   <Download className="w-4 h-4" />
                   <span>Download PDF CV</span>

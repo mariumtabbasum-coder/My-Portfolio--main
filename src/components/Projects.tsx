@@ -141,7 +141,7 @@ export const Projects: React.FC = () => {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     {project.featured && (
-                      <span className="absolute top-3 right-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-white shadow-md flex items-center gap-1">
+                      <span className="absolute top-3 right-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md flex items-center gap-1">
                         <Sparkles className="w-3 h-3" /> Featured
                       </span>
                     )}
@@ -153,7 +153,7 @@ export const Projects: React.FC = () => {
                         <Code2 className="w-5 h-5" />
                       </div>
                       {project.featured && (
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-white shadow-md flex items-center gap-1">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md flex items-center gap-1">
                           <Sparkles className="w-3 h-3" /> Featured
                         </span>
                       )}

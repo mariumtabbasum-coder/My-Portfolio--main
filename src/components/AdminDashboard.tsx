@@ -628,7 +628,7 @@ export const AdminDashboard: React.FC = () => {
       <nav className="w-full md:w-64 bg-slate-900 border-r border-slate-800 flex flex-col p-6 shrink-0">
         <div className="text-white font-extrabold text-base mb-8 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-600 flex items-center justify-center text-slate-950 font-extrabold text-sm shadow-md">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center text-slate-950 font-extrabold text-sm shadow-md">
               MT
             </div>
             <span>Portfolio CMS</span>
@@ -637,7 +637,7 @@ export const AdminDashboard: React.FC = () => {
             href="/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[11px] text-amber-400 hover:underline flex items-center gap-1 font-semibold"
+            className="text-[11px] text-purple-400 hover:underline flex items-center gap-1 font-semibold"
             title="Open Public Site"
           >
             <Eye className="w-3.5 h-3.5" />
@@ -655,7 +655,7 @@ export const AdminDashboard: React.FC = () => {
                 onClick={() => setActiveTab(item.id as any)}
                 className={`w-full px-3.5 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-between transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20'
+                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold shadow-md shadow-purple-500/20'
                     : 'text-slate-400 hover:bg-slate-800/80 hover:text-white'
                 }`}
               >
@@ -665,7 +665,7 @@ export const AdminDashboard: React.FC = () => {
                 </div>
                 {item.count !== undefined && (
                   <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
-                    isActive ? 'bg-amber-600 text-slate-950' : 'bg-slate-800 text-slate-300'
+                    isActive ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-300'
                   }`}>
                     {item.count}
                   </span>
@@ -692,7 +692,7 @@ export const AdminDashboard: React.FC = () => {
           <div className="space-y-6">
             <div className="border-b border-slate-800 pb-4">
               <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                <Home className="w-5 h-5 text-amber-400" />
+                <Home className="w-5 h-5 text-purple-400" />
                 <span>Home / Hero Section Management</span>
               </h2>
               <p className="text-xs text-slate-400 mt-1">
@@ -709,7 +709,7 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.heroBadge || ''}
                     onChange={(e) => setSettings({ ...settings, heroBadge: e.target.value })}
                     placeholder="Aptech Computer Education • Semester 1 Complete"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -719,7 +719,7 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.profile?.name || ''}
                     onChange={(e) => setSettings({ ...settings, profile: { ...settings.profile, name: e.target.value } })}
                     placeholder="Marium Tabassum"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
               </div>
@@ -732,7 +732,7 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.headlineLine1 || ''}
                     onChange={(e) => setSettings({ ...settings, headlineLine1: e.target.value })}
                     placeholder="Building Modern"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -742,7 +742,7 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.headlineLine2 || ''}
                     onChange={(e) => setSettings({ ...settings, headlineLine2: e.target.value })}
                     placeholder="Frontend Experiences & Web Solutions"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
               </div>
@@ -754,7 +754,7 @@ export const AdminDashboard: React.FC = () => {
                   value={settings.title || ''}
                   onChange={(e) => setSettings({ ...settings, title: e.target.value })}
                   placeholder="Software Engineering Student & Frontend Developer"
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                 />
               </div>
 
@@ -765,7 +765,7 @@ export const AdminDashboard: React.FC = () => {
                   value={settings.bio || ''}
                   onChange={(e) => setSettings({ ...settings, bio: e.target.value })}
                   placeholder="Bio text displayed on the hero..."
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                 />
               </div>
 
@@ -777,7 +777,7 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.buttonText || ''}
                     onChange={(e) => setSettings({ ...settings, buttonText: e.target.value })}
                     placeholder="View Featured Projects"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -787,7 +787,7 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.buttonLink || ''}
                     onChange={(e) => setSettings({ ...settings, buttonLink: e.target.value })}
                     placeholder="#projects"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -797,14 +797,14 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.secondaryCtaText || ''}
                     onChange={(e) => setSettings({ ...settings, secondaryCtaText: e.target.value })}
                     placeholder="View CV / Resume"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-md shadow-amber-500/20 cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Save className="w-4 h-4" />
                 <span>Save Home / Hero Changes</span>
@@ -818,7 +818,7 @@ export const AdminDashboard: React.FC = () => {
           <div className="space-y-6">
             <div className="border-b border-slate-800 pb-4">
               <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                <User className="w-5 h-5 text-amber-400" />
+                <User className="w-5 h-5 text-purple-400" />
                 <span>About & Profile Management</span>
               </h2>
               <p className="text-xs text-slate-400 mt-1">
@@ -835,7 +835,7 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.aboutHeading || ''}
                     onChange={(e) => setSettings({ ...settings, aboutHeading: e.target.value })}
                     placeholder="Crafting Code with Passion & Purpose"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -845,7 +845,7 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.aboutSubtitle || ''}
                     onChange={(e) => setSettings({ ...settings, aboutSubtitle: e.target.value })}
                     placeholder="A look into my academic journey..."
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
               </div>
@@ -857,7 +857,7 @@ export const AdminDashboard: React.FC = () => {
                   value={settings.journeyText || ''}
                   onChange={(e) => setSettings({ ...settings, journeyText: e.target.value })}
                   placeholder="Journey narrative..."
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                 />
               </div>
 
@@ -868,7 +868,7 @@ export const AdminDashboard: React.FC = () => {
                   value={settings.aptechDetails || ''}
                   onChange={(e) => setSettings({ ...settings, aptechDetails: e.target.value })}
                   placeholder="Aptech diploma curriculum..."
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                 />
               </div>
 
@@ -879,7 +879,7 @@ export const AdminDashboard: React.FC = () => {
                   value={settings.scholarshipDetails || ''}
                   onChange={(e) => setSettings({ ...settings, scholarshipDetails: e.target.value })}
                   placeholder="Bano Qabil Generative AI curriculum..."
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                 />
               </div>
 
@@ -890,13 +890,13 @@ export const AdminDashboard: React.FC = () => {
                   value={settings.philosophyText || ''}
                   onChange={(e) => setSettings({ ...settings, philosophyText: e.target.value })}
                   placeholder="Core engineering principles..."
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                 />
               </div>
 
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-md shadow-amber-500/20 cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Save className="w-4 h-4" />
                 <span>Save About Changes</span>
@@ -911,7 +911,7 @@ export const AdminDashboard: React.FC = () => {
             <div className="flex items-center justify-between border-b border-slate-800 pb-4">
               <div>
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  <Code2 className="w-5 h-5 text-amber-400" />
+                  <Code2 className="w-5 h-5 text-purple-400" />
                   <span>Skills Management</span>
                 </h2>
                 <p className="text-xs text-slate-400 mt-1">
@@ -920,7 +920,7 @@ export const AdminDashboard: React.FC = () => {
               </div>
               <button
                 onClick={openNewSkillModal}
-                className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-md shadow-amber-500/20 cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add New Skill</span>
@@ -929,7 +929,7 @@ export const AdminDashboard: React.FC = () => {
 
             {/* Add / Edit Skill Modal */}
             {isAddingSkill && (
-              <div className="p-6 rounded-2xl bg-slate-900 border border-amber-500/40 space-y-4">
+              <div className="p-6 rounded-2xl bg-slate-900 border border-purple-500/40 space-y-4">
                 <div className="flex items-center justify-between pb-2 border-b border-slate-800">
                   <h3 className="text-sm font-bold text-white">
                     {editingSkill ? `Edit Skill: ${editingSkill.name}` : 'Add New Technical Skill'}
@@ -975,7 +975,7 @@ export const AdminDashboard: React.FC = () => {
                         max="100"
                         value={skillForm.level}
                         onChange={(e) => setSkillForm({ ...skillForm, level: Number(e.target.value) })}
-                        className="w-full accent-amber-500 cursor-pointer"
+                        className="w-full accent-purple-500 cursor-pointer"
                       />
                     </div>
                     <div>
@@ -1002,7 +1002,7 @@ export const AdminDashboard: React.FC = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-md shadow-amber-500/20 cursor-pointer"
+                      className="px-5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs shadow-md shadow-purple-500/20 cursor-pointer"
                     >
                       {editingSkill ? 'Update Skill' : 'Save Skill'}
                     </button>
@@ -1027,11 +1027,11 @@ export const AdminDashboard: React.FC = () => {
                   {skills.map((skill) => (
                     <tr key={skill.id} className="hover:bg-slate-800/40 transition-colors">
                       <td className="px-5 py-3.5 font-bold text-white">{skill.name}</td>
-                      <td className="px-5 py-3.5 capitalize text-amber-400">{skill.category}</td>
+                      <td className="px-5 py-3.5 capitalize text-purple-400">{skill.category}</td>
                       <td className="px-5 py-3.5">
                         <div className="flex items-center gap-2.5">
                           <div className="w-20 h-2 bg-slate-800 rounded-full overflow-hidden">
-                            <div className="h-full bg-amber-500" style={{ width: `${skill.level}%` }} />
+                            <div className="h-full bg-purple-500" style={{ width: `${skill.level}%` }} />
                           </div>
                           <span className="font-semibold text-slate-300">{skill.level}%</span>
                         </div>
@@ -1075,7 +1075,7 @@ export const AdminDashboard: React.FC = () => {
             <div className="flex items-center justify-between border-b border-slate-800 pb-4">
               <div>
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  <FolderGit2 className="w-5 h-5 text-amber-400" />
+                  <FolderGit2 className="w-5 h-5 text-purple-400" />
                   <span>Projects Portfolio Management</span>
                 </h2>
                 <p className="text-xs text-slate-400 mt-1">
@@ -1084,7 +1084,7 @@ export const AdminDashboard: React.FC = () => {
               </div>
               <button
                 onClick={openNewProjectModal}
-                className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-md shadow-amber-500/20 cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add New Project</span>
@@ -1093,7 +1093,7 @@ export const AdminDashboard: React.FC = () => {
 
             {/* Add / Edit Project Modal */}
             {isAddingProject && (
-              <div className="p-6 rounded-3xl bg-slate-900 border border-amber-500/40 space-y-5">
+              <div className="p-6 rounded-3xl bg-slate-900 border border-purple-500/40 space-y-5">
                 <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                   <h3 className="text-sm font-bold text-white">
                     {editingProject ? `Edit Project: ${editingProject.title}` : 'Add New Portfolio Project'}
@@ -1131,7 +1131,7 @@ export const AdminDashboard: React.FC = () => {
                       )}
 
                       <div className="flex-1 space-y-2 w-full">
-                        <label className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-semibold cursor-pointer">
+                        <label className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/40 text-xs font-semibold cursor-pointer">
                           <Upload className="w-4 h-4" />
                           <span>{isUploadingImage ? 'Uploading...' : 'Choose Image File'}</span>
                           <input
@@ -1187,7 +1187,7 @@ export const AdminDashboard: React.FC = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-semibold text-slate-300 mb-1">
-                        Live Demo URL <span className="text-amber-400 font-normal">(Optional)</span>
+                        Live Demo URL <span className="text-purple-400 font-normal">(Optional)</span>
                       </label>
                       <input
                         type="text"
@@ -1251,7 +1251,7 @@ export const AdminDashboard: React.FC = () => {
                       id="featuredProject"
                       checked={projectForm.featured}
                       onChange={(e) => setProjectForm({ ...projectForm, featured: e.target.checked })}
-                      className="w-4 h-4 accent-amber-500 rounded cursor-pointer"
+                      className="w-4 h-4 accent-purple-500 rounded cursor-pointer"
                     />
                     <label htmlFor="featuredProject" className="text-xs text-slate-300 cursor-pointer">
                       Mark as Featured Project on Home & Portfolio
@@ -1268,7 +1268,7 @@ export const AdminDashboard: React.FC = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-6 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-md shadow-amber-500/20 cursor-pointer"
+                      className="px-6 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs shadow-md shadow-purple-500/20 cursor-pointer"
                     >
                       {editingProject ? 'Update Project' : 'Publish Project'}
                     </button>
@@ -1292,20 +1292,20 @@ export const AdminDashboard: React.FC = () => {
                             <img src={proj.imageUrl} alt={proj.title} className="w-full h-full object-cover" />
                           </div>
                         ) : (
-                          <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold shrink-0">
+                          <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold shrink-0">
                             <Code2 className="w-6 h-6" />
                           </div>
                         )}
                         <div>
                           <h4 className="font-bold text-white text-sm">{proj.title}</h4>
-                          <span className="text-[10px] font-semibold text-amber-400 uppercase tracking-wider">
+                          <span className="text-[10px] font-semibold text-purple-400 uppercase tracking-wider">
                             {proj.category}
                           </span>
                         </div>
                       </div>
 
                       {proj.featured && (
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-white">
                           Featured
                         </span>
                       )}
@@ -1333,7 +1333,7 @@ export const AdminDashboard: React.FC = () => {
                           href={proj.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-[11px] text-amber-400 hover:underline flex items-center gap-1"
+                          className="text-[11px] text-purple-400 hover:underline flex items-center gap-1"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
                           <span>Demo</span>
@@ -1383,7 +1383,7 @@ export const AdminDashboard: React.FC = () => {
             <div className="flex items-center justify-between border-b border-slate-800 pb-4">
               <div>
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  <Layers className="w-5 h-5 text-amber-400" />
+                  <Layers className="w-5 h-5 text-purple-400" />
                   <span>Services Management</span>
                 </h2>
                 <p className="text-xs text-slate-400 mt-1">
@@ -1392,7 +1392,7 @@ export const AdminDashboard: React.FC = () => {
               </div>
               <button
                 onClick={openNewServiceModal}
-                className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-md shadow-amber-500/20 cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Service</span>
@@ -1400,7 +1400,7 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             {isAddingService && (
-              <div className="p-6 rounded-2xl bg-slate-900 border border-amber-500/40 space-y-4">
+              <div className="p-6 rounded-2xl bg-slate-900 border border-purple-500/40 space-y-4">
                 <div className="flex items-center justify-between pb-2 border-b border-slate-800">
                   <h3 className="text-sm font-bold text-white">
                     {editingService ? `Edit Service: ${editingService.title}` : 'Add Service Offering'}
@@ -1468,7 +1468,7 @@ export const AdminDashboard: React.FC = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs cursor-pointer"
+                      className="px-5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs cursor-pointer"
                     >
                       {editingService ? 'Update Service' : 'Save Service'}
                     </button>
@@ -1482,7 +1482,7 @@ export const AdminDashboard: React.FC = () => {
                 <div key={srv.id} className="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
                   <div className="flex items-center justify-between">
                     <h4 className="font-bold text-white text-sm">{srv.title}</h4>
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-950 text-amber-300 border border-amber-800">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-950 text-purple-300 border border-purple-800">
                       {srv.badge}
                     </span>
                   </div>
@@ -1517,7 +1517,7 @@ export const AdminDashboard: React.FC = () => {
             <div className="flex items-center justify-between border-b border-slate-800 pb-4">
               <div>
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  <Compass className="w-5 h-5 text-amber-400" />
+                  <Compass className="w-5 h-5 text-purple-400" />
                   <span>Learning Journey & Timeline Management</span>
                 </h2>
                 <p className="text-xs text-slate-400 mt-1">
@@ -1526,7 +1526,7 @@ export const AdminDashboard: React.FC = () => {
               </div>
               <button
                 onClick={openNewMilestoneModal}
-                className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-md shadow-amber-500/20 cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Milestone</span>
@@ -1534,7 +1534,7 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             {isAddingMilestone && (
-              <div className="p-6 rounded-2xl bg-slate-900 border border-amber-500/40 space-y-4">
+              <div className="p-6 rounded-2xl bg-slate-900 border border-purple-500/40 space-y-4">
                 <div className="flex items-center justify-between pb-2 border-b border-slate-800">
                   <h3 className="text-sm font-bold text-white">
                     {editingMilestone ? `Edit Milestone: ${editingMilestone.title}` : 'Add Journey Milestone'}
@@ -1627,7 +1627,7 @@ export const AdminDashboard: React.FC = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs cursor-pointer"
+                      className="px-5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs cursor-pointer"
                     >
                       {editingMilestone ? 'Update Milestone' : 'Save Milestone'}
                     </button>
@@ -1642,7 +1642,7 @@ export const AdminDashboard: React.FC = () => {
                   <div>
                     <div className="flex items-center gap-2">
                       <span className="font-bold text-white text-xs sm:text-sm">{m.title}</span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-amber-400 font-semibold">{m.period}</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-purple-400 font-semibold">{m.period}</span>
                     </div>
                     <p className="text-xs text-slate-400 mt-1">{m.organization} • {m.description}</p>
                   </div>
@@ -1676,7 +1676,7 @@ export const AdminDashboard: React.FC = () => {
             <div className="flex items-center justify-between border-b border-slate-800 pb-4">
               <div>
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  <Award className="w-5 h-5 text-amber-400" />
+                  <Award className="w-5 h-5 text-purple-400" />
                   <span>Certificates & Credentials Management</span>
                 </h2>
                 <p className="text-xs text-slate-400 mt-1">
@@ -1685,7 +1685,7 @@ export const AdminDashboard: React.FC = () => {
               </div>
               <button
                 onClick={openNewCertificateModal}
-                className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-md shadow-amber-500/20 cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Certificate</span>
@@ -1693,7 +1693,7 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             {isAddingCertificate && (
-              <div className="p-6 rounded-2xl bg-slate-900 border border-amber-500/40 space-y-4">
+              <div className="p-6 rounded-2xl bg-slate-900 border border-purple-500/40 space-y-4">
                 <div className="flex items-center justify-between pb-2 border-b border-slate-800">
                   <h3 className="text-sm font-bold text-white">
                     {editingCertificate ? `Edit Certificate: ${editingCertificate.title}` : 'Add Certificate'}
@@ -1771,7 +1771,7 @@ export const AdminDashboard: React.FC = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs cursor-pointer"
+                      className="px-5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs cursor-pointer"
                     >
                       {editingCertificate ? 'Update Certificate' : 'Save Certificate'}
                     </button>
@@ -1785,7 +1785,7 @@ export const AdminDashboard: React.FC = () => {
                 <div key={cert.id} className="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex justify-between items-start">
                   <div>
                     <h4 className="font-bold text-white text-sm">{cert.title}</h4>
-                    <p className="text-xs text-amber-400 mt-0.5">{cert.issuer} • {cert.date}</p>
+                    <p className="text-xs text-purple-400 mt-0.5">{cert.issuer} • {cert.date}</p>
                     <p className="text-xs text-slate-400 mt-2">{cert.description}</p>
                   </div>
                   <div className="flex items-center gap-2">
@@ -1817,7 +1817,7 @@ export const AdminDashboard: React.FC = () => {
           <div className="space-y-6">
             <div className="border-b border-slate-800 pb-4">
               <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                <Mail className="w-5 h-5 text-amber-400" />
+                <Mail className="w-5 h-5 text-purple-400" />
                 <span>Contact Info Management</span>
               </h2>
               <p className="text-xs text-slate-400 mt-1">
@@ -1835,7 +1835,7 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.email || settings.emails?.[0] || ''}
                     onChange={(e) => setSettings({ ...settings, email: e.target.value, emails: [e.target.value] })}
                     placeholder="mariumtabbasum@gmail.com"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -1845,7 +1845,7 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.phone || ''}
                     onChange={(e) => setSettings({ ...settings, phone: e.target.value })}
                     placeholder="0322-2963909"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
               </div>
@@ -1858,7 +1858,7 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.location || ''}
                     onChange={(e) => setSettings({ ...settings, location: e.target.value })}
                     placeholder="Karachi, Pakistan"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -1868,7 +1868,7 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.responseTimeText || ''}
                     onChange={(e) => setSettings({ ...settings, responseTimeText: e.target.value })}
                     placeholder="Within 24 Hours"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
               </div>
@@ -1881,7 +1881,7 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.contactHeading || ''}
                     onChange={(e) => setSettings({ ...settings, contactHeading: e.target.value })}
                     placeholder="Let's Collaborate & Connect"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -1891,14 +1891,14 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.contactSubtitle || ''}
                     onChange={(e) => setSettings({ ...settings, contactSubtitle: e.target.value })}
                     placeholder="Have a project in mind..."
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-md shadow-amber-500/20 cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Save className="w-4 h-4" />
                 <span>Save Contact Info Changes</span>
@@ -1912,7 +1912,7 @@ export const AdminDashboard: React.FC = () => {
           <div className="space-y-6">
             <div className="border-b border-slate-800 pb-4">
               <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                <Globe className="w-5 h-5 text-amber-400" />
+                <Globe className="w-5 h-5 text-purple-400" />
                 <span>Social Media Links Management</span>
               </h2>
               <p className="text-xs text-slate-400 mt-1">
@@ -1928,7 +1928,7 @@ export const AdminDashboard: React.FC = () => {
                   value={settings.links?.github || ''}
                   onChange={(e) => setSettings({ ...settings, links: { ...settings.links, github: e.target.value } })}
                   placeholder="https://github.com/mariumtabbasum-coder"
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                 />
               </div>
 
@@ -1939,7 +1939,7 @@ export const AdminDashboard: React.FC = () => {
                   value={settings.links?.linkedin || ''}
                   onChange={(e) => setSettings({ ...settings, links: { ...settings.links, linkedin: e.target.value } })}
                   placeholder="https://linkedin.com/in/mariumtabbasum"
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                 />
               </div>
 
@@ -1951,7 +1951,7 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.links?.twitter || ''}
                     onChange={(e) => setSettings({ ...settings, links: { ...settings.links, twitter: e.target.value } })}
                     placeholder="https://twitter.com/..."
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -1961,7 +1961,7 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.links?.facebook || ''}
                     onChange={(e) => setSettings({ ...settings, links: { ...settings.links, facebook: e.target.value } })}
                     placeholder="https://facebook.com/..."
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -1971,14 +1971,14 @@ export const AdminDashboard: React.FC = () => {
                     value={settings.links?.instagram || ''}
                     onChange={(e) => setSettings({ ...settings, links: { ...settings.links, instagram: e.target.value } })}
                     placeholder="https://instagram.com/..."
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-md shadow-amber-500/20 cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-purple-500/20 cursor-pointer"
               >
                 <Save className="w-4 h-4" />
                 <span>Save Social Links</span>
@@ -1993,14 +1993,14 @@ export const AdminDashboard: React.FC = () => {
             <div className="flex items-center justify-between border-b border-slate-800 pb-4">
               <div>
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  <MessageSquare className="w-5 h-5 text-amber-400" />
+                  <MessageSquare className="w-5 h-5 text-purple-400" />
                   <span>Visitor Messages Inbox</span>
                 </h2>
                 <p className="text-xs text-slate-400 mt-1">
                   Read inquiries sent from your portfolio's public contact form.
                 </p>
               </div>
-              <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-950/80 text-amber-300 border border-amber-800">
+              <span className="px-3 py-1 rounded-full text-xs font-bold bg-purple-950/80 text-purple-300 border border-purple-800">
                 {messages.length} Total Messages
               </span>
             </div>
@@ -2022,7 +2022,7 @@ export const AdminDashboard: React.FC = () => {
                       <div>
                         <div className="flex items-center gap-2">
                           <h4 className="font-bold text-white text-sm">{msg.name}</h4>
-                          <span className="text-xs text-amber-400">({msg.email})</span>
+                          <span className="text-xs text-purple-400">({msg.email})</span>
                         </div>
                         <p className="text-xs font-semibold text-slate-300 mt-0.5">Subject: {msg.subject || 'Direct Inquiry'}</p>
                       </div>
@@ -2031,7 +2031,7 @@ export const AdminDashboard: React.FC = () => {
                         <span className="text-[11px] text-slate-500">{msg.date}</span>
                         <a
                           href={`mailto:${msg.email}?subject=Re: ${encodeURIComponent(msg.subject || 'Portfolio Inquiry')}`}
-                          className="px-3 py-1 rounded-lg bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 text-xs font-semibold flex items-center gap-1"
+                          className="px-3 py-1 rounded-lg bg-purple-500/20 text-purple-300 hover:bg-purple-500/30 text-xs font-semibold flex items-center gap-1"
                         >
                           <Mail className="w-3.5 h-3.5" />
                           <span>Reply</span>
