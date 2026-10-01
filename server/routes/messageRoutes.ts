@@ -9,40 +9,37 @@ const router = Router();
 // GET all messages
 router.get('/', async (req, res, next) => {
   try {
-    if (mongoose.connection?.readyState === 1) {
-      const dbMsgs = await (Message as any).find().sort({ createdAt: -1 });
-      if (dbMsgs && dbMsgs.length > 0) {
-        const normalized = dbMsgs.map((m: any) => ({
-          ...(m.toObject ? m.toObject() : m),
-          id: m.id || m._id?.toString()
-        }));
-        return res.json({ success: true, data: normalized });
-      }
-    }
-    return res.json({ success: true, data: dataStore.getMessages() });
+    const dbMsgs = await (Message as any).find().sort({ createdAt: -1 });
+    const normalized = dbMsgs.map((m: any) => ({
+      ...(m.toObject ? m.toObject() : m),
+      id: m.id || m._id?.toString()
+    }));
+    return res.json({ success: true, data: normalized });
   } catch (err) {
-    return res.json({ success: true, data: dataStore.getMessages() });
+    next(err);
   }
 });
 
 // POST create message (Public contact form)
 router.post('/', async (req, res, next) => {
   try {
-    const { name, email, message } = req.body;
+    const { name, email, message, subject } = req.body;
     if (!name || !email || !message) {
       return res.status(400).json({ success: false, message: 'Name, email, and message are required' });
     }
 
-    const created = dataStore.addMessage(req.body);
+    const newMessage = {
+      id: 'msg-' + Date.now(),
+      name,
+      email,
+      message,
+      subject: subject || 'Portfolio Inquiry',
+      read: false,
+      replied: false,
+      createdAt: new Date().toISOString().replace('T', ' ').substring(0, 16)
+    };
 
-    if (mongoose.connection?.readyState === 1) {
-      try {
-        await (Message as any).create(created);
-      } catch (dbErr) {
-        console.warn('MongoDB sync note for message creation');
-      }
-    }
-
+    const created = await (Message as any).create(newMessage);
     return res.json({ success: true, data: created });
   } catch (err) {
     next(err);
@@ -55,19 +52,13 @@ router.put('/:id/read', async (req, res, next) => {
     const { id } = req.params;
     const { read } = req.body;
 
-    const updated = dataStore.updateMessage(id, { read: Boolean(read) });
-
-    if (mongoose.connection?.readyState === 1) {
-      try {
-        const filter: any = { $or: [{ id }] };
-        if (mongoose.isValidObjectId(id)) {
-          filter.$or.push({ _id: new mongoose.Types.ObjectId(id) });
-        }
-        await (Message as any).findOneAndUpdate(filter, { read: Boolean(read) }, { new: true });
-      } catch (dbErr) {
-        console.error('MongoDB sync note for message read update:', dbErr);
-      }
+    const filter: any = { $or: [{ id }] };
+    if (mongoose.isValidObjectId(id)) {
+      filter.$or.push({ _id: new mongoose.Types.ObjectId(id) });
     }
+    
+    const updated = await (Message as any).findOneAndUpdate(filter, { read: Boolean(read) }, { new: true });
+    if (!updated) return res.status(404).json({ success: false, message: 'Message not found' });
 
     return res.json({ success: true, data: updated });
   } catch (err) {
@@ -85,17 +76,9 @@ router.post('/:id/reply', async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Reply text cannot be empty.' });
     }
 
-    let targetMsg = null;
-    if (mongoose.connection?.readyState === 1) {
-      const filter: any = { $or: [{ id }] };
-      if (mongoose.isValidObjectId(id)) filter.$or.push({ _id: new mongoose.Types.ObjectId(id) });
-      targetMsg = await (Message as any).findOne(filter);
-    }
-    
-    if (!targetMsg) {
-      const messages = dataStore.getMessages();
-      targetMsg = messages.find(m => m.id === id || (m as any)._id === id);
-    }
+    const filter: any = { $or: [{ id }] };
+    if (mongoose.isValidObjectId(id)) filter.$or.push({ _id: new mongoose.Types.ObjectId(id) });
+    const targetMsg = await (Message as any).findOne(filter);
 
     if (!targetMsg) {
       return res.status(404).json({ success: false, message: 'Message not found.' });
@@ -109,29 +92,12 @@ router.post('/:id/reply', async (req, res, next) => {
     });
 
     const repliedAt = new Date().toISOString().replace('T', ' ').substring(0, 16);
-    const updated = dataStore.updateMessage(id, {
+    const updated = await (Message as any).findOneAndUpdate(filter, {
       read: true,
       replied: true,
       replyText: replyText,
-      repliedAt: repliedAt,
-    });
-
-    if (mongoose.connection?.readyState === 1) {
-      try {
-        const filter: any = { $or: [{ id }] };
-        if (mongoose.isValidObjectId(id)) {
-          filter.$or.push({ _id: new mongoose.Types.ObjectId(id) });
-        }
-        await (Message as any).findOneAndUpdate(filter, {
-          read: true,
-          replied: true,
-          replyText: replyText,
-          repliedAt: repliedAt
-        }, { new: true });
-      } catch (dbErr) {
-        console.error('MongoDB sync note for message reply update:', dbErr);
-      }
-    }
+      repliedAt: repliedAt
+    }, { new: true });
 
     return res.json({
       success: true,
@@ -148,21 +114,16 @@ router.post('/:id/reply', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
-    dataStore.deleteMessage(id);
-
-    if (mongoose.connection?.readyState === 1) {
-      try {
-        const filter: any = { $or: [{ id }] };
-        if (mongoose.isValidObjectId(id)) {
-          filter.$or.push({ _id: new mongoose.Types.ObjectId(id) });
-        }
-        await (Message as any).findOneAndDelete(filter);
-      } catch (dbErr) {
-        console.error('MongoDB sync note for message delete:', dbErr);
-      }
+    
+    const filter: any = { $or: [{ id }] };
+    if (mongoose.isValidObjectId(id)) {
+      filter.$or.push({ _id: new mongoose.Types.ObjectId(id) });
     }
-
-    return res.json({ success: true, message: 'Message deleted' });
+    
+    const deleted = await (Message as any).findOneAndDelete(filter);
+    if (!deleted) return res.status(404).json({ message: "Not found" });
+    
+    return res.status(200).json({ success: true });
   } catch (err) {
     next(err);
   }

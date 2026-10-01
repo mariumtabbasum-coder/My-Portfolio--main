@@ -39,6 +39,9 @@ export async function sendReplyEmail({ to, subject, text, html }: SendEmailParam
         user,
         pass,
       },
+      tls: {
+        rejectUnauthorized: false
+      }
     });
 
     const info = await transporter.sendMail({
