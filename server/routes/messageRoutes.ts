@@ -59,15 +59,13 @@ router.put('/:id/read', async (req, res, next) => {
 
     if (mongoose.connection?.readyState === 1) {
       try {
-        const filter = {
-          $or: [
-            { id },
-            ...(mongoose.isValidObjectId(id) ? [{ _id: new mongoose.Types.ObjectId(id) }] : [{ _id: id }])
-          ]
-        };
+        const filter: any = { $or: [{ id }] };
+        if (mongoose.isValidObjectId(id)) {
+          filter.$or.push({ _id: new mongoose.Types.ObjectId(id) });
+        }
         await (Message as any).findOneAndUpdate(filter, { read: Boolean(read) }, { new: true });
       } catch (dbErr) {
-        console.warn('MongoDB sync note for message read update');
+        console.error('MongoDB sync note for message read update:', dbErr);
       }
     }
 
@@ -111,12 +109,10 @@ router.post('/:id/reply', async (req, res, next) => {
 
     if (mongoose.connection?.readyState === 1) {
       try {
-        const filter = {
-          $or: [
-            { id },
-            ...(mongoose.isValidObjectId(id) ? [{ _id: new mongoose.Types.ObjectId(id) }] : [{ _id: id }])
-          ]
-        };
+        const filter: any = { $or: [{ id }] };
+        if (mongoose.isValidObjectId(id)) {
+          filter.$or.push({ _id: new mongoose.Types.ObjectId(id) });
+        }
         await (Message as any).findOneAndUpdate(filter, {
           read: true,
           replied: true,
@@ -124,7 +120,7 @@ router.post('/:id/reply', async (req, res, next) => {
           repliedAt: repliedAt
         }, { new: true });
       } catch (dbErr) {
-        console.warn('MongoDB sync note for message reply update');
+        console.error('MongoDB sync note for message reply update:', dbErr);
       }
     }
 
@@ -147,15 +143,13 @@ router.delete('/:id', async (req, res, next) => {
 
     if (mongoose.connection?.readyState === 1) {
       try {
-        const filter = {
-          $or: [
-            { id },
-            ...(mongoose.isValidObjectId(id) ? [{ _id: new mongoose.Types.ObjectId(id) }] : [{ _id: id }])
-          ]
-        };
+        const filter: any = { $or: [{ id }] };
+        if (mongoose.isValidObjectId(id)) {
+          filter.$or.push({ _id: new mongoose.Types.ObjectId(id) });
+        }
         await (Message as any).findOneAndDelete(filter);
       } catch (dbErr) {
-        console.warn('MongoDB sync note for message delete');
+        console.error('MongoDB sync note for message delete:', dbErr);
       }
     }
 
