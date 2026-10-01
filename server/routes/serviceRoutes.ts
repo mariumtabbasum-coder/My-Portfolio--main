@@ -48,15 +48,13 @@ router.put('/:id', async (req, res) => {
 
     if (mongoose.connection?.readyState === 1) {
       try {
-        const filter = {
-          $or: [
-            { id },
-            ...(mongoose.isValidObjectId(id) ? [{ _id: new mongoose.Types.ObjectId(id) }] : [{ _id: id }])
-          ]
-        };
+        const filter: any = { $or: [{ id }] };
+        if (mongoose.isValidObjectId(id)) {
+          filter.$or.push({ _id: new mongoose.Types.ObjectId(id) });
+        }
         await (Service as any).findOneAndUpdate(filter, req.body, { new: true });
       } catch (e) {
-        console.warn('MongoDB sync note for service update');
+        console.error('MongoDB sync note for service update:', e);
       }
     }
 
@@ -73,15 +71,13 @@ router.delete('/:id', async (req, res) => {
 
     if (mongoose.connection?.readyState === 1) {
       try {
-        const filter = {
-          $or: [
-            { id },
-            ...(mongoose.isValidObjectId(id) ? [{ _id: new mongoose.Types.ObjectId(id) }] : [{ _id: id }])
-          ]
-        };
+        const filter: any = { $or: [{ id }] };
+        if (mongoose.isValidObjectId(id)) {
+          filter.$or.push({ _id: new mongoose.Types.ObjectId(id) });
+        }
         await (Service as any).findOneAndDelete(filter);
       } catch (e) {
-        console.warn('MongoDB sync note for service delete');
+        console.error('MongoDB sync note for service delete:', e);
       }
     }
 
