@@ -85,8 +85,17 @@ router.post('/:id/reply', async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Reply text cannot be empty.' });
     }
 
-    const messages = dataStore.getMessages();
-    const targetMsg = messages.find(m => m.id === id || (m as any)._id === id);
+    let targetMsg = null;
+    if (mongoose.connection?.readyState === 1) {
+      const filter: any = { $or: [{ id }] };
+      if (mongoose.isValidObjectId(id)) filter.$or.push({ _id: new mongoose.Types.ObjectId(id) });
+      targetMsg = await (Message as any).findOne(filter);
+    }
+    
+    if (!targetMsg) {
+      const messages = dataStore.getMessages();
+      targetMsg = messages.find(m => m.id === id || (m as any)._id === id);
+    }
 
     if (!targetMsg) {
       return res.status(404).json({ success: false, message: 'Message not found.' });
