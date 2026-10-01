@@ -48,15 +48,13 @@ router.put('/:id', async (req, res, next) => {
 
     if (mongoose.connection?.readyState === 1) {
       try {
-        const filter = {
-          $or: [
-            { id },
-            ...(mongoose.isValidObjectId(id) ? [{ _id: new mongoose.Types.ObjectId(id) }] : [{ _id: id }])
-          ]
-        };
+        const filter: any = { $or: [{ id }] };
+        if (mongoose.isValidObjectId(id)) {
+          filter.$or.push({ _id: new mongoose.Types.ObjectId(id) });
+        }
         await (Skill as any).findOneAndUpdate(filter, req.body, { new: true });
       } catch (dbErr) {
-        console.warn('MongoDB sync note for skill update');
+        console.error('MongoDB sync note for skill update:', dbErr);
       }
     }
 
@@ -73,15 +71,13 @@ router.delete('/:id', async (req, res, next) => {
 
     if (mongoose.connection?.readyState === 1) {
       try {
-        const filter = {
-          $or: [
-            { id },
-            ...(mongoose.isValidObjectId(id) ? [{ _id: new mongoose.Types.ObjectId(id) }] : [{ _id: id }])
-          ]
-        };
+        const filter: any = { $or: [{ id }] };
+        if (mongoose.isValidObjectId(id)) {
+          filter.$or.push({ _id: new mongoose.Types.ObjectId(id) });
+        }
         await (Skill as any).findOneAndDelete(filter);
       } catch (dbErr) {
-        console.warn('MongoDB sync note for skill delete');
+        console.error('MongoDB sync note for skill delete:', dbErr);
       }
     }
 
