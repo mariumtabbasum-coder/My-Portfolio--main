@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 
 dotenv.config();
 
@@ -32,14 +33,16 @@ app.use(cookieParser());
 
 let isInitialized = false;
 async function initDB() {
-  if (!isInitialized) {
+  if (mongoose.connection.readyState !== 1) {
     try {
       await connectDB();
-      await seedInitialData();
+      if (!isInitialized) {
+        await seedInitialData();
+        isInitialized = true;
+      }
     } catch (err) {
       console.error('Serverless init DB note:', err);
     }
-    isInitialized = true;
   }
 }
 

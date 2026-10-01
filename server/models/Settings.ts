@@ -52,7 +52,7 @@ const SettingsSchema = new Schema<ISettings>({
     heroBadge: { type: String, default: 'Aptech Computer Education • Semester 1 Complete' },
     responseTimeText: { type: String, default: 'Typical Response: Within 24 Hours' }
   }
-}, { timestamps: true });
+}, { timestamps: true, strict: false });
 
 const Settings = (mongoose.models.Settings as mongoose.Model<ISettings>) || mongoose.model<ISettings>('Settings', SettingsSchema);
 export default Settings;

@@ -55,6 +55,9 @@ export const AdminDashboard: React.FC = () => {
     aboutSubtitle: '',
     aboutBio: '',
     journeyText: '',
+    journeyMilestone1: '',
+    journeyMilestone2: '',
+    journeyMilestone3: '',
     aptechDetails: '',
     scholarshipDetails: '',
     philosophyText: '',
@@ -966,12 +969,39 @@ export const AdminDashboard: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">My Journey (Tab 1)</label>
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">My Journey Narrative (Tab 1)</label>
                 <textarea
                   rows={4}
                   value={settings.journeyText || ''}
                   onChange={(e) => setSettings({ ...settings, journeyText: e.target.value })}
                   placeholder="Journey narrative..."
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden mb-4"
+                />
+
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Key Milestone 1</label>
+                <input
+                  type="text"
+                  value={settings.journeyMilestone1 || ''}
+                  onChange={(e) => setSettings({ ...settings, journeyMilestone1: e.target.value })}
+                  placeholder="Completed Semester 1..."
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden mb-4"
+                />
+
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Key Milestone 2</label>
+                <input
+                  type="text"
+                  value={settings.journeyMilestone2 || ''}
+                  onChange={(e) => setSettings({ ...settings, journeyMilestone2: e.target.value })}
+                  placeholder="Mastered responsive web layouts..."
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden mb-4"
+                />
+
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Key Milestone 3</label>
+                <input
+                  type="text"
+                  value={settings.journeyMilestone3 || ''}
+                  onChange={(e) => setSettings({ ...settings, journeyMilestone3: e.target.value })}
+                  placeholder="Developed web applications..."
                   className="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:ring-2 focus:ring-purple-500 focus:outline-hidden"
                 />
               </div>

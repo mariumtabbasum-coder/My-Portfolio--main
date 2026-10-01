@@ -115,15 +115,15 @@ export const About: React.FC = () => {
                 <ul className="space-y-3 text-xs text-slate-600 dark:text-slate-300">
                   <li className="flex items-start gap-2.5">
                     <span className="w-5 h-5 rounded-full bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 flex items-center justify-center font-bold text-[10px] shrink-0">1</span>
-                    <span>Completed Semester 1 in Software Engineering at Aptech Computer Education and continuing remaining semesters.</span>
+                    <span>{settings?.journeyMilestone1 || 'Completed Semester 1 in Software Engineering at Aptech Computer Education and continuing remaining semesters.'}</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 flex items-center justify-center font-bold text-[10px] shrink-0">2</span>
-                    <span>Mastered responsive web layouts using Flexbox, CSS Grid, Bootstrap 5, JavaScript, and Python logic foundations.</span>
+                    <span>{settings?.journeyMilestone2 || 'Mastered responsive web layouts using Flexbox, CSS Grid, Bootstrap 5, JavaScript, and Python logic foundations.'}</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="w-5 h-5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 flex items-center justify-center font-bold text-[10px] shrink-0">3</span>
-                    <span>Developed web applications like Olive Grove Restaurant, while learning Generative AI at Bano Qabil.</span>
+                    <span>{settings?.journeyMilestone3 || 'Developed web applications like Olive Grove Restaurant, while learning Generative AI at Bano Qabil.'}</span>
                   </li>
                 </ul>
               </div>

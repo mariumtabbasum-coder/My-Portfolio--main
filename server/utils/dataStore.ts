@@ -18,6 +18,9 @@ export interface SiteSettings {
   aboutSubtitle: string;
   aboutBio: string;
   journeyText: string;
+  journeyMilestone1: string;
+  journeyMilestone2: string;
+  journeyMilestone3: string;
   aptechDetails: string;
   scholarshipDetails: string;
   philosophyText: string;
@@ -143,6 +146,9 @@ export const defaultData: StoreData = {
     aboutSubtitle: 'A look into my academic journey, technical foundations, and goals in Software Engineering and Modern Frontend Web Development.',
     aboutBio: 'A motivated and detail-oriented Software Engineering student currently in my 1st semester of a 3-year diploma program at Aptech. I have hands-on foundation in HTML, CSS, Bootstrap, basic JavaScript, and jQuery, and am actively expanding my skillset with Python and Generative AI.',
     journeyText: 'Started with foundational web technologies and quickly discovered a deep fascination for clean, modular user interfaces and intuitive interactive web solutions.',
+    journeyMilestone1: 'Completed Semester 1 in Software Engineering at Aptech Computer Education and continuing remaining semesters.',
+    journeyMilestone2: 'Mastered responsive web layouts using Flexbox, CSS Grid, Bootstrap 5, JavaScript, and Python logic foundations.',
+    journeyMilestone3: 'Developed web applications like Olive Grove Restaurant, while learning Generative AI at Bano Qabil.',
     aptechDetails: 'Aptech Computer Education — 3-Year Diploma in Software Engineering (1st Semester Completed, In Progress). Covered so far: Semantic HTML5, CSS3, Responsive Web Design, Bootstrap 5, JavaScript ES6+, and jQuery.',
     scholarshipDetails: 'Bano Qabil Generative AI Course — 5-month course covering Generative AI principles, prompt engineering, and LLM application design.',
     philosophyText: 'Committed to writing accessible, responsive, and performance-conscious frontend code that bridges intuitive design with software engineering rigour.',
