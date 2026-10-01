@@ -344,19 +344,7 @@ export const Projects: React.FC = () => {
               </button>
 
               <div className="flex items-center gap-3">
-                {selectedProject.githubUrl && selectedProject.githubUrl !== '#' && selectedProject.githubUrl.trim() !== '' && (
-                  <a
-                    href={selectedProject.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white text-xs font-bold flex items-center gap-2 transition-all"
-                  >
-                    <Github className="w-4 h-4" />
-                    <span>View Code</span>
-                  </a>
-                )}
-
-                {selectedProject.liveUrl && selectedProject.liveUrl !== '#' && selectedProject.liveUrl.trim() !== '' && (
+                {selectedProject.liveUrl && selectedProject.liveUrl !== '#' && selectedProject.liveUrl.trim() !== '' ? (
                   <a
                     href={selectedProject.liveUrl}
                     target="_blank"
@@ -364,7 +352,17 @@ export const Projects: React.FC = () => {
                     className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-2 shadow-md shadow-blue-500/20 transition-all"
                   >
                     <ExternalLink className="w-4 h-4" />
-                    <span>Live Preview</span>
+                    <span>View Website</span>
+                  </a>
+                ) : (
+                  <a
+                    href={selectedProject.githubUrl || '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-2 shadow-md shadow-blue-500/20 transition-all"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    <span>View Website</span>
                   </a>
                 )}
               </div>
