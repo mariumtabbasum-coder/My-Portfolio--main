@@ -24,6 +24,7 @@ import aiRoutes from './server/routes/aiRoutes';
 import testimonialRoutes from './server/routes/testimonialRoutes';
 import articleRoutes from './server/routes/articleRoutes';
 import analyticsRoutes from './server/routes/analyticsRoutes';
+import portfolioRoutes from './server/routes/portfolioRoutes';
 import { errorHandler } from './server/middleware/errorMiddleware';
 
 async function startServer() {
@@ -69,6 +70,7 @@ async function startServer() {
   app.use('/api/testimonials', testimonialRoutes);
   app.use('/api/articles', articleRoutes);
   app.use('/api/analytics', analyticsRoutes);
+  app.use('/api/portfolio', portfolioRoutes);
 
   // Error Handler Middleware for API
   app.use('/api', errorHandler);

@@ -3,9 +3,12 @@ import mongoose from 'mongoose';
 import Project from '../models/Project';
 import { dataStore } from '../utils/dataStore';
 
+import { setPublicCacheHeaders } from './portfolioRoutes';
+
 const router = Router();
 
 router.get('/', async (req, res, next) => {
+  setPublicCacheHeaders(res);
   try {
     if (mongoose.connection?.readyState === 1) {
       const dbProjects = await (Project as any).find().sort({ createdAt: -1 });

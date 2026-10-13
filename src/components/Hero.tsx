@@ -19,19 +19,12 @@ import {
   Info
 } from 'lucide-react';
 
+import { usePortfolioData } from '../context/PortfolioContext';
+
 export const Hero: React.FC = () => {
-  const [settings, setSettings] = useState<any>(null);
+  const { settings, loading } = usePortfolioData();
   const [isCvModalOpen, setIsCvModalOpen] = useState(false);
   const [cvViewTab, setCvViewTab] = useState<'structured' | 'pdf'>('structured');
-
-  useEffect(() => {
-    fetch('/api/settings')
-      .then(r => r.json())
-      .then(res => {
-        if (res.success && res.data) setSettings(res.data);
-      })
-      .catch(err => console.error(err));
-  }, []);
 
   const heroBadge = settings?.heroBadge || settings?.profile?.heroBadge || 'Aptech Computer Education • Semester 1 Complete';
   const headlineLine1 = settings?.headlineLine1 || 'Building Modern';
@@ -67,27 +60,52 @@ export const Hero: React.FC = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
               </span>
-              <span>{heroBadge}</span>
+              {loading && !settings ? (
+                <span className="inline-block h-3.5 w-48 bg-blue-200/60 dark:bg-blue-800/50 rounded animate-pulse" />
+              ) : (
+                <span>{heroBadge}</span>
+              )}
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15] mb-6">
-              {headlineLine1} <br className="hidden sm:inline" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-cyan-600 to-indigo-600 dark:from-cyan-400 dark:via-blue-400 dark:to-indigo-300">
-                {headlineLine2}
-              </span>
-            </h1>
+            {loading && !settings ? (
+              <div className="space-y-3 mb-6">
+                <div className="h-10 sm:h-14 w-3/4 max-w-sm bg-slate-200/80 dark:bg-slate-800/80 rounded-2xl animate-pulse mx-auto lg:mx-0" />
+                <div className="h-10 sm:h-14 w-full max-w-lg bg-gradient-to-r from-blue-200/50 to-cyan-200/50 dark:from-slate-800/60 dark:to-slate-750/60 rounded-2xl animate-pulse mx-auto lg:mx-0" />
+              </div>
+            ) : (
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15] mb-6">
+                {headlineLine1} <br className="hidden sm:inline" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-cyan-600 to-indigo-600 dark:from-cyan-400 dark:via-blue-400 dark:to-indigo-300">
+                  {headlineLine2}
+                </span>
+              </h1>
+            )}
 
             {/* Sub-headline / Title */}
-            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 mb-4 bg-slate-100 dark:bg-slate-900/80 px-3 py-1 rounded-lg border border-slate-200/60 dark:border-slate-800">
-              <Code2 className="w-4 h-4 text-cyan-500" />
-              <span>{title}</span>
-            </div>
+            {loading && !settings ? (
+              <div className="mb-4">
+                <div className="h-7 w-64 bg-slate-200 dark:bg-slate-800 rounded-lg animate-pulse mx-auto lg:mx-0" />
+              </div>
+            ) : (
+              <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 mb-4 bg-slate-100 dark:bg-slate-900/80 px-3 py-1 rounded-lg border border-slate-200/60 dark:border-slate-800">
+                <Code2 className="w-4 h-4 text-cyan-500" />
+                <span>{title}</span>
+              </div>
+            )}
 
             {/* Professional Summary */}
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-8">
-              {bio}
-            </p>
+            {loading && !settings ? (
+              <div className="space-y-2 max-w-2xl mx-auto lg:mx-0 mb-8">
+                <div className="h-4 w-full bg-slate-200 dark:bg-slate-800/80 rounded animate-pulse" />
+                <div className="h-4 w-5/6 bg-slate-200 dark:bg-slate-800/80 rounded animate-pulse" />
+                <div className="h-4 w-3/5 bg-slate-200 dark:bg-slate-800/80 rounded animate-pulse" />
+              </div>
+            ) : (
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-8">
+                {bio}
+              </p>
+            )}
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
@@ -141,11 +159,19 @@ export const Hero: React.FC = () => {
                   <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-600 flex items-center justify-center text-white font-extrabold text-xl shadow-md border-2 border-cyan-400/40">
                     MT
                   </div>
-                  <div>
-                    <h3 className="font-bold text-white text-base">{name}</h3>
-                    <p className="text-xs text-purple-400 font-medium">{title}</p>
-                    <p className="text-[11px] text-slate-400 mt-0.5">{location}</p>
-                  </div>
+                  {loading && !settings ? (
+                    <div className="space-y-1.5 flex-1">
+                      <div className="h-4 w-28 bg-slate-700/80 rounded animate-pulse" />
+                      <div className="h-3 w-40 bg-slate-800 rounded animate-pulse" />
+                      <div className="h-2.5 w-20 bg-slate-800 rounded animate-pulse" />
+                    </div>
+                  ) : (
+                    <div>
+                      <h3 className="font-bold text-white text-base">{name}</h3>
+                      <p className="text-xs text-purple-400 font-medium">{title}</p>
+                      <p className="text-[11px] text-slate-400 mt-0.5">{location}</p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Skills Preview in Card */}

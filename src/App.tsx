@@ -11,6 +11,7 @@ import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { AdminLogin } from './components/AdminLogin';
 import { AdminDashboard } from './components/AdminDashboard';
+import { PortfolioProvider } from './context/PortfolioContext';
 
 export const App: React.FC = () => {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
@@ -70,25 +71,27 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-cyan-500 selection:text-white transition-colors duration-300">
-      {/* Navigation Header */}
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+    <PortfolioProvider>
+      <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-cyan-500 selection:text-white transition-colors duration-300">
+        {/* Navigation Header */}
+        <Navbar theme={theme} toggleTheme={toggleTheme} />
 
-      {/* Main Content Sections */}
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Services />
-        <LearningJourney />
-        <Certificates />
-        <Contact />
-      </main>
+        {/* Main Content Sections */}
+        <main>
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Services />
+          <LearningJourney />
+          <Certificates />
+          <Contact />
+        </main>
 
-      {/* Footer */}
-      <Footer />
-    </div>
+        {/* Footer */}
+        <Footer />
+      </div>
+    </PortfolioProvider>
   );
 };
 

@@ -16,46 +16,39 @@ export async function seedInitialData() {
 
     console.log('🌱 Running automatic database seeding check...');
 
-    // 1. Settings Seeding
-    const settingsCount = await (Settings as any).countDocuments();
+    // Run all collection count checks in parallel in a single database round-trip
+    const [settingsCount, projectCount, skillCount, certCount, serviceCount, milestoneCount] = await Promise.all([
+      (Settings as any).countDocuments(),
+      (Project as any).countDocuments(),
+      (Skill as any).countDocuments(),
+      (Certificate as any).countDocuments(),
+      (Service as any).countDocuments(),
+      (Milestone as any).countDocuments()
+    ]);
+
+    const seedPromises: Promise<any>[] = [];
+
     if (settingsCount === 0) {
-      await (Settings as any).create(defaultData.settings);
-      console.log('✅ Seeded default Website Settings.');
+      seedPromises.push((Settings as any).create(defaultData.settings).then(() => console.log('✅ Seeded default Website Settings.')));
     }
-
-    // 2. Projects Seeding
-    const projectCount = await (Project as any).countDocuments();
     if (projectCount === 0) {
-      await (Project as any).insertMany(defaultData.projects);
-      console.log('✅ Seeded default Projects.');
+      seedPromises.push((Project as any).insertMany(defaultData.projects).then(() => console.log('✅ Seeded default Projects.')));
     }
-
-    // 3. Skills Seeding
-    const skillCount = await (Skill as any).countDocuments();
     if (skillCount === 0) {
-      await (Skill as any).insertMany(defaultData.skills);
-      console.log('✅ Seeded default Skills.');
+      seedPromises.push((Skill as any).insertMany(defaultData.skills).then(() => console.log('✅ Seeded default Skills.')));
     }
-
-    // 4. Certificates Seeding
-    const certCount = await (Certificate as any).countDocuments();
     if (certCount === 0) {
-      await (Certificate as any).insertMany(defaultData.certificates);
-      console.log('✅ Seeded default Certificates.');
+      seedPromises.push((Certificate as any).insertMany(defaultData.certificates).then(() => console.log('✅ Seeded default Certificates.')));
     }
-
-    // 5. Services Seeding
-    const serviceCount = await (Service as any).countDocuments();
     if (serviceCount === 0) {
-      await (Service as any).insertMany(defaultData.services);
-      console.log('✅ Seeded default Services.');
+      seedPromises.push((Service as any).insertMany(defaultData.services).then(() => console.log('✅ Seeded default Services.')));
+    }
+    if (milestoneCount === 0) {
+      seedPromises.push((Milestone as any).insertMany(defaultData.milestones).then(() => console.log('✅ Seeded default Milestones.')));
     }
 
-    // 6. Milestones Seeding
-    const milestoneCount = await (Milestone as any).countDocuments();
-    if (milestoneCount === 0) {
-      await (Milestone as any).insertMany(defaultData.milestones);
-      console.log('✅ Seeded default Milestones.');
+    if (seedPromises.length > 0) {
+      await Promise.all(seedPromises);
     }
 
     console.log('✨ Database seeding complete.');

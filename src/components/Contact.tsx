@@ -12,6 +12,8 @@ import {
   Phone
 } from 'lucide-react';
 
+import { usePortfolioData } from '../context/PortfolioContext';
+
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -22,16 +24,7 @@ export const Contact: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const [settings, setSettings] = useState<any>(null);
-
-  useEffect(() => {
-    fetch('/api/settings')
-      .then(r => r.json())
-      .then(res => {
-        if (res.success && res.data) setSettings(res.data);
-      })
-      .catch(err => console.error('Error fetching contact settings:', err));
-  }, []);
+  const { settings, loading } = usePortfolioData();
 
   const emailAddress = settings?.email || settings?.emails?.[0] || 'mariumtabbasum@gmail.com';
   const phone = settings?.phone || '0322-2963909';
@@ -87,12 +80,21 @@ export const Contact: React.FC = () => {
             <Mail className="w-3.5 h-3.5" />
             <span>Get in Touch</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            {contactHeading}
-          </h2>
-          <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400">
-            {contactSubtitle}
-          </p>
+          {loading && !settings ? (
+            <div className="space-y-3">
+              <div className="h-8 sm:h-10 w-3/4 max-w-sm bg-slate-200 dark:bg-slate-800 rounded-xl animate-pulse mx-auto" />
+              <div className="h-4 w-5/6 max-w-md bg-slate-200/80 dark:bg-slate-800/80 rounded animate-pulse mx-auto" />
+            </div>
+          ) : (
+            <>
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                {contactHeading}
+              </h2>
+              <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400">
+                {contactSubtitle}
+              </p>
+            </>
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 max-w-5xl mx-auto">

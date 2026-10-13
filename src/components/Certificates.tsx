@@ -2,24 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Award, CheckCircle, ExternalLink, Calendar, Building2 } from 'lucide-react';
 import { Certificate } from '../types';
 
+import { usePortfolioData } from '../context/PortfolioContext';
+
 export const Certificates: React.FC = () => {
-  const [certificates, setCertificates] = useState<Certificate[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { certificates: contextCerts, loading: contextLoading } = usePortfolioData();
+  const [certificates, setCertificates] = useState<Certificate[]>(contextCerts);
+  const [loading, setLoading] = useState(contextLoading && (!contextCerts || contextCerts.length === 0));
 
   useEffect(() => {
-    fetch('/api/certificates')
-      .then(r => r.json())
-      .then(res => {
-        if (res.success && res.data) {
-          setCertificates(res.data);
-        }
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Error fetching certificates:', err);
-        setLoading(false);
-      });
-  }, []);
+    if (contextCerts && contextCerts.length > 0) {
+      setCertificates(contextCerts);
+      setLoading(false);
+    } else if (!contextLoading) {
+      setLoading(false);
+    }
+  }, [contextCerts, contextLoading]);
 
   return (
     <section

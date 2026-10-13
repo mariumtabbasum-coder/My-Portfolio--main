@@ -3,9 +3,12 @@ import mongoose from 'mongoose';
 import Skill from '../models/Skill';
 import { dataStore } from '../utils/dataStore';
 
+import { setPublicCacheHeaders } from './portfolioRoutes';
+
 const router = Router();
 
 router.get('/', async (req, res, next) => {
+  setPublicCacheHeaders(res);
   try {
     if (mongoose.connection?.readyState === 1) {
       const dbSkills = await (Skill as any).find().sort({ createdAt: -1 });

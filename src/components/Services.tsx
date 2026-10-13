@@ -8,24 +8,21 @@ import {
   Code2
 } from 'lucide-react';
 
+import { usePortfolioData } from '../context/PortfolioContext';
+
 export const Services: React.FC = () => {
-  const [servicesData, setServicesData] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { services: contextServices, loading: contextLoading } = usePortfolioData();
+  const [servicesData, setServicesData] = useState<any[]>(contextServices);
+  const [loading, setLoading] = useState(contextLoading && (!contextServices || contextServices.length === 0));
 
   useEffect(() => {
-    fetch('/api/services')
-      .then(r => r.json())
-      .then(res => {
-        if (res.success && res.data) {
-          setServicesData(res.data);
-        }
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Error fetching services:', err);
-        setLoading(false);
-      });
-  }, []);
+    if (contextServices && contextServices.length > 0) {
+      setServicesData(contextServices);
+      setLoading(false);
+    } else if (!contextLoading) {
+      setLoading(false);
+    }
+  }, [contextServices, contextLoading]);
 
   const getIcon = (idx: number) => {
     const icons = [Laptop, Layout, Code2, Bot];

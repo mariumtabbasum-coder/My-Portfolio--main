@@ -27,6 +27,7 @@ import {
   Menu,
   X
 } from 'lucide-react';
+import { invalidatePortfolioCache } from '../context/PortfolioContext';
 
 export const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<
@@ -93,6 +94,8 @@ export const AdminDashboard: React.FC = () => {
   const showNotification = (msg: string) => {
     setNotification(msg);
     setTimeout(() => setNotification(null), 3500);
+    // Invalidate client-side cache and re-fetch fresh data for public site
+    invalidatePortfolioCache();
   };
 
   // Add / Edit Modal States

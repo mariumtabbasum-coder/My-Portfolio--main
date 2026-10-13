@@ -3,9 +3,12 @@ import mongoose from 'mongoose';
 import Certificate from '../models/Certificate';
 import { dataStore } from '../utils/dataStore';
 
+import { setPublicCacheHeaders } from './portfolioRoutes';
+
 const router = Router();
 
 router.get('/', async (req, res, next) => {
+  setPublicCacheHeaders(res);
   try {
     if (mongoose.connection?.readyState === 1) {
       const dbCerts = await (Certificate as any).find().sort({ createdAt: -1 });

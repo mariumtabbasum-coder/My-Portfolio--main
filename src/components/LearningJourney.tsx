@@ -2,24 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Milestone, Sparkles, CheckCircle2, Clock, Compass } from 'lucide-react';
 import { TimelineMilestone } from '../types';
 
+import { usePortfolioData } from '../context/PortfolioContext';
+
 export const LearningJourney: React.FC = () => {
-  const [milestones, setMilestones] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { learning: contextLearning, loading: contextLoading } = usePortfolioData();
+  const [milestones, setMilestones] = useState<any[]>(contextLearning);
+  const [loading, setLoading] = useState(contextLoading && (!contextLearning || contextLearning.length === 0));
 
   useEffect(() => {
-    fetch('/api/learning')
-      .then(r => r.json())
-      .then(res => {
-        if (res.success && res.data) {
-          setMilestones(res.data);
-        }
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Error fetching learning journey:', err);
-        setLoading(false);
-      });
-  }, []);
+    if (contextLearning && contextLearning.length > 0) {
+      setMilestones(contextLearning);
+      setLoading(false);
+    } else if (!contextLoading) {
+      setLoading(false);
+    }
+  }, [contextLearning, contextLoading]);
 
   return (
     <section 

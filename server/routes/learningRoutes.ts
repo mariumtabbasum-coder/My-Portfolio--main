@@ -3,9 +3,12 @@ import mongoose from 'mongoose';
 import Milestone from '../models/Milestone';
 import { dataStore } from '../utils/dataStore';
 
+import { setPublicCacheHeaders } from './portfolioRoutes';
+
 const router = Router();
 
 router.get('/', async (req, res) => {
+  setPublicCacheHeaders(res);
   try {
     if (mongoose.connection?.readyState === 1) {
       const dbMilestones = await (Milestone as any).find();

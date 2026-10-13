@@ -3,14 +3,17 @@ import mongoose from 'mongoose';
 import Settings from '../models/Settings';
 import { dataStore } from '../utils/dataStore';
 
+import { setPublicCacheHeaders } from './portfolioRoutes';
+
 const router = Router();
 
 router.get('/', async (req, res, next) => {
+  setPublicCacheHeaders(res);
   try {
     if (mongoose.connection?.readyState === 1) {
-      const dbSettings = await (Settings as any).findOne();
+      const dbSettings = await (Settings as any).findOne().lean().exec().catch(() => null);
       if (dbSettings) {
-        return res.json({ success: true, data: { ...dataStore.getSettings(), ...dbSettings.toObject() } });
+        return res.json({ success: true, data: { ...dataStore.getSettings(), ...dbSettings } });
       }
     }
     return res.json({ success: true, data: dataStore.getSettings() });

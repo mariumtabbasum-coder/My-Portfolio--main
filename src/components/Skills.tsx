@@ -12,25 +12,22 @@ import {
 } from 'lucide-react';
 import { SkillItem } from '../types';
 
+import { usePortfolioData } from '../context/PortfolioContext';
+
 export const Skills: React.FC = () => {
   const [filter, setFilter] = useState<'all' | 'frontend' | 'programming' | 'tools'>('all');
-  const [skillsData, setSkillsData] = useState<SkillItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { skills: contextSkills, loading: contextLoading } = usePortfolioData();
+  const [skillsData, setSkillsData] = useState<SkillItem[]>(contextSkills);
+  const [loading, setLoading] = useState(contextLoading && (!contextSkills || contextSkills.length === 0));
 
   useEffect(() => {
-    fetch('/api/skills')
-      .then(r => r.json())
-      .then(res => {
-        if (res.success && res.data) {
-          setSkillsData(res.data);
-        }
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Error fetching skills:', err);
-        setLoading(false);
-      });
-  }, []);
+    if (contextSkills && contextSkills.length > 0) {
+      setSkillsData(contextSkills);
+      setLoading(false);
+    } else if (!contextLoading) {
+      setLoading(false);
+    }
+  }, [contextSkills, contextLoading]);
 
   const filteredSkills = filter === 'all'
     ? skillsData

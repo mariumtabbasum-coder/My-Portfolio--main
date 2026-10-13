@@ -13,26 +13,23 @@ import {
 } from 'lucide-react';
 import { Project } from '../types';
 
+import { usePortfolioData } from '../context/PortfolioContext';
+
 export const Projects: React.FC = () => {
   const [filter, setFilter] = useState<'all' | 'frontend' | 'javascript' | 'responsive'>('all');
-  const [projectsData, setProjectsData] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { projects: contextProjects, loading: contextLoading } = usePortfolioData();
+  const [projectsData, setProjectsData] = useState<Project[]>(contextProjects);
+  const [loading, setLoading] = useState(contextLoading && (!contextProjects || contextProjects.length === 0));
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   useEffect(() => {
-    fetch('/api/projects')
-      .then(r => r.json())
-      .then(res => {
-        if (res.success && res.data) {
-          setProjectsData(res.data);
-        }
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Error fetching projects:', err);
-        setLoading(false);
-      });
-  }, []);
+    if (contextProjects && contextProjects.length > 0) {
+      setProjectsData(contextProjects);
+      setLoading(false);
+    } else if (!contextLoading) {
+      setLoading(false);
+    }
+  }, [contextProjects, contextLoading]);
 
   const filtered = filter === 'all'
     ? projectsData

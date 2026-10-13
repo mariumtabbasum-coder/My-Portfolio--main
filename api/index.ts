@@ -22,6 +22,7 @@ import aiRoutes from '../server/routes/aiRoutes';
 import testimonialRoutes from '../server/routes/testimonialRoutes';
 import articleRoutes from '../server/routes/articleRoutes';
 import analyticsRoutes from '../server/routes/analyticsRoutes';
+import portfolioRoutes from '../server/routes/portfolioRoutes';
 import { errorHandler } from '../server/middleware/errorMiddleware';
 
 const app = express();
@@ -31,18 +32,22 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
-let isInitialized = false;
+declare global {
+  // eslint-disable-next-line no-var
+  var isDbSeeded: boolean | undefined;
+}
+
 async function initDB() {
   if (mongoose.connection.readyState !== 1) {
     try {
       await connectDB();
-      if (!isInitialized) {
-        await seedInitialData();
-        isInitialized = true;
-      }
     } catch (err) {
       console.error('Serverless init DB note:', err);
     }
+  }
+  if (!global.isDbSeeded && mongoose.connection.readyState === 1) {
+    global.isDbSeeded = true;
+    seedInitialData().catch(err => console.error('Seeding note:', err));
   }
 }
 
@@ -71,6 +76,7 @@ app.use(['/api/ai', '/ai'], aiRoutes);
 app.use(['/api/testimonials', '/testimonials'], testimonialRoutes);
 app.use(['/api/articles', '/articles'], articleRoutes);
 app.use(['/api/analytics', '/analytics'], analyticsRoutes);
+app.use(['/api/portfolio', '/portfolio'], portfolioRoutes);
 
 app.use(errorHandler);
 

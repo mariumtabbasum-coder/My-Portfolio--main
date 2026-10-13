@@ -10,18 +10,11 @@ import {
   Sparkles
 } from 'lucide-react';
 
+import { usePortfolioData } from '../context/PortfolioContext';
+
 export const About: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'journey' | 'education' | 'philosophy'>('journey');
-  const [settings, setSettings] = useState<any>(null);
-
-  useEffect(() => {
-    fetch('/api/settings')
-      .then(r => r.json())
-      .then(res => {
-        if (res.success && res.data) setSettings(res.data);
-      })
-      .catch(err => console.error(err));
-  }, []);
+  const { settings, loading } = usePortfolioData();
 
   const aboutHeading = settings?.aboutHeading || 'Crafting Code with Passion & Purpose';
   const aboutSubtitle = settings?.aboutSubtitle || 'A look into my academic journey, technical foundations, and goals in Software Engineering and Modern Frontend Web Development.';
@@ -43,12 +36,21 @@ export const About: React.FC = () => {
             <GraduationCap className="w-3.5 h-3.5" />
             <span>About Me</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            {aboutHeading}
-          </h2>
-          <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400">
-            {aboutSubtitle}
-          </p>
+          {loading && !settings ? (
+            <div className="space-y-3">
+              <div className="h-8 sm:h-10 w-3/4 max-w-md bg-slate-200 dark:bg-slate-800 rounded-xl animate-pulse mx-auto" />
+              <div className="h-4 w-5/6 max-w-lg bg-slate-200/80 dark:bg-slate-800/80 rounded animate-pulse mx-auto" />
+            </div>
+          ) : (
+            <>
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                {aboutHeading}
+              </h2>
+              <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400">
+                {aboutSubtitle}
+              </p>
+            </>
+          )}
         </div>
 
         {/* Tab Navigation */}
